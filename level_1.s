@@ -1215,28 +1215,28 @@ eziliyor:
 dddd:
 
 ezilme_y_koord:
-                DC.L $00000024,$00000022,$00000021,$0000001F,$0000001E,$0000001C
-                DC.L $0000001B,$00000019,$00000018,$00000017,$00000016,$00000014
-                DC.L $00000013,$00000012,$00000011,$00000010,$0000000F,$0000000E
-                DC.L $0000000D,$0000000C,$0000000B,$0000000A,$00000009,$00000008
-                DC.L $00000008,$00000007,$00000006,$00000005,$00000005,$00000004
-                DC.L $00000004,$00000003,$00000003,$00000002,$00000002,$00000002
-                DC.L $00000001,$00000001,$00000001,$00000001,$00000001,$00000001
-                DC.L $00000001,$00000001,$00000001,$00000001,$00000001,$00000001
-                DC.L $00000001,$00000001,$00000002,$00000002,$00000002,$00000003
-                DC.L $00000003,$00000004,$00000004,$00000005,$00000005,$00000006
-                DC.L $00000007,$00000007,$00000008,$00000009,$0000000A,$0000000A
-                DC.L $0000000B,$0000000C,$0000000D,$0000000E,$0000000F,$00000010
-                DC.L $00000012,$00000013,$00000014,$00000015,$00000016,$00000018
-                DC.L $00000019,$0000001A,$0000001C,$0000001D,$0000001F,$00000020
-                DC.L $00000022,$00000023,$00000025,$00000026,$00000028,$0000002A
-                DC.L $0000002B,$0000002D,$0000002F,$00000030,$00000032,$00000034
-                DC.L $00000036,$00000038,$0000003A,$0000003B,$0000003D,$0000003F
-                DC.L $00000041,$00000043,$00000045,$00000047,$00000049,$0000004B
-                DC.L $0000004D,$0000004F,$00000051,$00000054,$00000056,$00000058
-                DC.L $0000005A,$0000005C,$0000005E,$00000060,$00000063,$00000065
-                DC.L $00000067,$00000069,$0000006B,$0000006D,$00000070,$00000072
-                DC.L $00000074,$00000076
+                dc.l $00000024,$00000022,$00000021,$0000001F,$0000001E,$0000001C
+                dc.l $0000001B,$00000019,$00000018,$00000017,$00000016,$00000014
+                dc.l $00000013,$00000012,$00000011,$00000010,$0000000F,$0000000E
+                dc.l $0000000D,$0000000C,$0000000B,$0000000A,$00000009,$00000008
+                dc.l $00000008,$00000007,$00000006,$00000005,$00000005,$00000004
+                dc.l $00000004,$00000003,$00000003,$00000002,$00000002,$00000002
+                dc.l $00000001,$00000001,$00000001,$00000001,$00000001,$00000001
+                dc.l $00000001,$00000001,$00000001,$00000001,$00000001,$00000001
+                dc.l $00000001,$00000001,$00000002,$00000002,$00000002,$00000003
+                dc.l $00000003,$00000004,$00000004,$00000005,$00000005,$00000006
+                dc.l $00000007,$00000007,$00000008,$00000009,$0000000A,$0000000A
+                dc.l $0000000B,$0000000C,$0000000D,$0000000E,$0000000F,$00000010
+                dc.l $00000012,$00000013,$00000014,$00000015,$00000016,$00000018
+                dc.l $00000019,$0000001A,$0000001C,$0000001D,$0000001F,$00000020
+                dc.l $00000022,$00000023,$00000025,$00000026,$00000028,$0000002A
+                dc.l $0000002B,$0000002D,$0000002F,$00000030,$00000032,$00000034
+                dc.l $00000036,$00000038,$0000003A,$0000003B,$0000003D,$0000003F
+                dc.l $00000041,$00000043,$00000045,$00000047,$00000049,$0000004B
+                dc.l $0000004D,$0000004F,$00000051,$00000054,$00000056,$00000058
+                dc.l $0000005A,$0000005C,$0000005E,$00000060,$00000063,$00000065
+                dc.l $00000067,$00000069,$0000006B,$0000006D,$00000070,$00000072
+                dc.l $00000074,$00000076
 
                 dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
                 dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
@@ -1329,704 +1329,671 @@ stick:          dc.l 0
 moving:         move.l stick,d0
 ;               and.l #%01111,d0
 
-.J_fire:
-    cmp.l    #16,d0
-    bne    .J_right
-    bsr    bir_rutin_yap
-    move.l    #0,number
-    move.l    #3,animno
-    rts
+.J_fire:        cmp.l #16,d0
+                bne .J_right
+                bsr bir_rutin_yap
+                move.l #0,number
+                move.l #3,animno
+                rts
 
-.J_right:
-    cmp.l    #2,d0
-    bne    .J_left
-    rts
+.J_right:       cmp.l #2,d0
+                bne .J_left
+                rts
 
-.J_left:
-    cmp.l    #8,d0
-    bne    .J_up
-    rts
+.J_left:        cmp.l #8,d0
+                bne .J_up
+                rts
 
-.J_up:
-    cmp.l    #1,d0
-    bne    .J_down
-    bsr    bir_rutin_yap
-    move.l    #1,hangi_sample_2
-    bsr    play_chan_3
-    move.l    #0,number
-    move.l    #1,animno
-    rts
-.J_down:
-    cmp.l    #4,d0
-    bne    return
+.J_up:          cmp.l #1,d0
+                bne .J_down
+                bsr bir_rutin_yap
+                move.l #1,hangi_sample_2
+                bsr play_chan_3
+                move.l #0,number
+                move.l #1,animno
+                rts
 
-    bsr    bir_rutin_yap
-    move.l    #0,number
-    move.l    #2,animno
+.J_down:        cmp.l #4,d0
+                bne return
 
-    rts
+                bsr bir_rutin_yap
+                move.l #0,number
+                move.l #2,animno
+                rts
 ;-------------------------------------------------
+
 animpisagor:
-    bsr    chooseanim
-    bsr    chooseanim2
-    bsr    senaryo
-    bsr    senaryo2
-    bsr    pisagor
-    
-    add.l    #1,number
-    move.l    number,d0
-    move.l    frameptr,d1
-    cmp.l    d0,d1
-    bne    return
+                bsr chooseanim
+                bsr chooseanim2
+                bsr senaryo
+                bsr senaryo2
+                bsr pisagor
 
-    cmp.l    #4,animno
-    bne    zzzz
+                add.l #1,number
+                move.l number,d0
+                move.l frameptr,d1
+                cmp.l d0,d1
+                bne return
 
-    move.l    #1,zipcik
+                cmp.l #4,animno
+                bne zzzz
 
-zzzz:    move.l    #0,number
-    move.l    #0,animno
+                move.l #1,zipcik
 
-return:    rts    
+zzzz:           move.l #0,number
+                move.l #0,animno
+return:         rts
 ;------------------------------------------------
+
 animenemy:
-    bsr    ChOoSe_BacK_EnemY
-    add.l    #1,number2
-    move.l    number2,d0
-    move.l    framecont,d1
-    cmp.l    d0,d1
-    bne    return
-    move.l    #0,number2
-    move.w    #0,en_enable
-    rts
+                bsr ChOoSe_BacK_EnemY
+                add.l #1,number2
+                move.l number2,d0
+                move.l framecont,d1
+                cmp.l d0,d1
+                bne return
+
+                move.l #0,number2
+                move.w #0,en_enable
+                rts
 ;-------------------------------------------------
+
 animtas:
-    lea    tas_roll_scene,a0
-    move.l    number_t,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),tsy
-    bsr    tasiekranabas
-    add.l    #1,number_t
-    cmp.l    #12,number_t
-    bne    return
-    move.l    #0,number_t
-
-    rts
+                lea tas_roll_scene,a0
+                move.l number_t,d0
+                mulu #4,d0
+                add.l d0,a0
+                move.l (a0),tsy
+                bsr tasiekranabas
+                add.l #1,number_t
+                cmp.l #12,number_t
+                bne return
+                move.l #0,number_t
+                rts
 ;-------------------------------------------------
+
 tas_roll_scene:
-        dc.l    0,0,0,0
-        dc.l    1,1,1,1
-        dc.l    2,2,2,2
-number_t:    dc.l    0
+                dc.l 0,0,0,0
+                dc.l 1,1,1,1
+                dc.l 2,2,2,2
+number_t:       dc.l 0
 ;-------------------------------------------------
-Pisagor:move.l    py,d0
-    mulu    #60,d0
-    move.l    px,d1
-    asr.l    #3,d1
-    bclr    #0,d1
-    add.w    d1,d0
-    move.l    pbobptr,a0
-    move.l    psy,d2
 
-    move.w    moduloptr,d5
-    move.w    #60,d6
-    sub.w    d5,d6
-    move.l    d6,d6
-    mulu    d6,d2
-    move.l    sizeyptr,d4
-    mulu    d4,d2
-    add.l    d2,a0    
+Pisagor:
+                move.l py,d0
+                mulu #60,d0
+                move.l px,d1
+                asr.l #3,d1
+                bclr #0,d1
+                add.w d1,d0
+                move.l pbobptr,a0
+                move.l psy,d2
+                move.w moduloptr,d5
+                move.w #60,d6
+                sub.w d5,d6
+                move.l d6,d6
+                mulu d6,d2
+                move.l sizeyptr,d4
+                mulu d4,d2
+                add.l d2,a0    
+                move.l pmaskptr,a3
+                add.l d2,a3
+                move.l nonactive,a1
+                add.l d0,a1
+                move.l #4,d0    
+.lp:            move.l a0,bltbptr
+                move.l a3,bltaptr
+                move.l a1,bltcptr
+                move.l a1,bltdptr
+                move.w #0,bltamod    ;screen modulo    
+                move.w #0,bltbmod    
+                move.w moduloptr,bltcmod    ;brush modulo=[40-(bursh/8)]
+                move.w moduloptr,bltdmod    ;
+                move.l #$ffffffff,bltafwm
+                move.b px+3,d1
+                and.l #$f,d1
+                swap d1
+                asr.l #4,d1
+                move.w d1,bltcon1
+                ori.l #$fca,d1
+                move.w d1,bltcon0
+                move.w sizeptr,bltsize    ;[y*64]+[x/16]
+                bsr bw
+                add.l lenghtptr,a0
+                add.l #$2ee0,a1
+                sub.l #1,d0
+                bne .lp
+                rts
 
-    move.l    pmaskptr,a3
-    add.l    d2,a3
-    move.l    nonactive,a1
-    add.l    d0,a1
-    move.l    #4,d0    
-.lp:    move.l    a0,bltbptr
-    move.l    a3,bltaptr
-    move.l    a1,bltcptr
-    move.l    a1,bltdptr
-    move.w    #0,bltamod    ;screen modulo    
-    move.w    #0,bltbmod    
-    move.w    moduloptr,bltcmod    ;brush modulo=[40-(bursh/8)]
-    move.w    moduloptr,bltdmod    ;
-    move.l    #$ffffffff,bltafwm
-    move.b    px+3,d1
-    and.l    #$f,d1
-    swap    d1
-    asr.l    #4,d1
-    move.w    d1,bltcon1
-    ori.l    #$fca,d1
-    move.w    d1,bltcon0
-    move.w    sizeptr,bltsize    ;[y*64]+[x/16]
-    bsr    bw
-    add.l    lenghtptr,a0
-    add.l    #$2ee0,a1
-    sub.l    #1,d0
-    bne    .lp
-    rts
-
-px:        dc.l    60
-py:        dc.l    0
-psy:        dc.l    0
+px:             dc.l 60
+py:             dc.l 0
+psy:            dc.l 0
 ;-----------------------------
-pbobptr:    dc.l    0
-pmaskptr:    dc.l    0
-moduloptr:    dc.w    0
-sizeptr:    dc.w    0
-lenghtptr:    dc.l    0
-sizeyptr:    dc.l    0
-frameptr:    dc.l    0
+pbobptr:        dc.l 0
+pmaskptr:       dc.l 0
+moduloptr:      dc.w 0
+sizeptr:        dc.w 0
+lenghtptr:      dc.l 0
+sizeyptr:       dc.l 0
+frameptr:       dc.l 0
 ;-------------------------------------------------
+
 ChOOseAnim:
-    lea    Bobtable,a0
-    lea    Masktable,a1
-    lea    modulotable,a2
-    lea    sizetable,a3
-    lea    lenghttable,a4
-    move.l    animno,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    add.l    d0,a1
-    add.l    d0,a2
-    add.l    d0,a3
-    add.l    d0,a4
-    move.l    (a0),pbobptr
-    move.l    (a1),pmaskptr
-    move.w    2(a2),moduloptr
-    move.w    2(a3),sizeptr
-    move.l    (a4),lenghtptr
-    rts
+                lea Bobtable,a0
+                lea Masktable,a1
+                lea modulotable,a2
+                lea sizetable,a3
+                lea lenghttable,a4
+                move.l animno,d0
+                mulu #4,d0
+                add.l d0,a0
+                add.l d0,a1
+                add.l d0,a2
+                add.l d0,a3
+                add.l d0,a4
+                move.l (a0),pbobptr
+                move.l (a1),pmaskptr
+                move.w 2(a2),moduloptr
+                move.w 2(a3),sizeptr
+                move.l (a4),lenghtptr
+                rts
 ;-------------------------------------------------
-bobtable:    dc.l    bwalk,bjump,begil,bkir
-        dc.l    bbigd
-    
-masktable:    dc.l    mwalk,mjump,megil,mkir
-        dc.l    mbigd
 
-modulotable:    dc.l    52,52,50,52
-        dc.l    26
+bobtable:       dc.l bwalk,bjump,begil,bkir
+                dc.l bbigd
+masktable:      dc.l mwalk,mjump,megil,mkir
+                dc.l mbigd
 
-sizetable:    dc.l    4100,[[72*64]+4],[[65*64]+5],[[71*64]+4]
-        dc.l    [191*64]+17
+modulotable:    dc.l 52,52,50,52
+                dc.l 26
 
-lenghttable:    dc.l    2096,2320,1960,2848
-        dc.l    34000
+sizetable:      dc.l 4100,[[72*64]+4],[[65*64]+5],[[71*64]+4]
+                dc.l [191*64]+17
 
-sizeytable:    dc.l    65,72,65,71
-        dc.l    191
+lenghttable:    dc.l 2096,2320,1960,2848
+                dc.l 34000
 
-framecounttable:dc.l    29,75,32,26
-        dc.l    27
+sizeytable:     dc.l 65,72,65,71
+                dc.l 191
 
-dytable:    dc.l    53,53,53,49
-        dc.l    8
+framecounttable:
+                dc.l 29,75,32,26
+                dc.l 27
 
-animno:        dc.l    0
+dytable:        dc.l 53,53,53,49
+                dc.l 8
+
+animno:         dc.l 0
 ;-------------------------------------------------
+
 senaryotable:
-    dc.l    kayma,zipla,egilme,kirma
-    dc.l    big_det
-
+                dc.l kayma,zipla,egilme,kirma
+                dc.l big_det
 ;-------------------------------------------------
-kayma:    
-    dc.l    0,1,1,1,1,1,1,2,2,2,2
-    dc.l    3,3,3,3,3,3,3,3,3,3,3
-    dc.l    3,3,3,3,3,0,0,0
+
+kayma:
+                dc.l 0,1,1,1,1,1,1,2,2,2,2
+                dc.l 3,3,3,3,3,3,3,3,3,3,3
+                dc.l 3,3,3,3,3,0,0,0
 
 zipla:
-    dc.l    0,0,0,0,0
-    dc.l    0,0,0,0,0
-    dc.l    1,1,1,1,1,1,1,1,1,1,1
-    dc.l    1,1,1,1,1,1,1,1,1,1,1
-    dc.l    2,2,2,2,2,2,2,2,2,2,2
-    dc.l    2,2,2,2,2,2,2,2,2,2,2
-    dc.l    3,3,3,3,3,3,3,3,3,3,3
-    dc.l    3,3,3,3,3,3,3,3,3,3,3
-Egilme:    
-    dc.l    0,0,1,1,0,0,1,1,0,0,1
-    dc.l    1,1,0,0,1,1,0,0,1,1,1
-    dc.l    2,2,2,2,2,2,2,2,2,2,2
-kirma:    dc.l    0,0,0,0,0,1,1,1,1,1,1
-    dc.l    2,2,2,2,2,3,3,3,3,3,3
-    dc.l    4,4,4,4,4
+                dc.l 0,0,0,0,0
+                dc.l 0,0,0,0,0
+                dc.l 1,1,1,1,1,1,1,1,1,1,1
+                dc.l 1,1,1,1,1,1,1,1,1,1,1
+                dc.l 2,2,2,2,2,2,2,2,2,2,2
+                dc.l 2,2,2,2,2,2,2,2,2,2,2
+                dc.l 3,3,3,3,3,3,3,3,3,3,3
+                dc.l 3,3,3,3,3,3,3,3,3,3,3
+Egilme:
+                dc.l 0,0,1,1,0,0,1,1,0,0,1
+                dc.l 1,1,0,0,1,1,0,0,1,1,1
+                dc.l 2,2,2,2,2,2,2,2,2,2,2
+kirma:          dc.l 0,0,0,0,0,1,1,1,1,1,1
+                dc.l 2,2,2,2,2,3,3,3,3,3,3
+                dc.l 4,4,4,4,4
 big_det:
-    dc.l    0,0,1,1
-    dc.l    1,1,1,2
-    dc.l    2,2,2,2
-    dc.l    3,3,3,3
-    dc.l    4,4,4,4
-    dc.l    2,2,2,2
-    dc.l    2,2,2,0
-    dc.l    3,3,3,3
-
+                dc.l 0,0,1,1
+                dc.l 1,1,1,2
+                dc.l 2,2,2,2
+                dc.l 3,3,3,3
+                dc.l 4,4,4,4
+                dc.l 2,2,2,2
+                dc.l 2,2,2,0
+                dc.l 3,3,3,3
 ;-------------------------------------------------------
+
 kd_bas:
-    move.l    ky,d0
-    mulu    #60,d0
-    move.l    kx,d1
-    asr.l    #3,d1
-    bclr    #0,d1
-    add.w    d1,d0
+                move.l ky,d0
+                mulu #60,d0
+                move.l kx,d1
+                asr.l #3,d1
+                bclr #0,d1
+                add.w d1,d0
+                move.l kusrawptr,a0
+                move.l ksy,d2
+                move.l kframesize,d3
+                mulu d3,d2
+                add.l d2,a0    
+                move.l kusmaskptr,a3
+                add.l d2,a3
+                move.l nonactive,a1
+                add.l d0,a1
+                move.l #4,d0    ;bitplane adedi
+.lp:            move.l a0,bltbptr
+                move.l a3,bltaptr
+                move.l a1,bltcptr
+                move.l a1,bltdptr
+                move.w #0,bltamod    ;screen modulo    
+                move.w #0,bltbmod    
+                move.w kusmodptr,bltcmod    ;brush modulo=[40-(bursh/8)]
+                move.w kusmodptr,bltdmod    ;
+                move.l #$ffffffff,bltafwm
+                move.b kx+3,d1
+                and.l #$f,d1
+                swap d1
+                asr.l #4,d1
+                move.w d1,bltcon1
+                ori.l #$fca,d1
+                move.w d1,bltcon0
+                move.w ksizeptr,bltsize    ;[y*64]+[x/16]
+                bsr bw
+                add.l klenghtptr,a0
+                add.l #$2ee0,a1
+                sub.l #1,d0
+                bne .lp
+                rts
 
-    move.l    kusrawptr,a0
-
-    move.l    ksy,d2
-    move.l    kframesize,d3
-    mulu    d3,d2
-    add.l    d2,a0    
-
-    move.l    kusmaskptr,a3
-    add.l    d2,a3
-
-    move.l    nonactive,a1
-    add.l    d0,a1
-    move.l    #4,d0    ;bitplane adedi
-.lp:    move.l    a0,bltbptr
-    move.l    a3,bltaptr
-    move.l    a1,bltcptr
-    move.l    a1,bltdptr
-    move.w    #0,bltamod    ;screen modulo    
-    move.w    #0,bltbmod    
-    move.w    kusmodptr,bltcmod    ;brush modulo=[40-(bursh/8)]
-    move.w    kusmodptr,bltdmod    ;
-    move.l    #$ffffffff,bltafwm
-    move.b    kx+3,d1
-    and.l    #$f,d1
-    swap    d1
-    asr.l    #4,d1
-    move.w    d1,bltcon1
-    ori.l    #$fca,d1
-    move.w    d1,bltcon0
-    move.w    ksizeptr,bltsize    ;[y*64]+[x/16]
-    bsr    bw
-    add.l    klenghtptr,a0
-    add.l    #$2ee0,a1
-    sub.l    #1,d0
-    bne    .lp
-    rts
-
-kx:        dc.l    320+32
-ky:        dc.l    0
-ksy:        dc.l    0
+kx:             dc.l 320+32
+ky:             dc.l 0
+ksy:            dc.l 0
 ;------------------------------------------------------
-kframesize:    dc.l    0
-kusrawptr:    dc.l    0
-kusmaskptr:    dc.l    0
-kusmodptr:    dc.w    0
-ksizeptr:    dc.w    0
-klenghtptr:    dc.l    0
-kd_frameptr:    dc.l    0
+kframesize:     dc.l 0
+kusrawptr:      dc.l 0
+kusmaskptr:     dc.l 0
+kusmodptr:      dc.w 0
+ksizeptr:       dc.w 0
+klenghtptr:     dc.l 0
+kd_frameptr:    dc.l 0
 ;-------------------------------------------------------
-kd_data1:    dc.l    16*101,16*95
-kd_data2:    dc.l    bkus,bezer
-kd_data3:    dc.l    mkus,mezer
-kd_data4:    dc.l    60-16,60-16
-kd_data5:    dc.l    [101*64]+8,[95*64]+8
-kd_data6:    dc.l    8192,8064
-kd_data7:    dc.l    19,19
+kd_data1:       dc.l 16*101,16*95
+kd_data2:       dc.l bkus,bezer
+kd_data3:       dc.l mkus,mezer
+kd_data4:       dc.l 60-16,60-16
+kd_data5:       dc.l [101*64]+8,[95*64]+8
+kd_data6:       dc.l 8192,8064
+kd_data7:       dc.l 19,19
 ;-------------------------------------------------------
-kd_animtable:
-    dc.l    scenekus,sceneezer
+kd_animtable:   dc.l scenekus,sceneezer
 ;------------------------------------------------
-scenekus:    dc.l    0,0
-
-        dc.l    1,1,1,1
-        dc.l    2,2,2,2
-        dc.l    3,3,3,3
-        dc.l    4,4,4,4
-
-
-sceneezer:    dc.l    0,0,0,0
-        dc.l    1,1,1,1
-        dc.l    2,2,2,2
-        dc.l    3,3,3,3
-        dc.l    4,4,4,4
-
+scenekus:
+                dc.l 0,0
+                dc.l 1,1,1,1
+                dc.l 2,2,2,2
+                dc.l 3,3,3,3
+                dc.l 4,4,4,4
+sceneezer:      dc.l 0,0,0,0
+                dc.l 1,1,1,1
+                dc.l 2,2,2,2
+                dc.l 3,3,3,3
+                dc.l 4,4,4,4
 ;------------------------------------------------
+
 kd_datalari_al1:
-    lea    kd_data1,a0
-    lea    kd_data2,a1
-    lea    kd_data3,a2
-    lea    kd_data4,a3
-    lea    kd_data5,a4
-    move.l    kd_enemyno,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    add.l    d0,a1
-    add.l    d0,a2
-    add.l    d0,a3
-    add.l    d0,a4
-    move.l    (a0),kframesize
-    move.l    (a1),kusrawptr
-    move.l    (a2),kusmaskptr
-    move.w    2(a3),kusmodptr
-    move.w    2(a4),ksizeptr
-    bsr    kd_datalari_al2
-    bsr    kd_datalari_al3
-    bsr    kd_bas    
-    rts
+                lea kd_data1,a0
+                lea kd_data2,a1
+                lea kd_data3,a2
+                lea kd_data4,a3
+                lea kd_data5,a4
+                move.l kd_enemyno,d0
+                mulu #4,d0
+                add.l d0,a0
+                add.l d0,a1
+                add.l d0,a2
+                add.l d0,a3
+                add.l d0,a4
+                move.l (a0),kframesize
+                move.l (a1),kusrawptr
+                move.l (a2),kusmaskptr
+                move.w 2(a3),kusmodptr
+                move.w 2(a4),ksizeptr
+                bsr kd_datalari_al2
+                bsr kd_datalari_al3
+                bsr kd_bas    
+                rts
 ;-------------------------------------------------------
-kd_datalari_al2:
-    lea    kd_data6,a0
-    lea    kd_data7,a1
-    move.l    kd_enemyno,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    add.l    d0,a1
-    move.l    (a0),klenghtptr
-    move.l    (a1),kd_frameptr
-    rts
-;-------------------------------------------------------
-Zipsin:
-    DC.L    $00000035,$00000033,$00000031,$0000002F,$0000002D,$0000002B
-    DC.L    $00000028,$00000026,$00000024,$00000022,$00000020,$0000001E
-    DC.L    $0000001C,$0000001A,$00000019,$00000017,$00000015,$00000013
-    DC.L    $00000012,$00000010,$0000000F,$0000000D,$0000000C,$0000000A
-    DC.L    $00000009,$00000008,$00000007,$00000006,$00000005,$00000004
-    DC.L    $00000003,$00000003,$00000002,$00000002,$00000001,$00000001
-    DC.L    $00000001,$00000001,$00000000,$00000001,$00000001,$00000001
-    DC.L    $00000001,$00000002,$00000002,$00000003,$00000003,$00000004
-    DC.L    $00000005,$00000006,$00000007,$00000008,$00000009,$0000000A
-    DC.L    $0000000C,$0000000D,$0000000F,$00000010,$00000012,$00000013
-    DC.L    $00000015,$00000017,$00000019,$0000001A,$0000001C,$0000001E
-    DC.L    $00000020,$00000022,$00000024,$00000026,$00000028,$0000002B
-    DC.L    $0000002D,$0000002F,$00000031,$00000035
 
+kd_datalari_al2:
+                lea kd_data6,a0
+                lea kd_data7,a1
+                move.l kd_enemyno,d0
+                mulu #4,d0
+                add.l d0,a0
+                add.l d0,a1
+                move.l (a0),klenghtptr
+                move.l (a1),kd_frameptr
+                rts
+;-------------------------------------------------------
+
+Zipsin:         dc.l $00000035,$00000033,$00000031,$0000002F,$0000002D,$0000002B
+                dc.l $00000028,$00000026,$00000024,$00000022,$00000020,$0000001E
+                dc.l $0000001C,$0000001A,$00000019,$00000017,$00000015,$00000013
+                dc.l $00000012,$00000010,$0000000F,$0000000D,$0000000C,$0000000A
+                dc.l $00000009,$00000008,$00000007,$00000006,$00000005,$00000004
+                dc.l $00000003,$00000003,$00000002,$00000002,$00000001,$00000001
+                dc.l $00000001,$00000001,$00000000,$00000001,$00000001,$00000001
+                dc.l $00000001,$00000002,$00000002,$00000003,$00000003,$00000004
+                dc.l $00000005,$00000006,$00000007,$00000008,$00000009,$0000000A
+                dc.l $0000000C,$0000000D,$0000000F,$00000010,$00000012,$00000013
+                dc.l $00000015,$00000017,$00000019,$0000001A,$0000001C,$0000001E
+                dc.l $00000020,$00000022,$00000024,$00000026,$00000028,$0000002B
+                dc.l $0000002D,$0000002F,$00000031,$00000035
 ;-------------------------------------------------------
 
 ChOOseAnim2:
-    lea    sizeytable,a0
-    lea    framecounttable,a1
-    lea    dytable,a2
-    move.l    animno,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    add.l    d0,a1
-    add.l    d0,a2
-    move.l    (a0),sizeyptr
-    move.l    (a1),frameptr
-    cmp.l    #1,animno
-    beq    Makezipsin
-    move.l    (a2),py
-    rts
+                lea sizeytable,a0
+                lea framecounttable,a1
+                lea dytable,a2
+                move.l animno,d0
+                mulu #4,d0
+                add.l d0,a0
+                add.l d0,a1
+                add.l d0,a2
+                move.l (a0),sizeyptr
+                move.l (a1),frameptr
+                cmp.l #1,animno
+                beq Makezipsin
+                move.l (a2),py
+                rts
 ;-------------------------------------------------
+
 makezipsin:
-    lea    zipsin,a0
-    move.l    number,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),py    
-    rts
-
+                lea zipsin,a0
+                move.l number,d0
+                mulu #4,d0
+                add.l d0,a0
+                move.l (a0),py    
+                rts
 ;-------------------------------------------------
+
 senaryo:
-    lea    senaryotable,a0
-    move.l    animno,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),vigoptr
-    rts
+                lea senaryotable,a0
+                move.l animno,d0
+                mulu #4,d0
+                add.l d0,a0
+                move.l (a0),vigoptr
+                rts
 ;-------------------------------------------------
+
 senaryo2:
-    move.l    vigoptr,a0
-    move.l    number,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),psy
-    rts
+                move.l vigoptr,a0
+                move.l number,d0
+                mulu #4,d0
+                add.l d0,a0
+                move.l (a0),psy
+                rts
 
-vigoptr:dc.l    0
-number:    dc.l    0
+vigoptr:        dc.l 0
+number:         dc.l 0
 ;-------------------------------------------------
+
 ClrScrEen:    
-    move.l    #bosscr,a0
-    move.l    nonactive,a1
-    move.l    #4,d0
-.lp:    move.l    a0,bltaptr
-    move.l    a1,bltdptr
-    move.w    #0,bltamod
-    move.w    #16,bltdmod
-    move.l    #$ffffffff,bltafwm
-    move.w    #$09f0,bltcon0
-    move.w    #$000,bltcon1
-    move.w    #[200*64]+22,bltsize
-    bsr    bw
-    add.l    #$2260,a0
-    add.l    #$2ee0,a1
-    sub.l    #1,d0
-    bne    .lp
-    rts
+                move.l #bosscr,a0
+                move.l nonactive,a1
+                move.l #4,d0
+.lp:            move.l a0,bltaptr
+                move.l a1,bltdptr
+                move.w #0,bltamod
+                move.w #16,bltdmod
+                move.l #$ffffffff,bltafwm
+                move.w #$09f0,bltcon0
+                move.w #$000,bltcon1
+                move.w #[200*64]+22,bltsize
+                bsr bw
+                add.l #$2260,a0
+                add.l #$2ee0,a1
+                sub.l #1,d0
+                bne .lp
+                rts
 ;-------------------------------------------------
+
 Press_kelle:    
-    move.l    #kafa,a0
-    move.l    #scr3,a1
-    move.l    kafa_x,d1
-    mulu    #2,d1
-    add.l    d1,a1
-
-    move.l    #4,d0
-.lp:    move.l    a0,bltaptr
-    move.l    a1,bltdptr
-    move.w    #0,bltamod
-    move.w    #36,bltdmod
-    move.l    #$ffffffff,bltafwm
-    move.w    #$09f0,bltcon0
-    move.w    #$000,bltcon1
-    move.w    #[34*64]+2,bltsize
-    bsr    bw
-    add.l    #136,a0
-    add.l    #1360,a1
-    sub.l    #1,d0
-    bne    .lp
-    rts
-kafa_x:    dc.l    0
+                move.l #kafa,a0
+                move.l #scr3,a1
+                move.l kafa_x,d1
+                mulu #2,d1
+                add.l d1,a1
+                move.l #4,d0
+.lp:            move.l a0,bltaptr
+                move.l a1,bltdptr
+                move.w #0,bltamod
+                move.w #36,bltdmod
+                move.l #$ffffffff,bltafwm
+                move.w #$09f0,bltcon0
+                move.w #$000,bltcon1
+                move.w #[34*64]+2,bltsize
+                bsr bw
+                add.l #136,a0
+                add.l #1360,a1
+                sub.l #1,d0
+                bne .lp
+                rts
+kafa_x:         dc.l 0
 ;------------------------------------------------
-sil_kelle:    
-    move.l    #b_kafa,a0
-    move.l    #scr3,a1
-    move.l    sil_k_x,d1
-    mulu    #2,d1
-    add.l    d1,a1
 
-    move.l    #4,d0
-.lp:    move.l    a0,bltaptr
-    move.l    a1,bltdptr
-    move.w    #0,bltamod
-    move.w    #36,bltdmod
-    move.l    #$ffffffff,bltafwm
-    move.w    #$09f0,bltcon0
-    move.w    #$000,bltcon1
-    move.w    #[34*64]+2,bltsize
-    bsr    bw
-    add.l    #136,a0
-    add.l    #1360,a1
-    sub.l    #1,d0
-    bne    .lp
-    rts
-sil_k_x:    dc.l    0
+sil_kelle:
+                move.l #b_kafa,a0
+                move.l #scr3,a1
+                move.l sil_k_x,d1
+                mulu #2,d1
+                add.l d1,a1
+                move.l #4,d0
+.lp:            move.l a0,bltaptr
+                move.l a1,bltdptr
+                move.w #0,bltamod
+                move.w #36,bltdmod
+                move.l #$ffffffff,bltafwm
+                move.w #$09f0,bltcon0
+                move.w #$000,bltcon1
+                move.w #[34*64]+2,bltsize
+                bsr bw
+                add.l #136,a0
+                add.l #1360,a1
+                sub.l #1,d0
+                bne .lp
+                rts
+sil_k_x:        dc.l 0
 ;-------------------------------------------------
 get_skor_arti:
-    lea    random_table,a0
-    move.l    random_ptr,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),dn_adder
-    rts
-
+                lea random_table,a0
+                move.l random_ptr,d0
+                mulu #4,d0
+                add.l d0,a0
+                move.l (a0),dn_adder
+                rts
 
 random_table:
-    dc.l    1000,1250,4500,1750,2500,1175,4800,2900,3100,2000
-    dc.l    3800,1750,4250,2500,1900,4100,1000,4125,1900,2000
-    dc.l    2000,2250,2500,2750,3250,4750,1800,3900,2100,2250
-    dc.l    1800,1500
+                dc.l 1000,1250,4500,1750,2500,1175,4800,2900,3100,2000
+                dc.l 3800,1750,4250,2500,1900,4100,1000,4125,1900,2000
+                dc.l 2000,2250,2500,2750,3250,4750,1800,3900,2100,2250
+                dc.l 1800,1500
 
-random_ptr:    dc.l    0
-dn_adder:    dc.l    0
+random_ptr:     dc.l 0
+dn_adder:       dc.l 0
 ;-------------------------------------------------
+
 Tasa_Carpma:
-    move.l    #180,d0
-    move.l    tx,d1
-    move.l    #150,d4
-
-    cmp.l    d1,d0
-    blt    return
-    cmp.l    d1,d4
-    bgt    return
-    move.l    py,d2
-    add.l    #45,d2
-    move.l    ty,d3
-    cmp.l    d3,d2
-    blt    return_x
-
-    move.l    #1,carpma_fl
-    rts
+                move.l #180,d0
+                move.l tx,d1
+                move.l #150,d4
+                cmp.l d1,d0
+                blt return
+                cmp.l d1,d4
+                bgt return
+                move.l py,d2
+                add.l #45,d2
+                move.l ty,d3
+                cmp.l d3,d2
+                blt return_x
+                move.l #1,carpma_fl
+                rts
 
 return_x:
-    bsr    bir_rutin_yap
-    bsr    get_skor_arti
-    move.l    dn_adder,d0
-    add.l    d0,dn_number
-    bsr    dn_sayi
-    bsr    bir_rutin_yap
+                bsr bir_rutin_yap
+                bsr get_skor_arti
+                move.l dn_adder,d0
+                add.l d0,dn_number
+                bsr dn_sayi
+                bsr bir_rutin_yap
+                rts
 
-    rts
-
-carpma_fl:
-    dc.l    0
+carpma_fl:      dc.l 0
 ;------------------------------------
+
 Topuz_carptimi:
-    cmp.l    #9,number2
-    bne    return
-
-    cmp.l    #2,animno
-    bne    vir0
-    bra    return_xxx
-
-
-vir0:    move.l    #2,carpma_fl
-    rts    
+                cmp.l #9,number2
+                bne return
+                cmp.l #2,animno
+                bne vir0
+                bra return_xxx
+vir0:           move.l #2,carpma_fl
+                rts
 
 return_xxx:
-    move.l    #1,stop_count2
-;    add.l    #40000,dn_number
-    bsr    dn_sayi
-    rts
+                move.l #1,stop_count2
+;               add.l #40000,dn_number
+                bsr dn_sayi
+                rts
 
-stop_count2:    dc.l    0
+stop_count2:    dc.l 0
 ;------------------------------------
+
 Carpisma_set:
-    move.l    carpma_fl,d0
-    lea    carpim_table,a0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),a1
-    jmp    (a1)    
+                move.l carpma_fl,d0
+                lea carpim_table,a0
+                mulu #4,d0
+                add.l d0,a0
+                move.l (a0),a1
+                jmp (a1)    
 
 carpim_table:
-    dc.l    return
-    dc.l    show_tas_carp,show_topuz_carp
-    dc.l    show_ates_sik,show_ezer_sik
+                dc.l return
+                dc.l show_tas_carp,show_topuz_carp
+                dc.l show_ates_sik,show_ezer_sik
 
 show_tas_carp:
-    move.l    #1,pausefl
-    move.l    #42,py
-
-
-    move.w    #$0004,$dff096
-    move.l    #4,hangi_sample_2
-    bsr    play_chan_3
-
-.lp:    cmp.b    #255,$dff006
-    bne    .lp
-
-    bsr    clrscreen
-    move.l    #0,olum_no
-    bsr    oLum_animleri_datalari_al
-    bsr    flip_flop
-    add.l    #1,number_son
-    cmp.l    #50,number_son
-    bne    .ma_
+                move.l #1,pausefl
+                move.l #42,py
+                move.w #$0004,$dff096
+                move.l #4,hangi_sample_2
+                bsr play_chan_3
+.lp:            cmp.b #255,$dff006
+                bne .lp
+                bsr  clrscreen
+                move.l #0,olum_no
+                bsr oLum_animleri_datalari_al
+                bsr flip_flop
+                add.l #1,number_son
+                cmp.l #50,number_son
+                bne .ma_
 ;---------------------------------
-    move.l    #3,hangi_sample_2
-    bsr    play_chan_3
-
-    move.l    #4,animno
-    move.l    #32,px
-    move.l    #0,number
-.sahin:    cmp.b    #0,$dff006
-    bne    .sahin
-    bsr     clrscreen
-    bsr    animpisagor
-    bsr     flip_flop
-
-    cmp.l    #1,zipcik
-    bne    .sahin
+                move.l #3,hangi_sample_2
+                bsr play_chan_3
+                move.l #4,animno
+                move.l #32,px
+                move.l #0,number
+.sahin:         cmp.b #0,$dff006
+                bne .sahin
+                bsr clrscreen
+                bsr animpisagor
+                bsr flip_flop
+                cmp.l #1,zipcik
+                bne .sahin
 ;----------------------------------
-    move.l    #42,py
-    move.l    #150,px
+                move.l #42,py
+                move.l #150,px
+.ma_:           move.l number_son,d0
+                move.l kare_adeti_ptr,d1
+                cmp.l d0,d1
+                bne .lp
+                bsr flip_flop
+                bsr clrscreen
+                move.l #0,zipcik
+                move.l #0,number_son
+                move.l #0,animno
+                move.l #0,pausefl
+                move.l #0,carpma_fl
+                move.w #0,dusmanptr
+                move.l #0,number_t
+                move.l #350,tx
+                move.w #$0008,$dff096
+                cmp.l #0,pisagor_hak
+                bne return2
+                move.l #1,endflag
+                rts
 
-.ma_:    move.l    number_son,d0
-    move.l    kare_adeti_ptr,d1
-    cmp.l    d0,d1
-    bne    .lp
-    bsr    flip_flop
-    bsr    clrscreen
-
-    move.l    #0,zipcik
-    move.l    #0,number_son
-    move.l    #0,animno
-    move.l    #0,pausefl
-    move.l    #0,carpma_fl
-    move.w    #0,dusmanptr
-    move.l    #0,number_t
-    move.l    #350,tx
-    move.w    #$0008,$dff096
-    cmp.l    #0,pisagor_hak
-    bne    return2
-    move.l    #1,endflag
-    rts
-
-zipcik:    dc.l    0
+zipcik:         dc.l 0
 show_topuz_carp:
-    move.l    #1,pausefl
-
-    move.w    #$0004,$dff096
-    move.l    #4,hangi_sample_2
-    bsr    play_chan_3
-
-.lp:    cmp.b    #0,$dff006
-    bne    .lp
-
-    move.l    #40,py
-
-    bsr    clrscreen
-    bsr    en_check
-    move.l    #1,olum_no
-    bsr    oLum_animleri_datalari_al
-    bsr    flip_flop
-    add.l    #1,number_son
-
-    cmp.l    #50,number_son
-    bne    .ma_
-    move.l    #3,hangi_sample_2
-    bsr    play_chan_3
-
-    move.l    #4,animno
-    move.l    #32,px
-    move.l    #0,number
-.sahin:    cmp.b    #0,$dff006
-    bne    .sahin
-    bsr     clrscreen
-    bsr    animpisagor
-    bsr     flip_flop
-
-    cmp.l    #1,zipcik
-    bne    .sahin
+                move.l #1,pausefl
+                move.w #$0004,$dff096
+                move.l #4,hangi_sample_2
+                bsr play_chan_3
+.lp:            cmp.b #0,$dff006
+                bne .lp
+                move.l #40,py
+                bsr clrscreen
+                bsr en_check
+                move.l #1,olum_no
+                bsr oLum_animleri_datalari_al
+                bsr flip_flop
+                add.l #1,number_son
+                cmp.l #50,number_son
+                bne .ma_
+                move.l #3,hangi_sample_2
+                bsr play_chan_3
+                move.l #4,animno
+                move.l #32,px
+                move.l #0,number
+.sahin:         cmp.b #0,$dff006
+                bne .sahin
+                bsr clrscreen
+                bsr animpisagor
+                bsr flip_flop
+                cmp.l #1,zipcik
+                bne .sahin
 ;----------------------------------
-    move.l    #42,py
-    move.l    #150,px
+                move.l #42,py
+                move.l #150,px
+.ma_:           move.l number_son,d0
+                move.l kare_adeti_ptr,d1
+                cmp.l d0,d1
+                bne .lp
+                bsr flip_flop
+                bsr clrscreen
+                move.l #0,zipcik
+                move.l #0,number_son
+                move.l #0,animno
+                move.l #0,pausefl
+                move.l #0,carpma_fl
+                cmp.l #0,pisagor_hak
+                bne return2
+                move.l #1,endflag
+                rts
 
-
-
-.ma_:    move.l    number_son,d0
-    move.l    kare_adeti_ptr,d1
-    cmp.l    d0,d1
-    bne    .lp
-    bsr    flip_flop
-    bsr    clrscreen
-
-    move.l    #0,zipcik
-    move.l    #0,number_son
-    move.l    #0,animno
-    move.l    #0,pausefl
-    move.l    #0,carpma_fl
-    cmp.l    #0,pisagor_hak
-    bne    return2
-    move.l    #1,endflag
-
-    rts
 show_ates_sik:
-    move.l    #1,pausefl
-
-    move.l    #2,hangi_sample_2
-    bsr    play_chan_3
-
-.lp:    cmp.b    #0,$dff006
-    bne    .lp
-
-    move.l    #20,py
-    move.l    #141,px
-
-    bsr    clrscreen
-    bsr    en_check2
-    bsr    islemlerust
-
-
-    move.l    #2,olum_no
-    bsr    oLum_animleri_datalari_al
-    bsr    flip_flop
+                move.l #1,pausefl
+                move.l #2,hangi_sample_2
+                bsr play_chan_3
+.lp:            cmp.b #0,$dff006
+                bne .lp
+                move.l #20,py
+                move.l #141,px
+                bsr clrscreen
+                bsr en_check2
+                bsr islemlerust
+                move.l #2,olum_no
+                bsr oLum_animleri_datalari_al
+                bsr flip_flop
 
     add.l    #1,number_son
     cmp.l    #50,number_son
