@@ -815,528 +815,519 @@ ColUp:          incbin 'xxx'
 renk_data:      incbin 'tepe_renk.color'
 
 ;------------------------------------------------
-Press1stPlane:    
-    move.l    enemyptr,a0
-    move.l    enemysoy,d0
-    add.l    d0,a0
-    move.l    #back,a1
-    add.l    enemyyptr,a1
-
-    move.l    #4,d0
-.lp:    move.l    a0,bltaptr
-    move.l    a1,bltdptr
-    move.w    #0,bltamod
-    move.w    enemymoduloptr,bltdmod
-    move.l    #$ffffffff,bltafwm
-    move.w    #$09f0,bltcon0
-    move.w    #$000,bltcon1
-    move.w    enemysizeptr,bltsize
-    bsr    bw
-    add.l    enemylptr,a0
-    add.l    #$f780,a1
-    sub.l    #1,d0
-    bne    .lp
-    rts
+Press1stPlane:
+                move.l enemyptr,a0
+                move.l enemysoy,d0
+                add.l d0,a0
+                move.l #back,a1
+                add.l enemyyptr,a1
+                move.l #4,d0
+.lp:            move.l a0,bltaptr
+                move.l a1,bltdptr
+                move.w #0,bltamod
+                move.w enemymoduloptr,bltdmod
+                move.l #$ffffffff,bltafwm
+                move.w #$09f0,bltcon0
+                move.w #$000,bltcon1
+                move.w enemysizeptr,bltsize
+                bsr bw
+                add.l enemylptr,a0
+                add.l #$f780,a1
+                sub.l #1,d0
+                bne .lp
+                rts
 
 ChOoSe_BacK_EnemY:
-    lea    Enemytable,a0
-    lea    Enemy_Y_table,a1
-    lea    enemymodulotable,a2
-    lea    enemysizetable,a3
-    lea    enemyltable,a4
-    move.l    enemyno,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    add.l    d0,a1
-    add.l    d0,a2
-    add.l    d0,a3
-    add.l    d0,a4
-    move.l    (a0),enemyptr
-    move.l    (a1),enemyyptr
-    move.w    2(a2),enemymoduloptr
-    move.w    2(a3),enemysizeptr
-    move.l    (a4),enemylptr
-    bsr    ChooseEmeyanimframes
-    bsr    ChooseEmeyanimframes2
-    bsr    Press1stPlane
-    rts
-enemyptr:    dc.l    0
-enemyyptr:    dc.l    0
-enemymoduloptr:    dc.w    0
-enemysizeptr:    dc.w    0
-enemylptr:    dc.l    0
-enemysoy:    dc.l    0
-eyptr:        dc.l    0
+                lea Enemytable,a0
+                lea Enemy_Y_table,a1
+                lea enemymodulotable,a2
+                lea enemysizetable,a3
+                lea enemyltable,a4
+                move.l enemyno,d0
+                mulu #4,d0
+                add.l d0,a0
+                add.l d0,a1
+                add.l d0,a2
+                add.l d0,a3
+                add.l d0,a4
+                move.l (a0),enemyptr
+                move.l (a1),enemyyptr
+                move.w 2(a2),enemymoduloptr
+                move.w 2(a3),enemysizeptr
+                move.l (a4),enemylptr
+                bsr ChooseEmeyanimframes
+                bsr ChooseEmeyanimframes2
+                bsr Press1stPlane
+                rts
+
+enemyptr:       dc.l 0
+enemyyptr:      dc.l 0
+enemymoduloptr: dc.w 0
+enemysizeptr:   dc.w 0
+enemylptr:      dc.l 0
+enemysoy:       dc.l 0
+eyptr:          dc.l 0
 ;-----------------------------
-enemyno:    dc.l    0    
+
+enemyno:        dc.l 0
+
 Enemytable:
-    dc.l    bcanavar,bcanavar,btopuz,btopuz
+                dc.l bcanavar,bcanavar,btopuz,btopuz
 Enemy_Y_table:
-    dc.l    [[320*80]+64],[[320*80]+204],88,138
+                dc.l [[320*80]+64],[[320*80]+204],88,138
 Enemymodulotable:
-    dc.l    308,308,304,304
+                dc.l 308,308,304,304
 enemysizetable:
-    dc.l    [76*64]+6,[76*64]+6,[95*64]+8,[95*64]+8
+                dc.l [76*64]+6,[76*64]+6,[95*64]+8,[95*64]+8
 enemyltable:
-    dc.l    2760,2760,4576,4576
+                dc.l 2760,2760,4576,4576
 enemyframesize:
-    dc.l    76,76,95,95
+                dc.l 76,76,95,95
 frameadet:
-    dc.l    15,15,29,29
+                dc.l 15,15,29,29
 enemyanimtable:
-    dc.l    heykeltas,heykeltas,topuzcuk,topuzcuk
+                dc.l heykeltas,heykeltas,topuzcuk,topuzcuk
 heykeltas:
-
-    dc.l    0,0,0,0
-    dc.l    1,1,1,1
-    dc.l    0,0,0,0
-    dc.l    2,2,2,2
+                dc.l 0,0,0,0
+                dc.l 1,1,1,1
+                dc.l 0,0,0,0
+                dc.l 2,2,2,2
 topuzcuk:
-    dc.l    0,0,0,0,0,0
-    dc.l    1,1,1,1,1,1
-    dc.l    2,2,2,2,2,2
-    dc.l    1,1,1,1,1,1
-    dc.l    0,0,0,0,0,0
-
+                dc.l 0,0,0,0,0,0
+                dc.l 1,1,1,1,1,1
+                dc.l 2,2,2,2,2,2
+                dc.l 1,1,1,1,1,1
+                dc.l 0,0,0,0,0,0
 ;------------------------------------------------
+
 ChooseEmeyanimframes:
-    lea    enemyanimtable,a0
-    lea    enemyframesize,a1
-    lea    frameadet,a2
-    move.l    enemyno,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    add.l    d0,a1
-    add.l    d0,a2
-    move.l    (a0),ghostptr
-    move.l    (a1),eyptr
-    move.l    (a2),framecont
-    rts
+                lea enemyanimtable,a0
+                lea enemyframesize,a1
+                lea frameadet,a2
+                move.l enemyno,d0
+                mulu #4,d0
+                add.l d0,a0
+                add.l d0,a1
+                add.l d0,a2
+                move.l (a0),ghostptr
+                move.l (a1),eyptr
+                move.l (a2),framecont
+                rts
+
 ChooseEmeyanimframes2:
-    move.l    ghostptr,a0
-    move.l    number2,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),enemysoy
-    move.l    enemysoy,d0
-    move.l    eyptr,d1
-    mulu    d0,d1
+                move.l ghostptr,a0
+                move.l number2,d0
+                mulu #4,d0
+                add.l d0,a0
+                move.l (a0),enemysoy
+                move.l enemysoy,d0
+                move.l eyptr,d1
+                mulu d0,d1
+                move.w enemymoduloptr,d3
+                move.w #320,d4
+                sub.w d3,d4
+                ext.l d4
+                mulu d1,d4
+                move.l d4,enemysoy
+                rts
 
-
-    move.w    enemymoduloptr,d3
-    move.w    #320,d4
-
-    sub.w    d3,d4
-    ext.l    d4
-    mulu    d1,d4
-    move.l    d4,enemysoy
-    rts    
-    
-
-
-ghostptr:    dc.l    0
-number2:    dc.l    0
-framecont:    dc.l    0
+ghostptr:       dc.l 0
+number2:        dc.l 0
+framecont:      dc.l 0
 ;------------------------------------------------
+
 SeTuPCoL:
-    lea    colup,a0
-    lea    col_up+2,a1
-    move.w    #16,d0
-.lp:    move.w    (a0),(a1)
-    add.w    #2,a0
-    add.w    #4,a1
-    sub.w    #1,d0
-    bne    .lp
-    rts
+                lea colup,a0
+                lea col_up+2,a1
+                move.w #16,d0
+.lp:            move.w (a0),(a1)
+                add.w #2,a0
+                add.w #4,a1
+                sub.w #1,d0
+                bne .lp
+                rts
 ;-------------------------------------------------
-ScRoLLBaCK:    
-    move.w    x,d1
-    move.w    d1,d2
-    lsr.w    #4,d1
-    lsl.w    #1,d1
-    and.l    #$ffff,d1
-    not.w    d2
-    and.w    #$f,d2
-    move.l    #back,d0
-    add.l    d1,d0
-    lea    planep+2,a1
-    moveq    #3,d1
-.loop:    swap    d0
-    move.w    d0,(a1)
-    lea    4(a1),a1
-    swap    d0
-    move.w    d0,(a1)
-    lea    4(a1),a1
-    add.l    #$f780,d0
-    dbra    d1,.loop
-    move.w    d2,scro1
-    rts
 
-x:    dc.w    0
+ScRoLLBaCK:
+                move.w x,d1
+                move.w d1,d2
+                lsr.w #4,d1
+                lsl.w #1,d1
+                and.l #$ffff,d1
+                not.w d2
+                and.w #$f,d2
+                move.l #back,d0
+                add.l d1,d0
+                lea planep+2,a1
+                moveq #3,d1
+.loop:          swap d0
+                move.w d0,(a1)
+                lea 4(a1),a1
+                swap d0
+                move.w d0,(a1)
+                lea 4(a1),a1
+                add.l #$f780,d0
+                dbra d1,.loop
+                move.w d2,scro1
+                rts
 
-bw:    btst    #14,dmaconr
-    bne    bw
-    rts
+x:              dc.w 0
+
+bw:             btst #14,dmaconr
+                bne bw
+                rts
 ;-------------------------------------------------
-PisAgor_hak:    dc.l    2
+
+PisAgor_hak:    dc.l 2
 ;-------------------------------------------------
+
 oLum_animleri_datalari_al:
-    lea    bob_tablosu,a0
-    lea    mask_tablosu,a1
-    lea    source_y_mply,a2
-    lea    screen_module,a3
-    lea    bob_lenght,a4
-    lea    bob_size_table,a5
-    move.l    olum_no,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    add.l    d0,a1
-    add.l    d0,a2
-    add.l    d0,a3
-    add.l    d0,a4
-    add.l    d0,a5
-    move.l    (a0),bob_ptr
-    move.l    (a1),mask_ptr
-    move.l    (a2),mply_y_ptr
-    move.w    2(a3),sc_mod_ptr
-    move.l    (a4),bob_l_ptr
-    move.w    2(a5),bob_size_ptr
-    bsr    bob_anim_icin1
-    bsr    press_olumler
-    rts
+                lea bob_tablosu,a0
+                lea mask_tablosu,a1
+                lea source_y_mply,a2
+                lea screen_module,a3
+                lea bob_lenght,a4
+                lea bob_size_table,a5
+                move.l olum_no,d0
+                mulu #4,d0
+                add.l d0,a0
+                add.l d0,a1
+                add.l d0,a2
+                add.l d0,a3
+                add.l d0,a4
+                add.l d0,a5
+                move.l (a0),bob_ptr
+                move.l (a1),mask_ptr
+                move.l (a2),mply_y_ptr
+                move.w 2(a3),sc_mod_ptr
+                move.l (a4),bob_l_ptr
+                move.w 2(a5),bob_size_ptr
+                bsr bob_anim_icin1
+                bsr press_olumler
+                rts
 ;--------------------------------------
+
 bob_anim_icin1:
-    lea    olumlerin_animsecme_tablosu,a0
-    lea    bob_kare_adeti,a1
-    move.l    olum_no,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    add.l    d0,a1
-    move.l    (a0),sik_ptr
-    move.l    (a1),kare_adeti_ptr
-    bsr    bob_anim_icin2
-    rts
+                lea olumlerin_animsecme_tablosu,a0
+                lea bob_kare_adeti,a1
+                move.l olum_no,d0
+                mulu #4,d0
+                add.l d0,a0
+                add.l d0,a1
+                move.l (a0),sik_ptr
+                move.l (a1),kare_adeti_ptr
+                bsr bob_anim_icin2
+                rts
 ;--------------------------------------
+
 bob_anim_icin2:
-    move.l    sik_ptr,a0
-    move.l    number_son,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),olum_sy
-    rts
+                move.l sik_ptr,a0
+                move.l number_son,d0
+                mulu #4,d0
+                add.l d0,a0
+                move.l (a0),olum_sy
+                rts
 
-
-sik_ptr:    dc.l    0
-kare_adeti_ptr:    dc.l    0
-number_son:    dc.l    0
+sik_ptr:        dc.l 0
+kare_adeti_ptr: dc.l 0
+number_son:     dc.l 0
 ;--------------------------------------
+
 press_oLumler:
-    move.l    py,d0
-    mulu    #60,d0
-    move.l    px,d1
-    asr.l    #3,d1
-    bclr    #0,d1
-    add.w    d1,d0
-    move.l    bob_ptr,a0
-    move.l    oLum_sy,d2
-    move.l    mply_y_ptr,d3
-    mulu    d3,d2
-    add.l    d2,a0    
-    move.l    mask_ptr,a3
-    add.l    d2,a3
-    move.l    nonactive,a1
-    add.l    d0,a1
-    move.l    #4,d0    ;bitplane adedi
-.lp:    move.l    a0,bltbptr
-    move.l    a3,bltaptr
-    move.l    a1,bltcptr
-    move.l    a1,bltdptr
-    move.w    #0,bltamod    ;screen modulo    
-    move.w    #0,bltbmod    
-    move.w    sc_mod_ptr,bltcmod    ;brush modulo=[40-(bursh/8)]
-    move.w    sc_mod_ptr,bltdmod    ;
-    move.l    #$ffffffff,bltafwm
-    move.b    px+3,d1
-    and.l    #$f,d1
-    swap    d1
-    asr.l    #4,d1
-    move.w    d1,bltcon1
-    ori.l    #$fca,d1
-    move.w    d1,bltcon0
-    move.w    bob_size_ptr,bltsize    ;[y*64]+[x/16]
-    bsr    bw
-    add.l    bob_l_ptr,a0
-    add.l    #$2ee0,a1
-    sub.l    #1,d0
-    bne    .lp
-    rts
+                move.l py,d0
+                mulu #60,d0
+                move.l px,d1
+                asr.l #3,d1
+                bclr #0,d1
+                add.w d1,d0
+                move.l bob_ptr,a0
+                move.l oLum_sy,d2
+                move.l mply_y_ptr,d3
+                mulu d3,d2
+                add.l d2,a0    
+                move.l mask_ptr,a3
+                add.l d2,a3
+                move.l nonactive,a1
+                add.l d0,a1
+                move.l #4,d0    ;bitplane adedi
+.lp:            move.l a0,bltbptr
+                move.l a3,bltaptr
+                move.l a1,bltcptr
+                move.l a1,bltdptr
+                move.w #0,bltamod    ;screen modulo    
+                move.w #0,bltbmod    
+                move.w sc_mod_ptr,bltcmod    ;brush modulo=[40-(bursh/8)]
+                move.w sc_mod_ptr,bltdmod    ;
+                move.l #$ffffffff,bltafwm
+                move.b px+3,d1
+                and.l #$f,d1
+                swap d1
+                asr.l #4,d1
+                move.w d1,bltcon1
+                ori.l #$fca,d1
+                move.w d1,bltcon0
+                move.w bob_size_ptr,bltsize    ;[y*64]+[x/16]
+                bsr bw
+                add.l bob_l_ptr,a0
+                add.l #$2ee0,a1
+                sub.l #1,d0
+                bne .lp
+                rts
 
 
 olumlerin_animsecme_tablosu:
-    dc.l    jelibon,topuzu_yee,yangin
-    dc.l    eziliyor
+                dc.l jelibon,topuzu_yee,yangin
+                dc.l eziliyor
 
 ;------------------------------------
-jelibon:    dc.l    0,0,0,0
-        dc.l    1,1,1,1
-        dc.l    2,2,2,2
-        dc.l    3,3,3,3
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
-        dc.l    4,4,4,4
+jelibon:        dc.l 0,0,0,0
+                dc.l 1,1,1,1
+                dc.l 2,2,2,2
+                dc.l 3,3,3,3
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
+                dc.l 4,4,4,4
 
+topuzu_yee:     dc.l 0,0,0,0
+                dc.l 1,1,1,1
+                dc.l 2,2,2,2
+                dc.l 3,3,3,3
+                dc.l 4,4,4,4
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
+                dc.l 5,5,5,5
 
-topuzu_yee:    dc.l    0,0,0,0
-        dc.l    1,1,1,1
-        dc.l    2,2,2,2
-        dc.l    3,3,3,3
-        dc.l    4,4,4,4
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-        dc.l    5,5,5,5
-
-        
-yangin:    
-        dc.l    0,0,0,0
-        dc.l    1,1,1,1
-        dc.l    2,2,2,2
-        dc.l    3,3,3,3
-        dc.l    4,4,4,4
-        dc.l    5,5,5,5
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
-        dc.l    6,6,6,6
+yangin:
+                dc.l 0,0,0,0
+                dc.l 1,1,1,1
+                dc.l 2,2,2,2
+                dc.l 3,3,3,3
+                dc.l 4,4,4,4
+                dc.l 5,5,5,5
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
+                dc.l 6,6,6,6
 
 eziliyor:
-    dc.l    0,0,0,0,0,0,0,0,0,0
-    dc.l    1,1,1,1,1,1,1,1,1,1
-    dc.l    2,2,2,2,2,2,2,2,2,2
-
-    dc.l    3,3,3,3,3,3,3,3,3,3
-    dc.l    3,3,3,3,3,3,3,3,3,3
-    dc.l    3,3,3,3,3,3,3,3,3,3
-    dc.l    3,3,3,3,3,3,3,3,3,3
-    dc.l    3,3,3,3,3,3,3,3,3,3
-    dc.l    3,3,3,3,3,3,3,3,3,3
-    dc.l    3,3,3,3,3,3,3,3,3,3
-    dc.l    3,3,3,3,3,3,3,3,3,3
-    dc.l    3,3,3,3,3,3,3,3,3,3
-    dc.l    3,3,3,3
-    dc.l    4,4,4,4,4,4
-    dc.l    5,5,5,5,5,5,5,5,5,5
-
-    dc.l    5,5,5,5,5,5,5,5,5,5
-    dc.l    5,5,5,5,5,5,5,5,5,5
-    dc.l    5,5,5,5,5,5,5,5,5,5
-    dc.l    5,5,5,5,5,5,5,5,5,5
-    dc.l    5,5,5,5,5,5,5,5,5,5
-    dc.l    5,5,5,5,5,5,5,5,5,5
-    dc.l    5,5,5,5,5,5,5,5,5,5
-    dc.l    5,5,5,5,5,5,5,5,5,5
-    dc.l    5,5,5,5,5,5,5,5,5,5
-    dc.l    5,5,5,5,5,5,5,5,5,5
-    dc.l    5,5,5,5,5,5,5,5,5,5
-    dc.l    5,5,5,5,5,5,5,5,5,5
-    dc.l    5,5,5,5,5,5,5,5,5,5
-    dc.l    5,5,5,5,5,5,5,5,5,5
+                dc.l 0,0,0,0,0,0,0,0,0,0
+                dc.l 1,1,1,1,1,1,1,1,1,1
+                dc.l 2,2,2,2,2,2,2,2,2,2
+                    
+                dc.l 3,3,3,3,3,3,3,3,3,3
+                dc.l 3,3,3,3,3,3,3,3,3,3
+                dc.l 3,3,3,3,3,3,3,3,3,3
+                dc.l 3,3,3,3,3,3,3,3,3,3
+                dc.l 3,3,3,3,3,3,3,3,3,3
+                dc.l 3,3,3,3,3,3,3,3,3,3
+                dc.l 3,3,3,3,3,3,3,3,3,3
+                dc.l 3,3,3,3,3,3,3,3,3,3
+                dc.l 3,3,3,3,3,3,3,3,3,3
+                dc.l 3,3,3,3
+                dc.l 4,4,4,4,4,4
+                dc.l 5,5,5,5,5,5,5,5,5,5
+                    
+                dc.l 5,5,5,5,5,5,5,5,5,5
+                dc.l 5,5,5,5,5,5,5,5,5,5
+                dc.l 5,5,5,5,5,5,5,5,5,5
+                dc.l 5,5,5,5,5,5,5,5,5,5
+                dc.l 5,5,5,5,5,5,5,5,5,5
+                dc.l 5,5,5,5,5,5,5,5,5,5
+                dc.l 5,5,5,5,5,5,5,5,5,5
+                dc.l 5,5,5,5,5,5,5,5,5,5
+                dc.l 5,5,5,5,5,5,5,5,5,5
+                dc.l 5,5,5,5,5,5,5,5,5,5
+                dc.l 5,5,5,5,5,5,5,5,5,5
+                dc.l 5,5,5,5,5,5,5,5,5,5
+                dc.l 5,5,5,5,5,5,5,5,5,5
+                dc.l 5,5,5,5,5,5,5,5,5,5
 dddd:
 
-
-
-
 ezilme_y_koord:
-    DC.L    $00000024,$00000022,$00000021,$0000001F,$0000001E,$0000001C
-    DC.L    $0000001B,$00000019,$00000018,$00000017,$00000016,$00000014
-    DC.L    $00000013,$00000012,$00000011,$00000010,$0000000F,$0000000E
-    DC.L    $0000000D,$0000000C,$0000000B,$0000000A,$00000009,$00000008
-    DC.L    $00000008,$00000007,$00000006,$00000005,$00000005,$00000004
-    DC.L    $00000004,$00000003,$00000003,$00000002,$00000002,$00000002
-    DC.L    $00000001,$00000001,$00000001,$00000001,$00000001,$00000001
-    DC.L    $00000001,$00000001,$00000001,$00000001,$00000001,$00000001
-    DC.L    $00000001,$00000001,$00000002,$00000002,$00000002,$00000003
-    DC.L    $00000003,$00000004,$00000004,$00000005,$00000005,$00000006
-    DC.L    $00000007,$00000007,$00000008,$00000009,$0000000A,$0000000A
-    DC.L    $0000000B,$0000000C,$0000000D,$0000000E,$0000000F,$00000010
-    DC.L    $00000012,$00000013,$00000014,$00000015,$00000016,$00000018
-    DC.L    $00000019,$0000001A,$0000001C,$0000001D,$0000001F,$00000020
-    DC.L    $00000022,$00000023,$00000025,$00000026,$00000028,$0000002A
-    DC.L    $0000002B,$0000002D,$0000002F,$00000030,$00000032,$00000034
-    DC.L    $00000036,$00000038,$0000003A,$0000003B,$0000003D,$0000003F
-    DC.L    $00000041,$00000043,$00000045,$00000047,$00000049,$0000004B
-    DC.L    $0000004D,$0000004F,$00000051,$00000054,$00000056,$00000058
-    DC.L    $0000005A,$0000005C,$0000005E,$00000060,$00000063,$00000065
-    DC.L    $00000067,$00000069,$0000006B,$0000006D,$00000070,$00000072
-    DC.L    $00000074,$00000076
+                DC.L $00000024,$00000022,$00000021,$0000001F,$0000001E,$0000001C
+                DC.L $0000001B,$00000019,$00000018,$00000017,$00000016,$00000014
+                DC.L $00000013,$00000012,$00000011,$00000010,$0000000F,$0000000E
+                DC.L $0000000D,$0000000C,$0000000B,$0000000A,$00000009,$00000008
+                DC.L $00000008,$00000007,$00000006,$00000005,$00000005,$00000004
+                DC.L $00000004,$00000003,$00000003,$00000002,$00000002,$00000002
+                DC.L $00000001,$00000001,$00000001,$00000001,$00000001,$00000001
+                DC.L $00000001,$00000001,$00000001,$00000001,$00000001,$00000001
+                DC.L $00000001,$00000001,$00000002,$00000002,$00000002,$00000003
+                DC.L $00000003,$00000004,$00000004,$00000005,$00000005,$00000006
+                DC.L $00000007,$00000007,$00000008,$00000009,$0000000A,$0000000A
+                DC.L $0000000B,$0000000C,$0000000D,$0000000E,$0000000F,$00000010
+                DC.L $00000012,$00000013,$00000014,$00000015,$00000016,$00000018
+                DC.L $00000019,$0000001A,$0000001C,$0000001D,$0000001F,$00000020
+                DC.L $00000022,$00000023,$00000025,$00000026,$00000028,$0000002A
+                DC.L $0000002B,$0000002D,$0000002F,$00000030,$00000032,$00000034
+                DC.L $00000036,$00000038,$0000003A,$0000003B,$0000003D,$0000003F
+                DC.L $00000041,$00000043,$00000045,$00000047,$00000049,$0000004B
+                DC.L $0000004D,$0000004F,$00000051,$00000054,$00000056,$00000058
+                DC.L $0000005A,$0000005C,$0000005E,$00000060,$00000063,$00000065
+                DC.L $00000067,$00000069,$0000006B,$0000006D,$00000070,$00000072
+                DC.L $00000074,$00000076
 
-    dc.l    $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
-    dc.l    $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
-
-    dc.l    $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
-    dc.l    $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
-    dc.l    $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
-    dc.l    $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
-    dc.l    $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
-    dc.l    $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
-    dc.l    $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
-    dc.l    $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
-    dc.l    $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
-    dc.l    $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
-    dc.l    $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
-    dc.l    $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
-    dc.l    $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
-    dc.l    $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
-    dc.l    $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
-    dc.l    $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
+                dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
+                dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
+                    
+                dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
+                dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
+                dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
+                dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
+                dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
+                dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
+                dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
+                dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
+                dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
+                dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
+                dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
+                dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
+                dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
+                dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
+                dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
+                dc.l $76,$76,$76,$76,$76,$76,$76,$76,$76,$76
 
 ddddd:
 ;------------------------------------
+
 Calc_ezil_sin:
-    lea    ezilme_y_koord,a0
-    move.l    number_son,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),sin_y_buf
-    rts
-sin_y_buf:    dc.l    0
-
+                lea ezilme_y_koord,a0
+                move.l number_son,d0
+                mulu #4,d0
+                add.l d0,a0
+                move.l (a0),sin_y_buf
+                rts
+sin_y_buf:      dc.l    0
 ;------------------------------------
-BoB_tablosu:    dc.l    bjel,btopuzye,byakiye,bezmece
-MasK_tablosu:    dc.l    mjel,mtopuzye,myakiye,mezmece
-sOurce_y_mply:    dc.l    14*77,12*79,10*99,10*80
-ScreeN_mOdule:    dc.l    60-14,60-12,60-10,60-10
-BoB_LenGht:    dc.l    5880,6000,7360,5200
-bob_size_table:    dc.l    [77*64]+7,[79*64]+6,[99*64]+5,[64*80]+5
-bob_kare_adeti:    dc.l    127,127,127,250
 
-olum_no:    dc.l    0
-olum_sy:    dc.l    0
+BoB_tablosu:    dc.l bjel,btopuzye,byakiye,bezmece
+MasK_tablosu:   dc.l mjel,mtopuzye,myakiye,mezmece
+sOurce_y_mply:  dc.l 14*77,12*79,10*99,10*80
+ScreeN_mOdule:  dc.l 60-14,60-12,60-10,60-10
+BoB_LenGht:     dc.l 5880,6000,7360,5200
+bob_size_table: dc.l [77*64]+7,[79*64]+6,[99*64]+5,[64*80]+5
+bob_kare_adeti: dc.l 127,127,127,250
+
+olum_no:        dc.l 0
+olum_sy:        dc.l 0
 ;-------------------------------------------------
-bOb_ptr:    dc.l    0
-mask_ptr:    dc.l    0
-Mply_y_ptr:    dc.l    0
-sc_mod_ptr:    dc.w    0
-bob_l_ptr:    dc.l    0
-bob_size_ptr:    dc.w    0
+bOb_ptr:        dc.l 0
+mask_ptr:       dc.l 0
+Mply_y_ptr:     dc.l 0
+sc_mod_ptr:     dc.w 0
+bob_l_ptr:      dc.l 0
+bob_size_ptr:   dc.w 0
 ;-------------------------------------------------
 
-joys:
-    cmp.l    #0,animno
-    bne    return
-    bsr    joystick
-    bsr    moving
-    rts
+joys:           cmp.l #0,animno
+                bne return
+                bsr joystick
+                bsr moving
+                rts
 
-joystick:
-    movem.l    d0-d2,-(a7)
-fire:    move.l    #%10000,d2
-    tst.b    $bfe001    ; Test FIRE
-    bpl    get_req
-    bclr    #4,d2
-get_req:
-    clr.l    d0
-    move.w    $dff00c,d0
-rightmi:btst    #1,d0
-    beq    leftmi
-    bset    #1,d2
-leftmi:
-    btst    #9,d0
-    beq    upmi
-    bset    #3,d2
-upmi:
-    bsr    rotate
-    btst    #8,d0
-    beq    downmi
-    bset    #0,d2
-downmi:
-    btst    #0,d0
-    beq    hicbiri
-    bset    #2,d2
-hicbiri:
-    move.w    d2,stick+2
-    movem.l    (a7)+,d0-d2
-    rts
-rotate:    move.l    d0,d1
-    lsr.l    #1,d0
-    eor.l    d1,d0
-    rts
-stick:    dc.l    0
-
+joystick:       movem.l d0-d2,-(a7)
+fire:           move.l #%10000,d2
+                tst.b $bfe001    ; Test FIRE
+                bpl get_req
+                bclr #4,d2
+get_req:        clr.l d0
+                move.w $dff00c,d0
+rightmi:        btst #1,d0
+                beq leftmi
+                bset #1,d2
+leftmi:         btst #9,d0
+                beq upmi
+                bset #3,d2
+upmi:           bsr rotate
+                btst #8,d0
+                beq downmi
+                bset #0,d2
+downmi:         btst #0,d0
+                beq hicbiri
+                bset #2,d2
+hicbiri:        move.w d2,stick+2
+                movem.l (a7)+,d0-d2
+                rts
+rotate:         move.l d0,d1
+                lsr.l #1,d0
+                eor.l d1,d0
+                rts
+stick:          dc.l 0
 ;≠≠≠≠≠≠≠≠≠≠≠≠≠≠≠≠≠≠≠≠≠≠≠≠≠≠≠
-moving:
-    move.l    stick,d0
-;    and.l    #%01111,d0
+
+moving:         move.l stick,d0
+;               and.l #%01111,d0
 
 .J_fire:
     cmp.l    #16,d0
