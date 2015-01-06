@@ -14,3 +14,10 @@ oyunu. Amiga 1200 - AGA. Ne yazıkki data dosyalarını bulamadım 8(
 * **Müzik**: Tolga "max" Meriç
 * **Grafik**: Şahin Erkoçak
 * Müzik çalma rutini **PRORUNNER**.
+
+
+## Güncellemeler
+
+* **6 Ocak 2015**  
+`bin/dinozorus-level1.exe` eklendi. Amiga 1200’ünüz varsa ya da emülatör
+varsa direk çalıştırıp oynayabilirsiniz!
