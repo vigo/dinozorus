@@ -724,100 +724,95 @@ Make_fire_anim:
 fire_aP:dc.l    0
 ;------------------------------------------------
 
-Fire_cheCk:
-    move.w    fire_var(pc),d0
-    asl.w    #2,d0
-    lea    fire_table,a0
-    move.l    (a0,d0.w),a1
-    jmp    (a1)
+Fire_cheCk:     move.w fire_var(pc),d0
+                asl.w #2,d0
+                lea fire_table,a0
+                move.l (a0,d0.w),a1
+                jmp (a1)
 
+fire_table:     dc.l return
+                dc.l make_fire_anim
 
-fire_table:
-    dc.l    return
-    dc.l    make_fire_anim
-
-
-fire_var:    dc.w    0
+fire_var:       dc.w 0
 ;------------------------------------------------
+
 sceneates:
-        dc.l    0,0,0,0
-        dc.l    1,1,1,1
-        dc.l    2,2,2,2
-        dc.l    3,3,3,3
-        dc.l    4,4,4,4
-
-
-number4:    dc.l    0
+                dc.l 0,0,0,0
+                dc.l 1,1,1,1
+                dc.l 2,2,2,2
+                dc.l 3,3,3,3
+                dc.l 4,4,4,4
+number4:        dc.l 0
 ;------------------------------------------------
+
 tasiekranabas:
-    move.l    ty,d0
-    subq.l    #1,d0
-    mulu    #60,d0
-    move.l    tx,d1
-    add.l    #480,d1
-    asr.l    #3,d1
-    bclr    #0,d1
-    add.w    d1,d0
-    move.l    #btas,a0
+                move.l ty,d0
+                subq.l #1,d0
+                mulu #60,d0
+                move.l tx,d1
+                add.l #480,d1
+                asr.l #3,d1
+                bclr #0,d1
+                add.w d1,d0
+                move.l #btas,a0
+                move.l tsy,d6
+                mulu #10*56,d6
+                add.l d6,a0
+                move.l #mtas,a3
+                add.l d6,a3
+                move.l nonactive,a1
+                add.l d0,a1
+                move.l #4,d0
+.lp:            move.l a0,bltbptr
+                move.l a3,bltaptr
+                move.l a1,bltcptr
+                move.l a1,bltdptr
+                move.w #0,bltamod    ;screen modulo    
+                move.w #0,bltbmod    
+                move.w #50,bltcmod    ;brush modulo=[40-(bursh/8)]
+                move.w #50,bltdmod    ;
+                move.l #$ffffffff,bltafwm
+                move.b tx+3,d1
+                and.l #$f,d1
+                swap d1
+                asr.l #4,d1
+                move.w d1,bltcon1
+                ori.l #$fca,d1
+                move.w d1,bltcon0
+                move.w #[56*64]+5,bltsize    ;[y*64]+[x/16]
+                bsr bw
+                add.l #1680,a0
+                add.l #$2ee0,a1
+                sub.l #1,d0
+                bne .lp
+                rts
 
-    move.l    tsy,d6
-    mulu    #10*56,d6
-    add.l    d6,a0
-
-    move.l    #mtas,a3
-    add.l    d6,a3
-
-    move.l    nonactive,a1
-    add.l    d0,a1
-    move.l    #4,d0
-.lp:    move.l    a0,bltbptr
-    move.l    a3,bltaptr
-    move.l    a1,bltcptr
-    move.l    a1,bltdptr
-    move.w    #0,bltamod    ;screen modulo    
-    move.w    #0,bltbmod    
-    move.w    #50,bltcmod    ;brush modulo=[40-(bursh/8)]
-    move.w    #50,bltdmod    ;
-    move.l    #$ffffffff,bltafwm
-    move.b    tx+3,d1
-    and.l    #$f,d1
-    swap    d1
-    asr.l    #4,d1
-    move.w    d1,bltcon1
-    ori.l    #$fca,d1
-    move.w    d1,bltcon0
-    move.w    #[56*64]+5,bltsize    ;[y*64]+[x/16]
-    bsr    bw
-    add.l    #1680,a0
-    add.l    #$2ee0,a1
-    sub.l    #1,d0
-    bne    .lp
-    rts
-
-tx:    dc.l    350
-ty:    dc.l    64
-tsy:    dc.l    0
+tx:             dc.l 350
+ty:             dc.l 64
+tsy:            dc.l 0
 ;------------------------------------------------
+
 SeTbAcKCoLor:
-    lea    CoLorB,a0
-    lea    CoL_Don+2,a1
-    lea    ColPal3,a4
-    lea    COl_ort+2,a5
-    move.w    #16,d0
-.lp:    move.w    (a0),(a1)
-    move.w    (a4),(a5)
-    add.w    #2,a0
-    add.w    #2,a4
-    add.w    #4,a1
-    add.w    #4,a5
-    sub.w    #1,d0
-    bne    .lp
-    rts
-    incdir    dh1:real/color/
-CoLorB:    incbin 'palet1.bin'
-ColPal3:incbin    'palet3.bin'
-ColUp:    incbin    'xxx'
-renk_data:    incbin    'tepe_renk.color'
+                lea CoLorB,a0
+                lea CoL_Don+2,a1
+                lea ColPal3,a4
+                lea COl_ort+2,a5
+                move.w #16,d0
+.lp:            move.w (a0),(a1)
+                move.w (a4),(a5)
+                add.w #2,a0
+                add.w #2,a4
+                add.w #4,a1
+                add.w #4,a5
+                sub.w #1,d0
+                bne .lp
+                rts
+
+incdir          dh1:real/color/
+CoLorB:         incbin 'palet1.bin'
+ColPal3:        incbin 'palet3.bin'
+ColUp:          incbin 'xxx'
+renk_data:      incbin 'tepe_renk.color'
 
 ;------------------------------------------------
 Press1stPlane:    
