@@ -1994,94 +1994,80 @@ show_ates_sik:
                 move.l #2,olum_no
                 bsr oLum_animleri_datalari_al
                 bsr flip_flop
-
-    add.l    #1,number_son
-    cmp.l    #50,number_son
-    bne    .ma_
-    move.l    #3,hangi_sample_2
-    bsr    play_chan_3
-
-    move.l    #4,animno
-    move.l    #32,px
-    move.l    #0,number
-.sahin:    cmp.b    #0,$dff006
-    bne    .sahin
-    bsr     clrscreen
-    bsr    animpisagor
-    bsr     flip_flop
-
-    cmp.l    #1,zipcik
-    bne    .sahin
+                add.l #1,number_son
+                cmp.l #50,number_son
+                bne .ma_
+                move.l #3,hangi_sample_2
+                bsr play_chan_3
+                move.l #4,animno
+                move.l #32,px
+                move.l #0,number
+.sahin:         cmp.b #0,$dff006
+                bne .sahin
+                bsr clrscreen
+                bsr animpisagor
+                bsr flip_flop
+                cmp.l #1,zipcik
+                bne .sahin
 ;----------------------------------
-    move.l    #42,py
-    move.l    #150,px
+                move.l #42,py
+                move.l #150,px
+.ma_:           move.l number_son,d0
+                move.l kare_adeti_ptr,d1
+                cmp.l d0,d1
+                bne .lp
+                bsr flip_flop
+                bsr clrscreen
+                move.l #0,zipcik
+                move.l #0,number_son
+                move.l #0,animno
+                move.l #0,pausefl
+                move.l #0,carpma_fl
+                move.l #150,px
+                move.w #0,fire_var
+                cmp.l #0,pisagor_hak
+                bne return2
+                move.l #1,endflag
+                rts
 
-
-.ma_:    move.l    number_son,d0
-    move.l    kare_adeti_ptr,d1
-    cmp.l    d0,d1
-    bne    .lp
-
-    bsr    flip_flop
-    bsr    clrscreen
-    move.l    #0,zipcik
-    move.l    #0,number_son
-    move.l    #0,animno
-    move.l    #0,pausefl
-    move.l    #0,carpma_fl
-    move.l    #150,px
-    move.w    #0,fire_var
-    cmp.l    #0,pisagor_hak
-    bne    return2
-    move.l    #1,endflag
-
-    rts
 show_ezer_sik:
-    move.l    #1,pausefl
-    move.w    #$0004,$dff096
-    move.l    #4,hangi_sample_2
-    bsr    play_chan_3
+                move.l #1,pausefl
+                move.w #$0004,$dff096
+                move.l #4,hangi_sample_2
+                bsr play_chan_3
 
-lpoo:    cmp.b    #0,$dff006
-    bne    lpoo
+lpoo:           cmp.b #0,$dff006
+                bne lpoo
+                bsr clrscreen
+                bsr en_check2
+                bsr islemlerust
+                cmp.l #60,number_son
+                bge dalla
+                add.l #1,px
 
-    bsr    clrscreen
-
-    bsr    en_check2
-    bsr    islemlerust
-
-    cmp.l    #60,number_son
-    bge    dalla
-    add.l    #1,px
-
-dalla:    move.l    #3,olum_no
-    bsr    Calc_ezil_sin
-    move.l    sin_y_buf,py
-    bsr    oLum_animleri_datalari_al
-    bsr    flip_flop
-
-
-    add.l    #1,number_son
-    cmp.l    #180,number_son
-    bne    .ma_
-    move.l    #3,hangi_sample_2
-    bsr    play_chan_3
-
-    move.l    #4,animno
-    move.l    #32,px
-    move.l    #0,number
-.sahin:    cmp.b    #0,$dff006
-    bne    .sahin
-    bsr     clrscreen
-    bsr    animpisagor
-    bsr     flip_flop
-
-    cmp.l    #1,zipcik
-    bne    .sahin
+dalla:          move.l #3,olum_no
+                bsr Calc_ezil_sin
+                move.l sin_y_buf,py
+                bsr oLum_animleri_datalari_al
+                bsr flip_flop
+                add.l #1,number_son
+                cmp.l #180,number_son
+                bne .ma_
+                move.l #3,hangi_sample_2
+                bsr play_chan_3
+                move.l #4,animno
+                move.l #32,px
+                move.l #0,number
+.sahin:         cmp.b #0,$dff006
+                bne .sahin
+                bsr clrscreen
+                bsr animpisagor
+                bsr flip_flop
+                cmp.l #1,zipcik
+                bne .sahin
 ;----------------------------------
-    move.l    #42,py
-    move.l    #150,px
-
+                move.l #42,py
+                move.l #150,px
 
 .ma_:    move.l    number_son,d0
     move.l    kare_adeti_ptr,d1
