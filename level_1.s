@@ -2069,168 +2069,156 @@ dalla:          move.l #3,olum_no
                 move.l #42,py
                 move.l #150,px
 
-.ma_:    move.l    number_son,d0
-    move.l    kare_adeti_ptr,d1
-    cmp.l    d0,d1
-    bne    lpoo
-
-    bsr    flip_flop
-    bsr    clrscreen
-
-    move.l    #0,zipcik
-    move.l    #0,number_son
-    move.l    #0,animno
-    move.l    #0,pausefl
-    move.l    #0,carpma_fl
-    move.l    #150,px
-    cmp.l    #0,pisagor_hak
-    bne    return2
-    move.l    #1,endflag
-
-
-    rts
+.ma_:           move.l number_son,d0
+                move.l kare_adeti_ptr,d1
+                cmp.l d0,d1
+                bne lpoo
+                bsr    flip_flop
+                bsr    clrscreen
+                move.l #0,zipcik
+                move.l #0,number_son
+                move.l #0,animno
+                move.l #0,pausefl
+                move.l #0,carpma_fl
+                move.l #150,px
+                cmp.l #0,pisagor_hak
+                bne return2
+                move.l #1,endflag
+                rts
 
 
-_wait_timer:
-    move.l    saniye,d1
-.lp2:    move.l    #60,d0
-.lp:    cmp.b    #255,$dff006
-    bne    .lp
-    sub.l    #1,d0
-    bne    .lp
-    sub.l    #1,d1
-    bne    .lp2
-    rts
-saniye:    dc.l    0
-tIme_point:    dc.l    0
+_wait_timer:    move.l saniye,d1
+.lp2:           move.l #60,d0
+.lp:            cmp.b #255,$dff006
+                bne .lp
+                sub.l #1,d0
+                bne .lp
+                sub.l #1,d1
+                bne .lp2
+                rts
+saniye:         dc.l 0
+tIme_point:     dc.l 0
 ;-------------------------------------------------
-return2:
-    sub.l    #1,pisagor_hak
-    bsr    kelle_setter
-    rts
+return2:        sub.l #1,pisagor_hak
+                bsr kelle_setter
+                rts
 ;-------------------------------------------------
-play_chan_4:
-    move.l    hangi_sample,d0
-    lea    jump_table,a0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),a1
-    jmp    (a1)
+play_chan_4:    move.l hangi_sample,d0
+                lea jump_table,a0
+                mulu #4,d0
+                add.l d0,a0
+                move.l (a0),a1
+                jmp (a1)
 ;-------------------------------------------------
 play_chan_3:
-    move.l    hangi_sample_2,d0
-    lea    jump_table_2,a0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),a1
-    jmp    (a1)
+                move.l hangi_sample_2,d0
+                lea jump_table_2,a0
+                mulu #4,d0
+                add.l d0,a0
+                move.l (a0),a1
+                jmp (a1)
 ;--------------------------------------------------
 
 jump_table:
-    dc.l    return
-    dc.l    kus_otusu,tabla_kalk,kornali
-    dc.l    kol_in
+                dc.l return
+                dc.l kus_otusu,tabla_kalk,kornali
+                dc.l kol_in
 
 jump_table_2:
-    dc.l    return
-    dc.l    ziplarken_ot,yandin_ibne,dikkatus
-    dc.l    aahulan
-
+                dc.l return
+                dc.l ziplarken_ot,yandin_ibne,dikkatus
+                dc.l aahulan
 
 kus_otusu:    
-    move.l    #0,sample_no
-    bsr    calc_chan_4
-    rts
+                move.l #0,sample_no
+                bsr calc_chan_4
+                rts
 tabla_kalk:
-    move.l    #1,sample_no
-    bsr    calc_chan_4
-    rts
+                move.l #1,sample_no
+                bsr calc_chan_4
+                rts
 
-kornali:
-    move.l    #2,sample_no
-    bsr    calc_chan_4
-    rts
+kornali:        move.l #2,sample_no
+                bsr calc_chan_4
+                rts
 kol_in:
-    move.l    #3,sample_no
-    bsr    calc_chan_4
-    rts
+                move.l #3,sample_no
+                bsr calc_chan_4
+                rts
 
-aahulan:
-    move.l    #3,sample_no_2
-    bsr    calc_chan_3
-    rts
+aahulan:        move.l #3,sample_no_2
+                bsr calc_chan_3
+                rts
 
-ziplarken_ot:
-    move.l    #0,sample_no_2
-    bsr    calc_chan_3
-    rts
+ziplarken_ot:   move.l #0,sample_no_2
+                bsr calc_chan_3
+                rts
 
+yandin_ibne:    move.l #1,sample_no_2
+                bsr calc_chan_3
+                rts
 
-yandin_ibne:
-    move.l    #1,sample_no_2
-    bsr    calc_chan_3
-    rts
+dikkatus:       move.l #2,sample_no_2
+                bsr calc_chan_3
+                rts
 
-dikkatus:
-    move.l    #2,sample_no_2
-    bsr    calc_chan_3
-    rts
+bukadar:        rts
+                move.l #3,sample_no_2
+                bsr calc_chan_3
+                rts
 
-bukadar:
-    rts
-    move.l    #3,sample_no_2
-    bsr    calc_chan_3
-    rts
-
-hangi_sample:    dc.l    0
-hangi_sample_2:    dc.l    0
+hangi_sample:   dc.l 0
+hangi_sample_2: dc.l 0
 ;-------------------------------------------------
-Calc_chan_4:
-    move.l    sample_no,d0
-    lea    sample_name,a0
-    lea    sample_len,a1
-    lea    sample_per,a2
-    lea    sample_vol,a3
-    lea    sample_loop,a4
-    lea    loopun_basi,a5
-    mulu    #4,d0
-    add.l    d0,a0
-    add.l    d0,a1
-    add.l    d0,a2
-    add.l    d0,a3
-    add.l    d0,a4
-    add.l    d0,a5
-    move.l    (a0),startptr1
-    move.w    2(a1),lenghtptr1
-    move.w    2(a2),periodptr1
-    move.w    2(a3),volumeptr1
-    move.w    2(a4),loopptr1
-    move.l    (a5),loop_bas_ptr
-    bsr    chan_4
-    rts
-;--------------------------------------------------
-Calc_chan_3:
-    move.l    sample_no_2,d0
-    lea    sample_name2,a0
-    lea    sample_len2,a1
-    lea    sample_per2,a2
-    lea    sample_vol2,a3
-    lea    sample_loop2,a4
-    mulu    #4,d0
-    add.l    d0,a0
-    add.l    d0,a1
-    add.l    d0,a2
-    add.l    d0,a3
-    add.l    d0,a4
-    move.l    (a0),startptr2
-    move.w    2(a1),lenghtptr2
-    move.w    2(a2),periodptr2
-    move.w    2(a3),volumeptr2
-    move.w    2(a4),loopptr2
-    bsr    chan_3
-    rts
 
-YES                EQU    1
+Calc_chan_4:
+                move.l sample_no,d0
+                lea sample_name,a0
+                lea sample_len,a1
+                lea sample_per,a2
+                lea sample_vol,a3
+                lea sample_loop,a4
+                lea loopun_basi,a5
+                mulu #4,d0
+                add.l d0,a0
+                add.l d0,a1
+                add.l d0,a2
+                add.l d0,a3
+                add.l d0,a4
+                add.l d0,a5
+                move.l (a0),startptr1
+                move.w 2(a1),lenghtptr1
+                move.w 2(a2),periodptr1
+                move.w 2(a3),volumeptr1
+                move.w 2(a4),loopptr1
+                move.l (a5),loop_bas_ptr
+                bsr chan_4
+                rts
+;--------------------------------------------------
+
+Calc_chan_3:
+                move.l sample_no_2,d0
+                lea sample_name2,a0
+                lea sample_len2,a1
+                lea sample_per2,a2
+                lea sample_vol2,a3
+                lea sample_loop2,a4
+                mulu #4,d0
+                add.l d0,a0
+                add.l d0,a1
+                add.l d0,a2
+                add.l d0,a3
+                add.l d0,a4
+                move.l (a0),startptr2
+                move.w 2(a1),lenghtptr2
+                move.w 2(a2),periodptr2
+                move.w 2(a3),volumeptr2
+                move.w 2(a4),loopptr2
+                bsr chan_3
+                rts
+
+
+YES               EQU    1
 NO                EQU    0
 INCLUDEFADINGROUTINE        EQU    no
 PACKEDSONGFORMAT        EQU    no
@@ -4102,10 +4090,10 @@ pr_Arpeggiofastlistperiods:
 * END OF PRORUNNER ***************************************************
 
 ;----------------------------------------------------
-sample_no:    dc.l    0
+sample_no:      dc.l    0
 sample_no_2:    dc.l    0
 
-startptr1:    dc.l    0
+startptr1:      dc.l    0
 lenghtptr1:    dc.w    0
 periodptr1:    dc.w    0
 volumeptr1:    dc.w    0
@@ -4189,197 +4177,185 @@ make2:    move.b    #$e2,examcop
     rts    
 ;-------------------------------------------------
 examcop:
-    dc.w    $6e07,$fffe,$106,$1000,$184
-Color0:    dc.w    $000,$106,$1200,$184
-Color1:    dc.w    $000
+                dc.w $6e07,$fffe,$106,$1000,$184
+Color0:         dc.w $000,$106,$1200,$184
+Color1:         dc.w $000
 
-    incdir    dh1:dino/
-Main24:    incbin    '24bitcop3.bin'
+                incdir dh1:dino/
+Main24:         incbin '24bitcop3.bin'
 ;ØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØ
-    section    public_datas,data         
+                section public_datas,data
 ;ØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØ
-gfxname:dc.b    'graphics.library',0,0
-gfxbase:dc.l    0
-oldcop:    dc.l    0
+gfxname:        dc.b 'graphics.library',0,0
+gfxbase:        dc.l 0
+oldcop:         dc.l 0
+nonactive:      dc.l scr2
+flipscr:        dc.l scr1+[scrlenght*0]
+                dc.l scr1+[scrlenght*1]
+                dc.l scr1+[scrlenght*2]
+                dc.l scr1+[scrlenght*3]
+flopscr:        dc.l scr2+[scrlenght*0]
+                dc.l scr2+[scrlenght*1]
+                dc.l scr2+[scrlenght*2]
+                dc.l scr2+[scrlenght*3]
+ust_ekran:      dc.l scr3+[scrlenght2*0]
+                dc.l scr3+[scrlenght2*1]
+                dc.l scr3+[scrlenght2*2]
+                dc.l scr3+[scrlenght2*3]
 
-nonactive:
-    dc.l    scr2
-flipscr:dc.l    scr1+[scrlenght*0]
-    dc.l    scr1+[scrlenght*1]
-    dc.l    scr1+[scrlenght*2]
-    dc.l    scr1+[scrlenght*3]
-
-flopscr:dc.l    scr2+[scrlenght*0]
-    dc.l    scr2+[scrlenght*1]
-    dc.l    scr2+[scrlenght*2]
-    dc.l    scr2+[scrlenght*3]
-
-ust_ekran:
-    dc.l    scr3+[scrlenght2*0]
-    dc.l    scr3+[scrlenght2*1]
-    dc.l    scr3+[scrlenght2*2]
-    dc.l    scr3+[scrlenght2*3]
-
-
-
-    section    chip_datas,data_c
+                section chip_datas,data_c
 ;ØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØ
 NEWCOPPER:
 
-coplist:
-    dc.w    $0100,$0200    ; bit-plane control reg.
-    dc.w    $0102,$0000        ; hor-scroll
-    dc.w    $0104,$0000    ;$0040     sprite pri
-    dc.w    $0106,$1000    ; set color pallette for 16 colors
-    dc.w    $0108,$0000    ;114  modulo (odd)
-    dc.w    $010a,$0000    ; modulo (even)
-    dc.w    $008e,$2c81    ; screen size
-    dc.w    $0090,$2cc1    ; screen size
-    dc.w    $0092,$0038    ; h-start
-    dc.w    $0094,$00d0    ; h-stop
-mouse:    dc.w    $120,0,$122,0
-
-tepe_p:    dc.w    $e0,$0,$e2,$0
-    dc.w    $e4,$0,$e6,$0
-    dc.w    $e8,$0,$ea,$0
-    dc.w    $ec,$0,$ee,$0
-    dc.w    $180,0
-cop_t:    
-    dc.w    $182,$0,$184,$0,$186,$0
-    dc.w    $188,$0,$18a,$0,$18c,$0,$18e,$0
-    dc.w    $190,$0,$192,$0,$194,$0,$196,$0
-    dc.w    $198,$0,$19a,$0,$19c,$0,$19e,$0
-    dc.w    $4907,$fffe,$0100,$4200
+coplist:        dc.w $0100,$0200    ; bit-plane control reg.
+                dc.w $0102,$0000    ; hor-scroll
+                dc.w $0104,$0000    ; $0040     sprite pri
+                dc.w $0106,$1000    ; set color pallette for 16 colors
+                dc.w $0108,$0000    ; 114  modulo (odd)
+                dc.w $010a,$0000    ; modulo (even)
+                dc.w $008e,$2c81    ; screen size
+                dc.w $0090,$2cc1    ; screen size
+                dc.w $0092,$0038    ; h-start
+                dc.w $0094,$00d0    ; h-stop
+mouse:          dc.w $120,0,$122,0
+tepe_p:         dc.w $e0,$0,$e2,$0
+                dc.w $e4,$0,$e6,$0
+                dc.w $e8,$0,$ea,$0
+                dc.w $ec,$0,$ee,$0
+                dc.w $180,0
+cop_t:          dc.w $182,$0,$184,$0,$186,$0
+                dc.w $188,$0,$18a,$0,$18c,$0,$18e,$0
+                dc.w $190,$0,$192,$0,$194,$0,$196,$0
+                dc.w $198,$0,$19a,$0,$19c,$0,$19e,$0
+                dc.w $4907,$fffe,$0100,$4200
 ;------------------------------------------------------------------
 
-    dc.w    $5707,$fffe,$0186,$fe0
-    dc.w    $5807,$fffe,$0186,$b03
-    dc.w    $5907,$fffe,$0186,$b15
-    dc.w    $5a07,$fffe,$0186,$c16
-    dc.w    $5b07,$fffe,$0186,$c27
-    dc.w    $5c07,$fffe,$0186,$c29
-    dc.w    $5d07,$fffe,$0186,$d3d
-    dc.w    $5e07,$fffe,$0186,$d3a
-    dc.w    $5f07,$fffe,$0186,$d4d
-    dc.w    $6007,$fffe,$0186,$e5e
-    dc.w    $6107,$fffe,$0186,$d5e
-    dc.w    $6207,$fffe,$0186,$d6f
-    dc.w    $6307,$fffe,$0186,$d7f
-    dc.w    $6407,$fffe,$0186,$d7f
-    dc.w    $6507,$fffe,$0186,$d7f
-    dc.w    $6607,$fffe,$0186,$d7f
-    dc.w    $6707,$fffe,$0186,$d7f
-
-
-    dc.w    $6b07,$fffe
-    dc.w    $182,$0,$184,$0,$186,$0
-    dc.w    $188,$0,$18a,$0,$18c,$0,$18e,$0
-    dc.w    $190,$0,$192,$0,$194,$0,$196,$0
-    dc.w    $198,$0,$19a,$0,$19c,$0,$19e,$0
-
-
+                dc.w $5707,$fffe,$0186,$fe0
+                dc.w $5807,$fffe,$0186,$b03
+                dc.w $5907,$fffe,$0186,$b15
+                dc.w $5a07,$fffe,$0186,$c16
+                dc.w $5b07,$fffe,$0186,$c27
+                dc.w $5c07,$fffe,$0186,$c29
+                dc.w $5d07,$fffe,$0186,$d3d
+                dc.w $5e07,$fffe,$0186,$d3a
+                dc.w $5f07,$fffe,$0186,$d4d
+                dc.w $6007,$fffe,$0186,$e5e
+                dc.w $6107,$fffe,$0186,$d5e
+                dc.w $6207,$fffe,$0186,$d6f
+                dc.w $6307,$fffe,$0186,$d7f
+                dc.w $6407,$fffe,$0186,$d7f
+                dc.w $6507,$fffe,$0186,$d7f
+                dc.w $6607,$fffe,$0186,$d7f
+                dc.w $6707,$fffe,$0186,$d7f
+                dc.w $6b07,$fffe
+                dc.w $182,$0,$184,$0,$186,$0
+                dc.w $188,$0,$18a,$0,$18c,$0,$18e,$0
+                dc.w $190,$0,$192,$0,$194,$0,$196,$0
+                dc.w $198,$0,$19a,$0,$19c,$0,$19e,$0
 ;------------------------------------------------------------------
-    dc.w    $6d07,$fffe,$0100,$0600
-    dc.w    $0100,$0600    ; bit-plane control reg.
-    dc.w    $0102
-scro1:    dc.w    $0000        ; hor-scroll
-    dc.w    $0104,$0040    ;$0040     sprite pri
-    dc.w    $0106,$1000    ; set color pallette for 16 colors
-    dc.w    $0108,$0118-6    ;114  modulo (odd)
-    dc.w    $010a,$0014-6    ; modulo (even)
-    dc.w    $008e,$2c81    ; screen size
-    dc.w    $0090,$34c1    ; screen size
-    dc.w    $0092,$0028    ; h-start
-    dc.w    $0094,$00d8    ; h-stop
+                dc.w $6d07,$fffe,$0100,$0600
+                dc.w $0100,$0600    ; bit-plane control reg.
+                dc.w $0102
+scro1:          dc.w $0000        ; hor-scroll
+                dc.w $0104,$0040    ;$0040     sprite pri
+                dc.w $0106,$1000    ; set color pallette for 16 colors
+                dc.w $0108,$0118-6    ;114  modulo (odd)
+                dc.w $010a,$0014-6    ; modulo (even)
+                dc.w $008e,$2c81    ; screen size
+                dc.w $0090,$34c1    ; screen size
+                dc.w $0092,$0028    ; h-start
+                dc.w $0094,$00d8    ; h-stop
 
-CoL_DoN:dc.w    $0180,$0,$0182,$0,$0184,$0,$0186,$0     ;Plane-DOwn
-        dc.w    $0188,$0,$018A,$0,$018C,$0,$018E,$0
-    dc.w    $0190,$0,$0192,$0,$0194,$0,$0196,$0
-    dc.w    $0198,$0,$019A,$0,$019C,$0,$019E,$0
-CoL_Up:    dc.w    $01a0,$0,$01a2,$0,$01a4,$0,$01a6,$0     ;plane-Up
-    dc.w    $01a8,$0,$01aA,$0,$01aC,$0,$01aE,$0
-    dc.w    $01b0,$0,$01b2,$0,$01b4,$0,$01b6,$0
-    dc.w    $01b8,$0,$01bA,$0,$01bC,$0,$01bE,$0
-Planep:    dc.w    $e0,$0000,$e2,$0000
-    dc.w    $e8,$0000,$ea,$0000
-    dc.w    $f0,$0000,$f2,$0000
-    dc.w    $f8,$0000,$fa,$0000
-Planep2:dc.w    $e4,$0000,$e6,$0000
-    dc.w    $ec,$0000,$ee,$0000
-    dc.w    $f4,$0000,$f6,$0000
-    dc.w    $fc,$0000,$fe,$0000
-    dc.w    $6e07,$fffe,$0100,$0610
-Raster:    blk.l    5*116,$6f07fffe
+CoL_DoN:        dc.w $0180,$0,$0182,$0,$0184,$0,$0186,$0     ;Plane-DOwn
+                dc.w $0188,$0,$018A,$0,$018C,$0,$018E,$0
+                dc.w $0190,$0,$0192,$0,$0194,$0,$0196,$0
+                dc.w $0198,$0,$019A,$0,$019C,$0,$019E,$0
+CoL_Up:         dc.w $01a0,$0,$01a2,$0,$01a4,$0,$01a6,$0     ;plane-Up
+                dc.w $01a8,$0,$01aA,$0,$01aC,$0,$01aE,$0
+                dc.w $01b0,$0,$01b2,$0,$01b4,$0,$01b6,$0
+                dc.w $01b8,$0,$01bA,$0,$01bC,$0,$01bE,$0
+Planep:         dc.w $e0,$0000,$e2,$0000
+                dc.w $e8,$0000,$ea,$0000
+                dc.w $f0,$0000,$f2,$0000
+                dc.w $f8,$0000,$fa,$0000
+Planep2:        dc.w $e4,$0000,$e6,$0000
+                dc.w $ec,$0000,$ee,$0000
+                dc.w $f4,$0000,$f6,$0000
+                dc.w $fc,$0000,$fe,$0000
+                dc.w $6e07,$fffe,$0100,$0610
+Raster:         blk.l 5*116,$6f07fffe
 ;--------------------------------------------------------------
 ; $0184 = Bo$ RenK!
 ;--------------------------------------------------------------
-co:    dc.w    $e207,$fffe,$106,$1000
+co:             dc.w $e207,$fffe,$106,$1000
 ;--------------------------------------------------------------
-COL_ORT:dc.w    $0180,$0000,$0182,$0000,$0184,$0000,$0186,$0000
-    dc.w    $0188,$0000,$018A,$0000,$018C,$0000,$018E,$0000
-    dc.w    $0190,$0000,$0192,$0000,$0194,$0000,$0196,$0000
-    dc.w    $0198,$0000,$019A,$0000,$019C,$0000,$019E,$0000
+COL_ORT:        dc.w $0180,$0000,$0182,$0000,$0184,$0000,$0186,$0000
+                dc.w $0188,$0000,$018A,$0000,$018C,$0000,$018E,$0000
+                dc.w $0190,$0000,$0192,$0000,$0194,$0000,$0196,$0000
+                dc.w $0198,$0000,$019A,$0000,$019C,$0000,$019E,$0000
 ;--------------------------------------------------------------
 
-raster2:blk.l    5*84,$e307fffe
+raster2:        blk.l 5*84,$e307fffe
 
 
 ;    dc.w    $ed07,$fffe
 ;--------------------------------------------------------------
-    dc.l    -2
+                dc.l -2
 
-sprite1:dc.l    0
+sprite1:        dc.l 0
 ;-------------------------------------------------
-    incdir    dh1:real/raw/
-back:        incbin    'back04.raw'
-bwalk:        incbin    'pisa-walk.raw'
-bjump:        incbin    'pisa-jump.raw'
-begil:        incbin    'pisa-egil.raw'
-bkir:        incbin    'pisa-kir.raw'
-bcanavar:    incbin    'canavar-back'
-btas:        incbin    'tas.raw'
-btopuz:        incbin    'topuz2.raw'
-bkus:        incbin    'kus.raw'
-bates:        incbin    'ates.raw'
-bezer:        incbin    'yeni-ezer.raw'
-bjel:        incbin    'jel.raw'
-btopuzye:    incbin    'topuz_ye.raw'
-byakiye:    incbin    'ates-yakar.raw'
-bezmece:    incbin    'ezil-pisa.raw'
-font:        incbin    'sayilar.raw'
-kafa:        incbin    'sadekafa.raw'
-bbigd:        incbin    'big-dikkat.raw'
-mbigd:        incbin    'big-dikkat.mask'
+                incdir dh1:real/raw/
+back:           incbin 'back04.raw'
+bwalk:          incbin 'pisa-walk.raw'
+bjump:          incbin 'pisa-jump.raw'
+begil:          incbin 'pisa-egil.raw'
+bkir:           incbin 'pisa-kir.raw'
+bcanavar:       incbin 'canavar-back'
+btas:           incbin 'tas.raw'
+btopuz:         incbin 'topuz2.raw'
+bkus:           incbin 'kus.raw'
+bates:          incbin 'ates.raw'
+bezer:          incbin 'yeni-ezer.raw'
+bjel:           incbin 'jel.raw'
+btopuzye:       incbin 'topuz_ye.raw'
+byakiye:        incbin 'ates-yakar.raw'
+bezmece:        incbin 'ezil-pisa.raw'
+font:           incbin 'sayilar.raw'
+kafa:           incbin 'sadekafa.raw'
+bbigd:          incbin 'big-dikkat.raw'
+mbigd:          incbin 'big-dikkat.mask'
 ;-----------------------------------------------
-    incdir    dh1:real/mask/
-mwalk:        incbin    'pisa-walk.mask'
-mjump:        incbin    'pisa-jump.mask'
-megil:        incbin    'pisa-egil.mask'
-mkir:        incbin    'pisa-kir.mask'
-mtas:        incbin    'tas.mask'
-mkus:        incbin    'kus.mask'
-mates:        incbin    'ates.mask'
-mezer:        incbin    'yeni-ezer.mask'
-mjel:        incbin    'jel.mask'
-mtopuzye:    incbin    'topuz_ye.mask'
-myakiye:    incbin    'ates-yakar.mask'
-mezmece:    incbin    'ezil-pisa.mask'
+                incdir dh1:real/mask/
+mwalk:          incbin 'pisa-walk.mask'
+mjump:          incbin 'pisa-jump.mask'
+megil:          incbin 'pisa-egil.mask'
+mkir:           incbin 'pisa-kir.mask'
+mtas:           incbin 'tas.mask'
+mkus:           incbin 'kus.mask'
+mates:          incbin 'ates.mask'
+mezer:          incbin 'yeni-ezer.mask'
+mjel:           incbin 'jel.mask'
+mtopuzye:       incbin 'topuz_ye.mask'
+myakiye:        incbin 'ates-yakar.mask'
+mezmece:        incbin 'ezil-pisa.mask'
 ;-------------------------------------------------
-        incdir    dh1:real/samples/
-sample1:    incbin    z-ucancanavar
-sample2:    incbin    iki-sample2
-sample3:    incbin    z-hooppidik
-sample4:    incbin    z-yandim-yandim
-sample5:    incbin    z-lutfen.Dikkatus
-sample7:    incbin    z-kornali.kosma
-sample6:    incbin    kolu-indirme-u
-samplex:    incbin    auuu
-    incdir    dh1:dino/
-pr_data:incbin    mod.dinazorus-ii.l
-    section    screens,bss_c
+
+                incdir dh1:real/samples/
+sample1:        incbin z-ucancanavar
+sample2:        incbin iki-sample2
+sample3:        incbin z-hooppidik
+sample4:        incbin z-yandim-yandim
+sample5:        incbin z-lutfen.Dikkatus
+sample7:        incbin z-kornali.kosma
+sample6:        incbin kolu-indirme-u
+samplex:        incbin auuu
+                incdir dh1:dino/
+pr_data:        incbin mod.dinazorus-ii.l
+
+                section screens,bss_c
 ;-------------------------------------------------
-scr1:    ds.b    scrlenght*4
-scr2:    ds.b    scrlenght*4
-bosscr:    ds.b    [44*200]*4
-scr3:    ds.b    scrlenght2*4
-b_kafa:    ds.b    [32*34]*4
+scr1:           ds.b scrlenght*4
+scr2:           ds.b scrlenght*4
+bosscr:         ds.b [44*200]*4
+scr3:           ds.b scrlenght2*4
+b_kafa:         ds.b [32*34]*4
