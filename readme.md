@@ -22,11 +22,23 @@ oyunu. Amiga 1200 - AGA. Ne yazıkki data dosyalarını bulamadım 8(
 Bazı data dosyalarını bulamadım, buldukça ekleyeceğim. An itibariyle eksikler:
 
 - `DINO-II.data`
+- `palet1.bin`
+- `palet3.bin`
+- `xxx`
+- `tepe_renk.color`
+- Tüm `.raw`, `.mask` dosyaları
+- Tüm sample (ses) dosyaları
 
 ## Güncellemeler
 
-* **8 Ocak 2015**  
-Ekran görüntüleri eklendi.
-* **6 Ocak 2015**  
-`bin/dinozorus-level1.exe` eklendi. Amiga 1200’ünüz varsa ya da emülatör
+**8 Ocak 2015**
+
+* Ekran görüntüleri eklendi.
+* `file.i` eklendi.
+* `24bitcop3.bin` eklendi.
+* Müzik dosyası `mod.dinazorus-ii.l` eklendi.
+
+**6 Ocak 2015**
+
+* `bin/dinozorus-level1.exe` eklendi. Amiga 1200’ünüz varsa ya da emülatör
 varsa direk çalıştırıp oynayabilirsiniz!
