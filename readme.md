@@ -17,6 +17,11 @@ oyunu. Amiga 1200 - AGA. Ne yazıkki data dosyalarını bulamadım 8(
 * **Grafik**: Şahin Erkoçak
 * Müzik çalma rutini **PRORUNNER**.
 
+## Eksik Dosyalar
+
+Bazı data dosyalarını bulamadım, buldukça ekleyeceğim. An itibariyle eksikler:
+
+- `DINO-II.data`
 
 ## Güncellemeler
 
