@@ -18,6 +18,8 @@ oyunu. Amiga 1200 - AGA. Ne yazıkki data dosyalarını bulamadım 8(
 
 ## Güncellemeler
 
+* **8 Ocak 2015**  
+Ekran görüntüleri eklendi.
 * **6 Ocak 2015**  
 `bin/dinozorus-level1.exe` eklendi. Amiga 1200’ünüz varsa ya da emülatör
 varsa direk çalıştırıp oynayabilirsiniz!
