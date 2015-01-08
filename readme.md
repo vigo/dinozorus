@@ -1,5 +1,7 @@
 # Dinozorous Televizyon Oyunu
 
+![Dinozorous](https://raw.githubusercontent.com/vigo/dinozorus/master/screens/dino-03.png)
+
 1992-93 yıllarında ATV televizyon kanalında yayınlanan, interaktif televizyon
 oyunu. Amiga 1200 - AGA. Ne yazıkki data dosyalarını bulamadım 8(
 
