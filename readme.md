@@ -31,6 +31,10 @@ Bazı data dosyalarını bulamadım, buldukça ekleyeceğim. An itibariyle eksik
 
 ## Güncellemeler
 
+**14 Ocak 2015**
+
+* Oyunun 2.Bölümü (ara geçiş) `bin/dinozorus-level2.exe` eklendi.
+
 **8 Ocak 2015**
 
 * Ekran görüntüleri eklendi.
