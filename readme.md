@@ -29,11 +29,16 @@ Bazı data dosyalarını bulamadım, buldukça ekleyeceğim. An itibariyle eksik
 - Tüm `.raw`, `.mask` dosyaları
 - Tüm sample (ses) dosyaları
 
+## Ara Geçiş Bölüm 2
+
+![Ara Geçiş Bölüm 2](https://raw.githubusercontent.com/vigo/dinozorus/master/screens/bolum-2-ara-level.png)
+
 ## Güncellemeler
 
 **14 Ocak 2015**
 
 * Oyunun 2.Bölümü (ara geçiş) `bin/dinozorus-level2.exe` eklendi.
+* Oyunun 2.Bölümü (ara geçiş) source eklendi ama düzenleniyor.
 
 **8 Ocak 2015**
 
