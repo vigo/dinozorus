@@ -984,42 +984,40 @@ morfi:                  dc.l 0,0,0,0,0,0,0,0,0,0
                         dc.l 6,6,6,6,6,6,6,6,6,6
                         dc.l 6,6,6,6,6,6,6,6,6,6
 ;-----------------------------------------------------------------------------
-senaryo_set:
-    lea    senaryotable,a0
-    move.l    animno,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),vigoptr
-    bsr    senaryo2
-    rts
-;-------------------------------------------------
-senaryo2:
-    move.l    vigoptr,a0
-    move.l    number,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),psy
-    rts
+senaryo_set:            lea senaryotable,a0
+                        move.l animno,d0
+                        mulu #4,d0
+                        add.l d0,a0
+                        move.l (a0),vigoptr
+                        bsr senaryo2
+                        rts
+;-----------------------------------------------------------------------------
+senaryo2:               move.l vigoptr,a0
+                        move.l number,d0
+                        mulu #4,d0
+                        add.l d0,a0
+                        move.l (a0),psy
+                        rts
 
-vigoptr:dc.l    0
-number:    dc.l    0
-;-------------------------------------------------
-px:        dc.l    0
-py:        dc.l    53
-psy:        dc.l    0
-pbobptr:    dc.l    0
-pmaskptr:    dc.l    0
-moduloptr:    dc.w    0
-sizeptr:    dc.w    0
-lenghtptr:    dc.l    0
-sizeyptr:    dc.l    0
-frameptr:    dc.l    0
-;-------------------------------------------------
-        incdir    dh1:real/color/
-color_data:    incbin    palet1.bin
-color_data2:    incbin    palet3.bin
-color_data3:    incbin    xxx
-;-------------------------------------------------
+vigoptr:                dc.l 0
+number:                 dc.l 0
+;-----------------------------------------------------------------------------
+px:                     dc.l 0
+py:                     dc.l 53
+psy:                    dc.l 0
+pbobptr:                dc.l 0
+pmaskptr:               dc.l 0
+moduloptr:              dc.w 0
+sizeptr:                dc.w 0
+lenghtptr:              dc.l 0
+sizeyptr:               dc.l 0
+frameptr:               dc.l 0
+;-----------------------------------------------------------------------------
+                        incdir    dh1:real/color/
+color_data:             incbin palet1.bin
+color_data2:            incbin palet3.bin
+color_data3:            incbin xxx
+;-----------------------------------------------------------------------------
 YES                EQU    1
 NO                EQU    0
 INCLUDEFADINGROUTINE        EQU    no
@@ -2890,319 +2888,289 @@ pr_Arpeggiofastlistperiods:
     dc.w    216,203,192,181,171,161,152,144,136,128,121,114
 
 * END OF PRORUNNER ***************************************************
-;-------------------------------------------------
-play_chan_4:
-    move.l    hangi_sample,d0
-    lea    _s_jump_table,a0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),a1
-    jmp    (a1)
-;-------------------------------------------------
-play_chan_3:
-    move.l    hangi_sample_2,d0
-    lea    jump_table_2,a0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),a1
-    jmp    (a1)
-;--------------------------------------------------
 
-_s_jump_table:
-    dc.l    return
-    dc.l    kapi_zili
-    dc.l    skor_art
+;-----------------------------------------------------------------------------
+play_chan_4:        move.l hangi_sample,d0
+                    lea _s_jump_table,a0
+                    mulu #4,d0
+                    add.l d0,a0
+                    move.l (a0),a1
+                    jmp (a1)
+;-----------------------------------------------------------------------------
+play_chan_3:        move.l hangi_sample_2,d0
+                    lea jump_table_2,a0
+                    mulu #4,d0
+                    add.l d0,a0
+                    move.l (a0),a1
+                    jmp (a1)
+;-----------------------------------------------------------------------------
+_s_jump_table:      dc.l return
+                    dc.l kapi_zili
+                    dc.l skor_art
+kapi_zili:          move.l #0,sample_no
+                    bsr calc_chan_4
+                    rts
+;-----------------------------------------------------------------------------
+skor_art:           move.l #1,sample_no
+                    bsr calc_chan_4
+                    rts
+;-----------------------------------------------------------------------------
+jump_table_2:       dc.l return
+                    dc.l geyir
+                    dc.l tukur
+                    dc.l vahsi
 
+geyir:              move.l #0,sample_no_2
+                    bsr calc_chan_3
+                    rts
 
-kapi_zili:
-    move.l    #0,sample_no
-    bsr    calc_chan_4
-    rts
+tukur:              move.l #1,sample_no_2
+                    bsr calc_chan_3
+                    rts
 
-skor_art:
-    move.l    #1,sample_no
-    bsr    calc_chan_4
-    rts
-;---------------------------------------------------
-jump_table_2:
-    dc.l    return
-    dc.l    geyir
-    dc.l    tukur
-    dc.l    vahsi
+vahsi:              move.l #2,sample_no_2
+                    bsr calc_chan_3
+                    rts
+;-----------------------------------------------------------------------------
+hangi_sample:       dc.l 0
+hangi_sample_2:     dc.l 0
+;-----------------------------------------------------------------------------
+Calc_chan_4:        move.l sample_no,d0
+                    lea sample_name,a0
+                    lea sample_len,a1
+                    lea sample_per,a2
+                    lea sample_vol,a3
+                    lea sample_loop,a4
+                    lea loopun_basi,a5
+                    mulu #4,d0
+                    add.l d0,a0
+                    add.l d0,a1
+                    add.l d0,a2
+                    add.l d0,a3
+                    add.l d0,a4
+                    add.l d0,a5
+                    move.l (a0),startptr1
+                    move.w 2(a1),lenghtptr1
+                    move.w 2(a2),periodptr1
+                    move.w 2(a3),volumeptr1
+                    move.w 2(a4),loopptr1
+                    move.l (a5),loop_bas_ptr
+                    bsr chan_4
+                    rts
+;-----------------------------------------------------------------------------
+Calc_chan_3:        move.l sample_no_2,d0
+                    lea sample_name2,a0
+                    lea sample_len2,a1
+                    lea sample_per2,a2
+                    lea sample_vol2,a3
+                    lea sample_loop2,a4
+                    mulu #4,d0
+                    add.l d0,a0
+                    add.l d0,a1
+                    add.l d0,a2
+                    add.l d0,a3
+                    add.l d0,a4
+                    move.l (a0),startptr2
+                    move.w 2(a1),lenghtptr2
+                    move.w 2(a2),periodptr2
+                    move.w 2(a3),volumeptr2
+                    move.w 2(a4),loopptr2
+                    bsr chan_3
+                    rts
+;-----------------------------------------------------------------------------
+CHAN_4:             move.w #8,$dff096
+                    move.l startptr1,$dff0d0
+                    move.w lenghtptr1,$dff0d4
+                    move.w periodptr1,$dff0d6
+                    move.w volumeptr1,$dff0d8
+                    move.w #$8008,$dff096
+                    move.l #1500,d0
+.1:                 dbra d0,.1
+                    move.l loop_bas_ptr,$dff0d0
+                    move.w loopptr1,$dff0d4
+                    rts
+;-----------------------------------------------------------------------------
+CHAN_3:             move.w #4,$dff096
+                    move.l startptr2,$dff0c0
+                    move.w lenghtptr2,$dff0c4
+                    move.w periodptr2,$dff0c6
+                    move.w volumeptr2,$dff0c8
+                    move.w #$8004,$dff096
+                    move.l #1500,d0
+.1:                 dbra d0,.1
+                    move.l startptr2,$dff0c0
+                    move.w loopptr2,$dff0c4
+                    rts
+;-----------------------------------------------------------------------------
+sample_no:          dc.l 0
+sample_no_2:        dc.l 0
+startptr1:          dc.l 0
+lenghtptr1:         dc.w 0
+periodptr1:         dc.w 0
+volumeptr1:         dc.w 0
+loopptr1:           dc.w 0
+loop_bas_ptr:       dc.l 0
+;-----------------------------------------------------------------------------
+startptr2:          dc.l 0
+lenghtptr2:         dc.w 0
+periodptr2:         dc.w 0
+volumeptr2:         dc.w 0
+loopptr2:           dc.w 0
+;-----------------------------------------------------------------------------
+SamPle_name:        dc.l sample1,sample3
+SampLe_len:         dc.l 1599,399
+Sample_per:         dc.l 600,300
+sample_vol:         dc.l 64,64
+Sample_loop:        dc.l 1,1
+loopun_basi:        dc.l sample1,sample3
+SamPle_name2:       dc.l sample2,sample4,sample5
+SampLe_len2:        dc.l 1510,2199,10802
+Sample_per2:        dc.l 400,200,500
+sample_vol2:        dc.l 64,64,64
+Sample_loop2:       dc.l 1,1,1
+;-----------------------------------------------------------------------------
+                    section    public_datas,data
+;-----------------------------------------------------------------------------
+gfxname:            dc.b 'graphics.library',0,0
+gfxbase:            dc.l 0
+oldcop:             dc.l 0
 
-geyir:    
-    move.l    #0,sample_no_2
-    bsr    calc_chan_3
-    rts
-tukur:
-    move.l    #1,sample_no_2
-    bsr    calc_chan_3
-    rts
+nonactive:          dc.l scr2
+flipscr:            dc.l scr1+[screen_length*0]
+                    dc.l scr1+[screen_length*1]
+                    dc.l scr1+[screen_length*2]
+                    dc.l scr1+[screen_length*3]
 
-vahsi:
-    move.l    #2,sample_no_2
-    bsr    calc_chan_3
-    rts
+flopscr:            dc.l scr2+[screen_length*0]
+                    dc.l scr2+[screen_length*1]
+                    dc.l scr2+[screen_length*2]
+                    dc.l scr2+[screen_length*3]
 
-;-------------------------------------------------
-hangi_sample:    dc.l    0
-hangi_sample_2:    dc.l    0
-;-------------------------------------------------
-Calc_chan_4:
-    move.l    sample_no,d0
-    lea    sample_name,a0
-    lea    sample_len,a1
-    lea    sample_per,a2
-    lea    sample_vol,a3
-    lea    sample_loop,a4
-    lea    loopun_basi,a5
-    mulu    #4,d0
-    add.l    d0,a0
-    add.l    d0,a1
-    add.l    d0,a2
-    add.l    d0,a3
-    add.l    d0,a4
-    add.l    d0,a5
-    move.l    (a0),startptr1
-    move.w    2(a1),lenghtptr1
-    move.w    2(a2),periodptr1
-    move.w    2(a3),volumeptr1
-    move.w    2(a4),loopptr1
-    move.l    (a5),loop_bas_ptr
-    bsr    chan_4
-    rts
-;--------------------------------------------------
-Calc_chan_3:
-    move.l    sample_no_2,d0
-    lea    sample_name2,a0
-    lea    sample_len2,a1
-    lea    sample_per2,a2
-    lea    sample_vol2,a3
-    lea    sample_loop2,a4
-    mulu    #4,d0
-    add.l    d0,a0
-    add.l    d0,a1
-    add.l    d0,a2
-    add.l    d0,a3
-    add.l    d0,a4
-    move.l    (a0),startptr2
-    move.w    2(a1),lenghtptr2
-    move.w    2(a2),periodptr2
-    move.w    2(a3),volumeptr2
-    move.w    2(a4),loopptr2
-    bsr    chan_3
-    rts
-;-------------------------------------------------
-CHAN_4:    move.w    #8,$dff096
-    move.l    startptr1,$dff0d0
-
-    move.w    lenghtptr1,$dff0d4
-    move.w    periodptr1,$dff0d6
-    move.w    volumeptr1,$dff0d8
-
-    move.w    #$8008,$dff096
-    move.l    #1500,d0
-.1:    dbra    d0,.1
-    move.l    loop_bas_ptr,$dff0d0
-    move.w    loopptr1,$dff0d4
-    rts
-;-------------------------------------
-CHAN_3:    move.w    #4,$dff096
-    move.l    startptr2,$dff0c0
-    move.w    lenghtptr2,$dff0c4
-    move.w    periodptr2,$dff0c6
-    move.w    volumeptr2,$dff0c8
-    move.w    #$8004,$dff096
-    move.l    #1500,d0
-.1:    dbra    d0,.1
-    move.l    startptr2,$dff0c0
-    move.w    loopptr2,$dff0c4
-    rts
-;----------------------------------------------------
-sample_no:    dc.l    0
-sample_no_2:    dc.l    0
-
-startptr1:    dc.l    0
-lenghtptr1:    dc.w    0
-periodptr1:    dc.w    0
-volumeptr1:    dc.w    0
-loopptr1:    dc.w    0
-loop_bas_ptr:    dc.l    0
-;---------------------------
-startptr2:    dc.l    0
-lenghtptr2:    dc.w    0
-periodptr2:    dc.w    0
-volumeptr2:    dc.w    0
-loopptr2:    dc.w    0
-;---------------------------
-
-SamPle_name:    dc.l    sample1,sample3
-SampLe_len:    dc.l    1599,399
-Sample_per:    dc.l    600,300
-sample_vol:    dc.l    64,64
-Sample_loop:    dc.l    1,1
-loopun_basi:    dc.l    sample1,sample3
-
-
-SamPle_name2:    dc.l    sample2,sample4,sample5
-SampLe_len2:    dc.l    1510,2199,10802
-Sample_per2:    dc.l    400,200,500
-sample_vol2:    dc.l    64,64,64
-Sample_loop2:    dc.l    1,1,1
-;-------------------------------------------------
-    section    public_datas,data         
-;¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-gfxname:dc.b    'graphics.library',0,0
-gfxbase:dc.l    0
-oldcop:    dc.l    0
-
-nonactive:
-    dc.l    scr2
-flipscr:dc.l    scr1+[screen_length*0]
-    dc.l    scr1+[screen_length*1]
-    dc.l    scr1+[screen_length*2]
-    dc.l    scr1+[screen_length*3]
-
-flopscr:dc.l    scr2+[screen_length*0]
-    dc.l    scr2+[screen_length*1]
-    dc.l    scr2+[screen_length*2]
-    dc.l    scr2+[screen_length*3]
-ust_ekran:
-    dc.l    scr3+[screen_lengthx*0]
-    dc.l    scr3+[screen_lengthx*1]
-    dc.l    scr3+[screen_lengthx*2]
-    dc.l    scr3+[screen_lengthx*3]
-
-;-------------------------------------------------
-    section    chip_datas,data_c
-;¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ust_ekran:          dc.l scr3+[screen_lengthx*0]
+                    dc.l scr3+[screen_lengthx*1]
+                    dc.l scr3+[screen_lengthx*2]
+                    dc.l scr3+[screen_lengthx*3]
+;-----------------------------------------------------------------------------
+                    section chip_datas,data_c
+;-----------------------------------------------------------------------------
 NEWCOPPER:
 coplist:
-    dc.w    $0100,$020 bit-plane control reg.
-    dc.w    $0102,$0000        ; hor-scroll
-    dc.w    $0104,$0000    ;$0040     sprite pri
-    dc.w    $0106,$1000    ; set color pallette for 16 colors
-    dc.w    $0108,$0000    ;114  modulo (odd)
-    dc.w    $010a,$0000    ; modulo (even)
-    dc.w    $008e,$2c81    ; screen size
-    dc.w    $0090,$2cc1    ; screen size
-    dc.w    $0092,$0038    ; h-start
-    dc.w    $0094,$00d0    ; h-stop
-
-Mouse:    dc.w    $120,0,$122,0
-;--------------------------------------------------
-tepe_p:    dc.w    $e0,$0,$e2,$0
-    dc.w    $e4,$0,$e6,$0
-    dc.w    $e8,$0,$ea,$0
-    dc.w    $ec,$0,$ee,$0
-    dc.w    $180,0
+                    dc.w $0100,$020     ; bit-plane control reg.
+                    dc.w $0102,$0000    ; hor-scroll
+                    dc.w $0104,$0000    ; $0040     sprite pri
+                    dc.w $0106,$1000    ; set color pallette for 16 colors
+                    dc.w $0108,$0000    ; 114  modulo (odd)
+                    dc.w $010a,$0000    ; modulo (even)
+                    dc.w $008e,$2c81    ; screen size
+                    dc.w $0090,$2cc1    ; screen size
+                    dc.w $0092,$0038    ; h-start
+                    dc.w $0094,$00d0    ; h-stop
+Mouse:              dc.w $120,0,$122,0
+;-----------------------------------------------------------------------------
+tepe_p:             dc.w $e0,$0,$e2,$0
+                    dc.w $e4,$0,$e6,$0
+                    dc.w $e8,$0,$ea,$0
+                    dc.w $ec,$0,$ee,$0
+                    dc.w $180,0
 cop_t:    
-    dc.w    $182,$0,$184,$0,$186,$0
-    dc.w    $188,$0,$18a,$0,$18c,$0,$18e,$0
-    dc.w    $190,$0,$192,$0,$194,$0,$196,$0
-    dc.w    $198,$0,$19a,$0,$19c,$0,$19e,$0
-    dc.w    $4907,$fffe,$0100,$4200
-;-------------------------------------------------
-    dc.w    $5707,$fffe,$0186,$fe0
-    dc.w    $5807,$fffe,$0186,$b03
-    dc.w    $5907,$fffe,$0186,$b15
-    dc.w    $5a07,$fffe,$0186,$c16
-    dc.w    $5b07,$fffe,$0186,$c27
-    dc.w    $5c07,$fffe,$0186,$c29
-    dc.w    $5d07,$fffe,$0186,$d3d
-    dc.w    $5e07,$fffe,$0186,$d3a
-    dc.w    $5f07,$fffe,$0186,$d4d
-    dc.w    $6007,$fffe,$0186,$e5e
-    dc.w    $6107,$fffe,$0186,$d5e
-    dc.w    $6207,$fffe,$0186,$d6f
-    dc.w    $6307,$fffe,$0186,$d7f
-    dc.w    $6407,$fffe,$0186,$d7f
-    dc.w    $6507,$fffe,$0186,$d7f
-    dc.w    $6607,$fffe,$0186,$d7f
-    dc.w    $6707,$fffe,$0186,$d7f
-;-------------------------------------------------
-    dc.w    $6b07,$fffe
-    dc.w    $182,$0,$184,$0,$186,$0
-    dc.w    $188,$0,$18a,$0,$18c,$0,$18e,$0
-    dc.w    $190,$0,$192,$0,$194,$0,$196,$0
-    dc.w    $198,$0,$19a,$0,$19c,$0,$19e,$0
+                    dc.w $182,$0,$184,$0,$186,$0
+                    dc.w $188,$0,$18a,$0,$18c,$0,$18e,$0
+                    dc.w $190,$0,$192,$0,$194,$0,$196,$0
+                    dc.w $198,$0,$19a,$0,$19c,$0,$19e,$0
+                    dc.w $4907,$fffe,$0100,$4200
+                        
+                    dc.w $5707,$fffe,$0186,$fe0
+                    dc.w $5807,$fffe,$0186,$b03
+                    dc.w $5907,$fffe,$0186,$b15
+                    dc.w $5a07,$fffe,$0186,$c16
+                    dc.w $5b07,$fffe,$0186,$c27
+                    dc.w $5c07,$fffe,$0186,$c29
+                    dc.w $5d07,$fffe,$0186,$d3d
+                    dc.w $5e07,$fffe,$0186,$d3a
+                    dc.w $5f07,$fffe,$0186,$d4d
+                    dc.w $6007,$fffe,$0186,$e5e
+                    dc.w $6107,$fffe,$0186,$d5e
+                    dc.w $6207,$fffe,$0186,$d6f
+                    dc.w $6307,$fffe,$0186,$d7f
+                    dc.w $6407,$fffe,$0186,$d7f
+                    dc.w $6507,$fffe,$0186,$d7f
+                    dc.w $6607,$fffe,$0186,$d7f
+                    dc.w $6707,$fffe,$0186,$d7f
 
-    dc.w    $6d07,$fffe,$0100,$0600
-    dc.w    $0100,$0600    ; bit-plane control reg.
-    dc.w    $0102,$0000    ; hor-scroll
-    dc.w    $0104,$0000    ;$0040     sprite pri
-    dc.w    $0106,$1000    ; set color pallette for 16 colors
+                    dc.w $6b07,$fffe
+                    dc.w $182,$0,$184,$0,$186,$0
+                    dc.w $188,$0,$18a,$0,$18c,$0,$18e,$0
+                    dc.w $190,$0,$192,$0,$194,$0,$196,$0
+                    dc.w $198,$0,$19a,$0,$19c,$0,$19e,$0
+                        
+                    dc.w $6d07,$fffe,$0100,$0600
+                    dc.w $0100,$0600    ; bit-plane control reg.
+                    dc.w $0102,$0000    ; hor-scroll
+                    dc.w $0104,$0000    ;$0040     sprite pri
+                    dc.w $0106,$1000    ; set color pallette for 16 colors
+                        
+                    dc.w $0108,$0000    ; modulo (odd)
+                    dc.w $010a,$0000    ; modulo (even)
+                    dc.w $008e,$2c81    ; screen size
+                    dc.w $0090,$2cc1    ; screen size
+                    dc.w $0092,$0038    ; h-start
+                    dc.w $0094,$00d0    ; h-stop
 
-    dc.w    $0108,$0000    ; modulo (odd)
-    dc.w    $010a,$0000    ; modulo (even)
-    dc.w    $008e,$2c81    ; screen size
-    dc.w    $0090,$2cc1    ; screen size
-    dc.w    $0092,$0038    ; h-start
-    dc.w    $0094,$00d0    ; h-stop
+Plane_d:            dc.w $e0,$0000,$e2,$0000
+                    dc.w $e8,$0000,$ea,$0000
+                    dc.w $f0,$0000,$f2,$0000
+                    dc.w $f8,$0000,$fa,$0000
+Plane_u:            dc.w $e4,$0000,$e6,$0000
+                    dc.w $ec,$0000,$ee,$0000
+                    dc.w $f4,$0000,$f6,$0000
+                    dc.w $fc,$0000,$fe,$0000
+CoL_u:              dc.w $0180,$0,$0182,$0,$0184,$0,$0186,$0     ;Plane-up
+                    dc.w $0188,$0,$018A,$0,$018C,$0,$018E,$0
+                    dc.w $0190,$0,$0192,$0,$0194,$0,$0196,$0
+                    dc.w $0198,$0,$019A,$0,$019C,$0,$019E,$0
+CoL_d:              dc.w $01a0,$0,$01a2,$0,$01a4,$0,$01a6,$0     ;plane-Up
+                    dc.w $01a8,$0,$01aA,$0,$01aC,$0,$01aE,$0
+                    dc.w $01b0,$0,$01b2,$0,$01b4,$0,$01b6,$0
+                    dc.w $01b8,$0,$01bA,$0,$01bC,$0,$01bE,$0
+                    dc.w $6e07,$fffe,$0100,$0610
+                    dc.w $e207,$fffe
+CoL_d2:             dc.w $01a0,$0,$01a2,$0,$01a4,$0,$01a6,$0     ;plane-Up
+                    dc.w $01a8,$0,$01aA,$0,$01aC,$0,$01aE,$0
+                    dc.w $01b0,$0,$01b2,$0,$01b4,$0,$01b6,$0
+                    dc.w $01b8,$0,$01bA,$0,$01bC,$0,$01bE,$0
+                    dc.l -2
+sprite1:            dc.l 0
+;-----------------------------------------------------------------------------
+                    incdir dh1:real/raw/
+back_ekran:         incbin kapi_dur.raw
+kApI:               incbin kapi_acil_anim
+bwalk:              incbin pisa-walk.raw
+btesti:             incbin testi.raw
+bdrink:             incbin pisa-suic.raw
+btukur:             incbin pisa-sutukur.raw
+bmorf:              incbin pisa-morph.raw
+font:               incbin 'sayilar.raw'
+kafa:               incbin 'sadekafa.raw'
 
-Plane_d:dc.w    $e0,$0000,$e2,$0000
-    dc.w    $e8,$0000,$ea,$0000
-    dc.w    $f0,$0000,$f2,$0000
-    dc.w    $f8,$0000,$fa,$0000
-Plane_u:dc.w    $e4,$0000,$e6,$0000
-    dc.w    $ec,$0000,$ee,$0000
-    dc.w    $f4,$0000,$f6,$0000
-    dc.w    $fc,$0000,$fe,$0000
-CoL_u:    dc.w    $0180,$0,$0182,$0,$0184,$0,$0186,$0     ;Plane-up
-        dc.w    $0188,$0,$018A,$0,$018C,$0,$018E,$0
-    dc.w    $0190,$0,$0192,$0,$0194,$0,$0196,$0
-    dc.w    $0198,$0,$019A,$0,$019C,$0,$019E,$0
-CoL_d:    dc.w    $01a0,$0,$01a2,$0,$01a4,$0,$01a6,$0     ;plane-Up
-    dc.w    $01a8,$0,$01aA,$0,$01aC,$0,$01aE,$0
-    dc.w    $01b0,$0,$01b2,$0,$01b4,$0,$01b6,$0
-    dc.w    $01b8,$0,$01bA,$0,$01bC,$0,$01bE,$0
-    dc.w    $6e07,$fffe,$0100,$0610
-
-    dc.w    $e207,$fffe
-
-
-CoL_d2:    dc.w    $01a0,$0,$01a2,$0,$01a4,$0,$01a6,$0     ;plane-Up
-    dc.w    $01a8,$0,$01aA,$0,$01aC,$0,$01aE,$0
-    dc.w    $01b0,$0,$01b2,$0,$01b4,$0,$01b6,$0
-    dc.w    $01b8,$0,$01bA,$0,$01bC,$0,$01bE,$0
-
-
-
-
-
-    dc.l    -2
-
-sprite1:dc.l    0
-;-------------------------------------------------
-    incdir    dh1:real/raw/
-back_ekran:    incbin    kapi_dur.raw
-kApI:        incbin    kapi_acil_anim
-bwalk:        incbin    pisa-walk.raw
-btesti:        incbin    testi.raw
-bdrink:        incbin    pisa-suic.raw
-btukur:        incbin    pisa-sutukur.raw
-bmorf:        incbin    pisa-morph.raw
-font:        incbin    'sayilar.raw'
-kafa:        incbin    'sadekafa.raw'
-
-        incdir    dh1:real/mask/
-mwalk:        incbin    pisa-walk.mask
-mtesti:        incbin    testi.mask
-mdrink:        incbin    pisa-suic.mask
-mtukur:        incbin    pisa-sutukur.mask
-mmorf:        incbin    pisa-morph.mask
-    incdir    dh1:dino/
-pr_data:incbin    mod.level-gecis
-        incdir    dh1:real/samples/
-sample1:    incbin    kapizili
-sample2:    incbin    geyir
-sample3:    incbin    skor-artisi
-sample4:    incbin    z-tukurme
-sample5:    incbin    z-dinazor.vahsi
-    section    screens,bss_c
-;¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-scr1:    ds.b    screen_length*4
-scr2:    ds.b    screen_length*4
-bosscr:    ds.b    screen_length2*4
-scr3:    ds.b    screen_lengthx*4
-b_kafa:    ds.b    [32*34]*4
+                    incdir dh1:real/mask/
+mwalk:              incbin pisa-walk.mask
+mtesti:             incbin testi.mask
+mdrink:             incbin pisa-suic.mask
+mtukur:             incbin pisa-sutukur.mask
+mmorf:              incbin pisa-morph.mask
+                    incdir dh1:dino/
+pr_data:            incbin mod.level-gecis
+                    incdir dh1:real/samples/
+sample1:            incbin kapizili
+sample2:            incbin geyir
+sample3:            incbin skor-artisi
+sample4:            incbin z-tukurme
+sample5:            incbin z-dinazor.vahsi
+;-----------------------------------------------------------------------------
+                    section screens,bss_c
+;-----------------------------------------------------------------------------
+scr1:               ds.b screen_length*4
+scr2:               ds.b screen_length*4
+bosscr:             ds.b screen_length2*4
+scr3:               ds.b screen_lengthx*4
+b_kafa:             ds.b [32*34]*4

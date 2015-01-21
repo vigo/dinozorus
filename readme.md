@@ -35,6 +35,10 @@ Bazı data dosyalarını bulamadım, buldukça ekleyeceğim. An itibariyle eksik
 
 ## Güncellemeler
 
+**21 Ocak 2015**
+
+* Oyunun 2.Bölümü (ara geçiş) source düzenlenme bitti :)
+
 **14 Ocak 2015**
 
 * Oyunun 2.Bölümü (ara geçiş) `bin/dinozorus-level2.exe` eklendi.
