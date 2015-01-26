@@ -18,18 +18,6 @@ oyunu. Amiga 1200 - AGA. Ne yazıkki data dosyalarını bulamadım 8(
 * **Karakter Tasarımları**: Salih Memecan
 * Müzik çalma rutini **PRORUNNER**.
 
-## Eksik Dosyalar
-
-Bazı data dosyalarını bulamadım, buldukça ekleyeceğim. An itibariyle eksikler:
-
-- `DINO-II.data`
-- `palet1.bin`
-- `palet3.bin`
-- `xxx`
-- `tepe_renk.color`
-- Tüm `.raw`, `.mask` dosyaları
-- Tüm sample (ses) dosyaları
-
 ## Ara Geçiş Bölüm 2
 
 ![Ara Geçiş Bölüm 2](https://raw.githubusercontent.com/vigo/dinozorus/master/screens/bolum-2-ara-level.png)
