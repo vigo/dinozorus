@@ -15,6 +15,7 @@ oyunu. Amiga 1200 - AGA. Ne yazıkki data dosyalarını bulamadım 8(
 * **Süpervisor**: Hüseyin "ghost" Yeşilbaş
 * **Müzik**: Tolga "max" Meriç
 * **Grafik**: Şahin Erkoçak
+* **Karakter Tasarımları**: Salih Memecan
 * Müzik çalma rutini **PRORUNNER**.
 
 ## Eksik Dosyalar
