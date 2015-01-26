@@ -38,6 +38,7 @@ Bazı data dosyalarını bulamadım, buldukça ekleyeceğim. An itibariyle eksik
 **26 Ocak 2015**
 
 * Tüm bölümlerin **Amiga ADF** disketleri eklendi!
+* Tüm eksik dosyalar eklendi ve `level_1.s` düzenlendi!
 
 **21 Ocak 2015**
 

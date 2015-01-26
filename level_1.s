@@ -17,7 +17,9 @@ bltdmod=$dff066
 bltbmod=$dff062
 bltcmod=$dff060
 
-                incdir   dh1:dino/
+                ; asm pro ile derleyin!
+                ; bu path'i kendinize göre ayarlayın
+                incdir   dh1:dinozorus/includes/
                 include  file.i
 
                 section  startup,code
@@ -808,11 +810,11 @@ SeTbAcKCoLor:
                 bne .lp
                 rts
 
-incdir          dh1:real/color/
-CoLorB:         incbin 'palet1.bin'
-ColPal3:        incbin 'palet3.bin'
-ColUp:          incbin 'xxx'
-renk_data:      incbin 'tepe_renk.color'
+;incdir          dh1:real/color/
+CoLorB:         incbin "color/palet1.bin"
+ColPal3:        incbin "color/palet3.bin"
+ColUp:          incbin "color/xxx"
+renk_data:      incbin "color/tepe_renk.color"
 
 ;------------------------------------------------
 Press1stPlane:
@@ -4181,7 +4183,7 @@ examcop:
 Color0:         dc.w $000,$106,$1200,$184
 Color1:         dc.w $000
 
-                incdir dh1:dino/
+;                incdir dh1:dino/
 Main24:         incbin '24bitcop3.bin'
 ;ØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØØ
                 section public_datas,data
@@ -4304,53 +4306,53 @@ raster2:        blk.l 5*84,$e307fffe
 
 sprite1:        dc.l 0
 ;-------------------------------------------------
-                incdir dh1:real/raw/
-back:           incbin 'back04.raw'
-bwalk:          incbin 'pisa-walk.raw'
-bjump:          incbin 'pisa-jump.raw'
-begil:          incbin 'pisa-egil.raw'
-bkir:           incbin 'pisa-kir.raw'
-bcanavar:       incbin 'canavar-back'
-btas:           incbin 'tas.raw'
-btopuz:         incbin 'topuz2.raw'
-bkus:           incbin 'kus.raw'
-bates:          incbin 'ates.raw'
-bezer:          incbin 'yeni-ezer.raw'
-bjel:           incbin 'jel.raw'
-btopuzye:       incbin 'topuz_ye.raw'
-byakiye:        incbin 'ates-yakar.raw'
-bezmece:        incbin 'ezil-pisa.raw'
-font:           incbin 'sayilar.raw'
-kafa:           incbin 'sadekafa.raw'
-bbigd:          incbin 'big-dikkat.raw'
-mbigd:          incbin 'big-dikkat.mask'
+;                incdir dh1:real/raw/
+back:           incbin "raw/back04.raw"
+bwalk:          incbin "raw/pisa-walk.raw"
+bjump:          incbin "raw/pisa-jump.raw"
+begil:          incbin "raw/pisa-egil.raw"
+bkir:           incbin "raw/pisa-kir.raw"
+bcanavar:       incbin "raw/canavar-back"
+btas:           incbin "raw/tas.raw"
+btopuz:         incbin "raw/topuz2.raw"
+bkus:           incbin "raw/kus.raw"
+bates:          incbin "raw/ates.raw"
+bezer:          incbin "raw/yeni-ezer.raw"
+bjel:           incbin "raw/jel.raw"
+btopuzye:       incbin "raw/topuz_ye.raw"
+byakiye:        incbin "raw/ates-yakar.raw"
+bezmece:        incbin "raw/ezil-pisa.raw"
+font:           incbin "raw/sayilar.raw"
+kafa:           incbin "raw/sadekafa.raw"
+bbigd:          incbin "raw/big-dikkat.raw"
+mbigd:          incbin "raw/big-dikkat.mask"
 ;-----------------------------------------------
-                incdir dh1:real/mask/
-mwalk:          incbin 'pisa-walk.mask'
-mjump:          incbin 'pisa-jump.mask'
-megil:          incbin 'pisa-egil.mask'
-mkir:           incbin 'pisa-kir.mask'
-mtas:           incbin 'tas.mask'
-mkus:           incbin 'kus.mask'
-mates:          incbin 'ates.mask'
-mezer:          incbin 'yeni-ezer.mask'
-mjel:           incbin 'jel.mask'
-mtopuzye:       incbin 'topuz_ye.mask'
-myakiye:        incbin 'ates-yakar.mask'
-mezmece:        incbin 'ezil-pisa.mask'
+;                incdir dh1:real/mask/
+mwalk:          incbin "mask/pisa-walk.mask"
+mjump:          incbin "mask/pisa-jump.mask"
+megil:          incbin "mask/pisa-egil.mask"
+mkir:           incbin "mask/pisa-kir.mask"
+mtas:           incbin "mask/tas.mask"
+mkus:           incbin "mask/kus.mask"
+mates:          incbin "mask/ates.mask"
+mezer:          incbin "mask/yeni-ezer.mask"
+mjel:           incbin "mask/jel.mask"
+mtopuzye:       incbin "mask/topuz_ye.mask"
+myakiye:        incbin "mask/ates-yakar.mask"
+mezmece:        incbin "mask/ezil-pisa.mask"
 ;-------------------------------------------------
 
-                incdir dh1:real/samples/
-sample1:        incbin z-ucancanavar
-sample2:        incbin iki-sample2
-sample3:        incbin z-hooppidik
-sample4:        incbin z-yandim-yandim
-sample5:        incbin z-lutfen.Dikkatus
-sample7:        incbin z-kornali.kosma
-sample6:        incbin kolu-indirme-u
-samplex:        incbin auuu
-                incdir dh1:dino/
-pr_data:        incbin mod.dinazorus-ii.l
+;                incdir dh1:real/samples/
+sample1:        incbin "samples/z-ucancanavar"
+sample2:        incbin "samples/iki-sample2"
+sample3:        incbin "samples/z-hooppidik"
+sample4:        incbin "samples/z-yandim-yandim"
+sample5:        incbin "samples/z-lutfen.Dikkatus"
+sample7:        incbin "samples/z-kornali.kosma"
+sample6:        incbin "samples/kolu-indirme-u"
+samplex:        incbin "samples/auuu"
+;                incdir dh1:dino/
+pr_data:        incbin "modules/mod.dinazorus-ii.l"
 
                 section screens,bss_c
 ;-------------------------------------------------
