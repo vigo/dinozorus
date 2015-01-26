@@ -35,6 +35,10 @@ Bazı data dosyalarını bulamadım, buldukça ekleyeceğim. An itibariyle eksik
 
 ## Güncellemeler
 
+**26 Ocak 2015**
+
+* Tüm bölümlerin **Amiga ADF** disketleri eklendi!
+
 **21 Ocak 2015**
 
 * Oyunun 2.Bölümü (ara geçiş) source düzenlenme bitti :)
