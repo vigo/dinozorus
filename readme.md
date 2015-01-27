@@ -24,6 +24,11 @@ oyunu. Amiga 1200 - AGA. Ne yazıkki data dosyalarını bulamadım 8(
 
 ## Güncellemeler
 
+**27 Ocak 2015**
+
+* `ara_level_1.s` compile edilebilir halde düzenlendi.
+* `mod.hi-score-music` ve `mod.level-gecis` müzikleri eklendi.
+
 **26 Ocak 2015**
 
 * Tüm bölümlerin **Amiga ADF** disketleri eklendi!

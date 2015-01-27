@@ -26,10 +26,10 @@
                         bltbmod        = $dff062
                         bltcmod        = $dff060
 
-                        ;incdir dh1:dino/
-                        ;include file.i
-                        
-                        include includes/file.i
+                        ; asm pro ile derleyin!
+                        ; bu path'i kendinize göre ayarlayın
+                        incdir dh1:dinozorus/includes/
+                        include file.i
 
                         section startup,code
 o:                      movem.l d0-d7/a0-a6,-(a7)
@@ -197,8 +197,8 @@ set_tepe_renk:
                         bne .lp
                         rts
 
-                        incdir    dh1:real/color/
-renk_data:              incbin    'tepe_renk.color'
+                        ;incdir    dh1:real/color/
+renk_data:              incbin    "color/tepe_renk.color"
 
 ;-----------------------------------------------------------------------------
 ustu_bas:               move.l #ust_ekran,a0
@@ -1013,10 +1013,10 @@ lenghtptr:              dc.l 0
 sizeyptr:               dc.l 0
 frameptr:               dc.l 0
 ;-----------------------------------------------------------------------------
-                        incdir    dh1:real/color/
-color_data:             incbin palet1.bin
-color_data2:            incbin palet3.bin
-color_data3:            incbin xxx
+                        ;incdir    dh1:real/color/
+color_data:             incbin "color/palet1.bin"
+color_data2:            incbin "color/palet3.bin"
+color_data3:            incbin "color/xxx"
 ;-----------------------------------------------------------------------------
 YES                EQU    1
 NO                EQU    0
@@ -3141,31 +3141,31 @@ CoL_d2:             dc.w $01a0,$0,$01a2,$0,$01a4,$0,$01a6,$0     ;plane-Up
                     dc.l -2
 sprite1:            dc.l 0
 ;-----------------------------------------------------------------------------
-                    incdir dh1:real/raw/
-back_ekran:         incbin kapi_dur.raw
-kApI:               incbin kapi_acil_anim
-bwalk:              incbin pisa-walk.raw
-btesti:             incbin testi.raw
-bdrink:             incbin pisa-suic.raw
-btukur:             incbin pisa-sutukur.raw
-bmorf:              incbin pisa-morph.raw
-font:               incbin 'sayilar.raw'
-kafa:               incbin 'sadekafa.raw'
+;                    incdir dh1:real/raw/
+back_ekran:         incbin "raw/kapi_dur.raw"
+kApI:               incbin "raw/kapi_acil_anim"
+bwalk:              incbin "raw/pisa-walk.raw"
+btesti:             incbin "raw/testi.raw"
+bdrink:             incbin "raw/pisa-suic.raw"
+btukur:             incbin "raw/pisa-sutukur.raw"
+bmorf:              incbin "raw/pisa-morph.raw"
+font:               incbin "raw/sayilar.raw"
+kafa:               incbin "raw/sadekafa.raw"
 
-                    incdir dh1:real/mask/
-mwalk:              incbin pisa-walk.mask
-mtesti:             incbin testi.mask
-mdrink:             incbin pisa-suic.mask
-mtukur:             incbin pisa-sutukur.mask
-mmorf:              incbin pisa-morph.mask
-                    incdir dh1:dino/
-pr_data:            incbin mod.level-gecis
-                    incdir dh1:real/samples/
-sample1:            incbin kapizili
-sample2:            incbin geyir
-sample3:            incbin skor-artisi
-sample4:            incbin z-tukurme
-sample5:            incbin z-dinazor.vahsi
+                    ;incdir dh1:real/mask/
+mwalk:              incbin "mask/pisa-walk.mask"
+mtesti:             incbin "mask/testi.mask"
+mdrink:             incbin "mask/pisa-suic.mask"
+mtukur:             incbin "mask/pisa-sutukur.mask"
+mmorf:              incbin "mask/pisa-morph.mask"
+;                    incdir dh1:dino/
+pr_data:            incbin "modules/mod.level-gecis"
+;                    incdir dh1:real/samples/
+sample1:            incbin "samples/kapizili"
+sample2:            incbin "samples/geyir"
+sample3:            incbin "samples/skor-artisi"
+sample4:            incbin "samples/z-tukurme"
+sample5:            incbin "samples/z-dinazor.vahsi"
 ;-----------------------------------------------------------------------------
                     section screens,bss_c
 ;-----------------------------------------------------------------------------
