@@ -24,6 +24,10 @@ oyunu. Amiga 1200 - AGA. Ne yazıkki data dosyalarını bulamadım 8(
 
 ## Güncellemeler
 
+**29 Ocak 2015**
+
+* `level_2.s` 2.Bölümün kaynak kodu eklendi, düzenleniyor.
+
 **27 Ocak 2015**
 
 * `ara_level_1.s` compile edilebilir halde düzenlendi.
