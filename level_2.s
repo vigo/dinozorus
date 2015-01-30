@@ -97,652 +97,579 @@ ldo:                ld_load
 sdt:                ld_save
 
 StartCopper:
-    move.l    #sprite1,d7
-    move.w    d7,mouse+6
-    swap    d7
-    move.w    d7,mouse+2
-    move.l    4,a6
-    lea    gfxname,a1
-    jsr    -408(a6)
-    move.l    d0,a6
-    move.l    d0,gfxbase
-    move.l    50(a6),oldcop
-    move.l    #newcopper,50(a6)
-    move.l    $6c,jpr+2
-    move.l    #int,$6c
-    move.w    $dff002,d0
-    bset    #15,d0
-    move.w    d0,olddma
-    move.w    #$7fff,$dff096
-    move.w    #$87c0,$dff096
-    rts
-olddma:    dc.w    0
+                    move.l #sprite1,d7
+                    move.w d7,mouse+6
+                    swap d7
+                    move.w d7,mouse+2
+                    move.l 4,a6
+                    lea gfxname,a1
+                    jsr -408(a6)
+                    move.l d0,a6
+                    move.l d0,gfxbase
+                    move.l 50(a6),oldcop
+                    move.l #newcopper,50(a6)
+                    move.l $6c,jpr+2
+                    move.l #int,$6c
+                    move.w $dff002,d0
+                    bset #15,d0
+                    move.w d0,olddma
+                    move.w #$7fff,$dff096
+                    move.w #$87c0,$dff096
+                    rts
+
+olddma:             dc.w 0
 StopCopper:
-    move.w    #$7fff,$dff096
-    move.w    olddma,$dff096
-    move.l    jpr+2,$6c
-    move.l    gfxbase,a6
-    move.l    oldcop,50(a6)
-    rts
+                    move.w #$7fff,$dff096
+                    move.w olddma,$dff096
+                    move.l jpr+2,$6c
+                    move.l gfxbase,a6
+                    move.l oldcop,50(a6)
+                    rts
 ;------------------------------------
 ilk_hareket_:
-    bsr    set_tepe_renk
-    bsr    ustu_bas
-    bsr    press_font
-    bsr    setbackcolor
-    bsr    scrollback
-    bsr    animpisagor
-    bsr    makeraster
-    bsr    setupcol
-    bsr    flip_flop
-    bsr    dn_sayi
-    bsr    kelle_setter
-    move.l    #1,endflag
-    rts
+                    bsr set_tepe_renk
+                    bsr ustu_bas
+                    bsr press_font
+                    bsr setbackcolor
+                    bsr scrollback
+                    bsr animpisagor
+                    bsr makeraster
+                    bsr setupcol
+                    bsr flip_flop
+                    bsr dn_sayi
+                    bsr kelle_setter
+                    move.l #1,endflag
+                    rts
 ;------------------------------------
-int:    movem.l    d0-a6,-(a7)
-    cmp.l    #1,pausefl
-    beq    .g01
-    cmp.l    #1,endflag
-    beq    .g01
-    bsr    scrollback
-    add.l    #1,random_ptr
-    and.l    #31,random_ptr
-
-    add.w    #1,x
-    cmp.w    #2560-336,x
-    bne    .g01
-
-    move.l    #1,endflag
+int:                movem.l d0-a6,-(a7)
+                    cmp.l #1,pausefl
+                    beq .g01
+                    cmp.l #1,endflag
+                    beq .g01
+                    bsr scrollback
+                    add.l #1,random_ptr
+                    and.l #31,random_ptr
+                    add.w #1,x
+                    cmp.w #2560-336,x
+                    bne .g01
+                    move.l #1,endflag
 .g01:
-
-    bsr    CheCk_war
-    bsr    aralikmi
-    bsr    set_obje_
-    bsr    _puan_islemi
-    bsr    obje_ilgili_islem
-    bsr    tabak_islemi
-    bsr    tukuren_islemi
-    bsr    cycle_
-    bsr    pr_music
-
-    movem.l    (a7)+,d0-a6
-jpr:    jmp    0
+                    bsr CheCk_war
+                    bsr aralikmi
+                    bsr set_obje_
+                    bsr _puan_islemi
+                    bsr obje_ilgili_islem
+                    bsr tabak_islemi
+                    bsr tukuren_islemi
+                    bsr cycle_
+                    bsr pr_music
+                    movem.l (a7)+,d0-a6
+jpr:                jmp 0
 ;--------------------------------
 aralikmi:
-    cmp.w    #1271,x
-    blt    return
-    cmp.w    #1323,x
-    bgt    return
-    
-    cmp.l    #1,animno
-    beq    return_puantaj
-    move.l    #3,_olu_no
-    rts
+                    cmp.w #1271,x
+                    blt return
+                    cmp.w #1323,x
+                    bgt return
+                    cmp.l #1,animno
+                    beq return_puantaj
+                    move.l #3,_olu_no
+                    rts
 ;--------------------------------
 cycle_:
-    bsr    cycle_sub
-    add.w    #1,cyc_add
-    and.w    #31,cyc_add
-    rts
-
+                    bsr cycle_sub
+                    add.w #1,cyc_add
+                    and.w #31,cyc_add
+                    rts
 
 cycle_sub:
-    lea    cycle_tab,a0
-    move.w    cyc_add,d0
-    mulu    #2,d0
-    add.w    d0,a0
-    move.w    (a0),cyc_co
-    rts
-
-
+                    lea cycle_tab,a0
+                    move.w cyc_add,d0
+                    mulu #2,d0
+                    add.w d0,a0
+                    move.w (a0),cyc_co
+                    rts
 cycle_tab:
-    dc.w    $ff0,$fe0,$fd0,$fc0,$fb0,$fa0,$f90,$f80,$f70,$f60
-    dc.w    $f59,$f40,$f30,$f20,$f10,$f00
-    dc.w    $f00,$f10,$f20,$f30,$f40,$f50,$f60,$f70,$f80,$f90
-    dc.w    $fa0,$fb0,$fc0,$fd0,$fe0,$ff0
+                    dc.w $ff0,$fe0,$fd0,$fc0,$fb0,$fa0,$f90,$f80,$f70,$f60
+                    dc.w $f59,$f40,$f30,$f20,$f10,$f00
+                    dc.w $f00,$f10,$f20,$f30,$f40,$f50,$f60,$f70,$f80,$f90
+                    dc.w $fa0,$fb0,$fc0,$fd0,$fe0,$ff0
 
-cyc_add:dc.w    0
+cyc_add:            dc.w 0
 ;--------------------------------
 set_obje_:
-    cmp.w    #11,x
-    bne    _cont_1
-    move.l    #1,_obje_enable
-    rts
+                    cmp.w #11,x
+                    bne _cont_1
+                    move.l #1,_obje_enable
+                    rts
+_cont_1:            cmp.w #491,x
+                    bne _cont_2a
+                    move.l #2,_obje_enable
+                    move.l #1,hangi_sample
+                    bsr play_chan_4
+                    rts
+_cont_2a:           cmp.w #750,x
+                    bne _cont_2
+                    move.l #1,_spit_
+                    move.l #2,hangi_sample
+                    bsr play_chan_4
+                    rts
+_cont_2:            cmp.w #860,x
+                    bne _cont_3
+                    move.l #1,_obje_enable
+                    rts
+_cont_3:            cmp.w #1105,x
+                    bne _cont_5
+                    move.l #1,_tabak_en
+                    rts
 
-_cont_1:cmp.w    #491,x
-    bne    _cont_2a
-    move.l    #2,_obje_enable
-    move.l    #1,hangi_sample
-    bsr    play_chan_4
-    rts
-_cont_2a:
-    cmp.w    #750,x
-    bne    _cont_2
-    move.l    #1,_spit_
-    move.l    #2,hangi_sample
-    bsr    play_chan_4
-    rts
+return_puantaj:     move.l #2,_puan_ver_fl
+                    rts
 
-_cont_2:cmp.w    #860,x
-    bne    _cont_3
-    move.l    #1,_obje_enable
-    rts
-_cont_3:cmp.w    #1105,x
-    bne    _cont_5
-    move.l    #1,_tabak_en
-    rts
+_puan_ver_fl:       dc.l 0
 
-return_puantaj:
+_cont_5:            cmp.w #1333,x
+                    bne _cont_6ab
+                    move.l #0,tx_add
+;                   move.l #1,one_f_pis
+                    rts
 
-    move.l    #2,_puan_ver_fl
-    rts
+_cont_6ab:          cmp.w #1400,x
+                    bne _cont_6a
+                    cmp.l #2,animno
+                    beq return_zimbe
+                    move.l #4,_olu_no
+                    rts
 
-_puan_ver_fl:    dc.l    0
+return_zimbe:       add.l #20000,dn_number
+                    bsr dn_sayi
+                    rts
 
-_cont_5:cmp.w    #1333,x
-    bne    _cont_6ab
-    move.l    #0,tx_add
-;    move.l    #1,one_f_pis
-    rts
+_cont_6a:           cmp.w #1458,x
+                    bne _cont_6
+                    move.l #1,_obje_enable
+                    rts
 
-_cont_6ab:
-    cmp.w    #1400,x
-    bne    _cont_6a
-    
-    cmp.l    #2,animno
-    beq    return_zimbe
-    move.l    #4,_olu_no
-    rts
+_cont_6:            cmp.w #1624,x
+                    bne _cont_7
+                    move.l #-1,tx_add
+                    move.l #0,one_f_pis
+                    move.l #0,tek_kare
+                    rts
 
-return_zimbe:
-    add.l    #20000,dn_number
-    bsr    dn_sayi
-    rts
+_cont_7:            cmp.w #1833,x
+                    bne return
+                    move.l #0,_tabak_en
+                    rts
 
-_cont_6a:
-    cmp.w    #1458,x
-    bne    _cont_6
-    move.l    #1,_obje_enable
-    rts    
+tabak_islemi:       cmp.l #1,_tabak_en
+                    bne return
+                    move.l tx_add,d0
+                    add.l d0,t_x
+                    rts
 
-_cont_6:cmp.w    #1624,x
-    bne    _cont_7
-    move.l    #-1,tx_add
-    move.l    #0,one_f_pis
-    move.l    #0,tek_kare
-    rts
-_cont_7:cmp.w    #1833,x
-    bne    return
-    move.l    #0,_tabak_en
-    rts
-
-tabak_islemi:
-    cmp.l    #1,_tabak_en
-    bne    return
-    move.l    tx_add,d0
-    add.l    d0,t_x
-    rts
-tx_add:    dc.l    -1
+tx_add:             dc.l    -1
     
 tabak_varmi_ekranda:
-    lea    _t_jump_(pc),a0
-    move.l    _tabak_en(pc),d0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),a1
-    jmp    (a1)
+                    lea _t_jump_(pc),a0
+                    move.l _tabak_en(pc),d0
+                    mulu #4,d0
+                    add.l d0,a0
+                    move.l (a0),a1
+                    jmp (a1)
+
+_t_jump_:           dc.l return
+                    dc.l _press_tabak
+                    dc.l tukruk_geliyo
+_tabak_en:          dc.l 0
+one_f_pis:          dc.l 0
+
+_puan_islemi:       cmp.l #1,_puan_ver_fl
+                    bne kopru_puani
+
+                    move.l dn_number,hak_buff
+                    bsr bir_rutin_yap
+                    bsr get_skor_arti
+                    move.l dn_adder,d0
+                    add.l d0,dn_number
+                    bsr dn_sayi
+                    bsr bir_rutin_yap
+                    add.l #1,_lp_tm
+                    cmp.l #16,_lp_tm
+                    bne return
+                    move.l #0,_lp_tm
+                    move.l #0,_puan_ver_fl
+                    rts
+
+kopru_puani:        cmp.l #2,_puan_ver_fl
+                    bne tukur_p
+                    move.l dn_number,hak_buff
+                    add.l #1000,dn_number
+                    bsr dn_sayi
+                    move.l #0,_puan_ver_fl
+                    rts
+
+tukur_p:            cmp.l #3,_puan_ver_fl
+                    bne return
+                    move.l dn_number,hak_buff
+                    add.l #1,_lp_tm
+                    cmp.l #200,_lp_tm
+                    beq return_off
+                    move.l _lp_tm,d0
+                    add.l d0,dn_number
+                    bsr dn_sayi
+                    rts
 
 
+return_off:         move.l #0,_lp_tm
+                    move.l #0,_puan_ver_fl
+                    rts
 
-_t_jump_:    dc.l    return
-        dc.l    _press_tabak
-        dc.l    tukruk_geliyo
+hak_buff:           dc.l 0
+_lp_tm:             dc.l 0
+obje_ilgili_islem:  cmp.l #1,_obje_enable
+                    bne d_ezer_
+                    sub.l #1,cx
+                    cmp.l #460,cx
+                    bne return
+                    move.l #0,_sonra_enable
+                    move.l #0,opp
+                    move.l #0,_obje_enable
+                    move.l #344,dx
+                    move.l #940,cx
+                    move.l #0,_d_anim_adder
+                    rts
 
+d_ezer_:            cmp.l #2,_obje_enable
+                    bne _kiril
+                    cmp.l #1,freeze
+                    beq here_f
+                    add.l #2,dx
+                    rts
 
-_tabak_en:    dc.l    0
+here_f:             sub.l #1,dx
+                    cmp.l #400-48,dx
+                    bne return
+                    move.l #344,dx
+                    move.l #0,_obje_enable
+;                   move.w #$0008,$dff096
+                    rts
 
-one_f_pis:    dc.l    0
-
-
-_puan_islemi:
-    cmp.l    #1,_puan_ver_fl
-    bne    kopru_puani
-
-    move.l    dn_number,hak_buff
-    bsr    bir_rutin_yap
-    bsr    get_skor_arti
-    move.l    dn_adder,d0
-    add.l    d0,dn_number
-    bsr    dn_sayi
-    bsr    bir_rutin_yap
-    add.l    #1,_lp_tm
-    cmp.l    #16,_lp_tm
-    bne    return
-    move.l    #0,_lp_tm
-    move.l    #0,_puan_ver_fl
-    rts
-
-kopru_puani:
-    cmp.l    #2,_puan_ver_fl
-    bne    tukur_p
-
-    move.l    dn_number,hak_buff
-    add.l    #1000,dn_number
-    bsr    dn_sayi
-    move.l    #0,_puan_ver_fl
-    rts
-
-tukur_p:cmp.l    #3,_puan_ver_fl
-    bne    return
-
-    move.l    dn_number,hak_buff
-    add.l    #1,_lp_tm
-    cmp.l    #200,_lp_tm
-    beq    return_off
-    
-    move.l    _lp_tm,d0
-    add.l    d0,dn_number
-    bsr    dn_sayi
-
-    rts
-
-
-return_off:
-    move.l    #0,_lp_tm
-    move.l    #0,_puan_ver_fl
-    rts
-
-hak_buff:    dc.l    0
-_lp_tm:    dc.l    0
-obje_ilgili_islem:
-    cmp.l    #1,_obje_enable
-    bne    d_ezer_
-
-
-    sub.l    #1,cx
-    cmp.l    #460,cx
-    bne    return
-
-    move.l    #0,_sonra_enable
-    move.l    #0,opp
-    move.l    #0,_obje_enable
-    move.l    #344,dx
-    move.l    #940,cx
-    move.l    #0,_d_anim_adder
-    rts
-
-d_ezer_:cmp.l    #2,_obje_enable
-    bne    _kiril
-
-    cmp.l    #1,freeze
-    beq    here_f
-
-    add.l    #2,dx
-    rts
-
-
-here_f:
-    sub.l    #1,dx
-    cmp.l    #400-48,dx
-    bne    return
-
-    move.l    #344,dx
-    move.l    #0,_obje_enable
-;    move.w    #$0008,$dff096
-
-    rts
-
-_kiril:    cmp.l    #1,_sonra_enable
-    bne    return
-    sub.l    #1,dx
-    cmp.l    #450,dx
-    bne    return
-    move.l    #0,_sonra_enable
-    move.l    #0,_obje_enable
-    move.l    #344,dx
-    move.l    #940,cx
-    move.l    #0,_d_anim_adder
-    rts
+_kiril:             cmp.l #1,_sonra_enable
+                    bne return
+                    sub.l #1,dx
+                    cmp.l #450,dx
+                    bne return
+                    move.l #0,_sonra_enable
+                    move.l #0,_obje_enable
+                    move.l #344,dx
+                    move.l #940,cx
+                    move.l #0,_d_anim_adder
+                    rts
 ;--------------------------------
-tukuren_islemi:
-    cmp.l    #2,_tabak_en
-    bne    _ooo_    
+tukuren_islemi:     cmp.l #2,_tabak_en
+                    bne _ooo_
+                    add.l #1,dx
+                    cmp.l #2,animno
+                    beq _ooo_
+                    cmp.l #9,_d_anim_adder
+                    bne return
+                    move.l #2,_olu_no
+                    rts
 
-    add.l    #1,dx
-    cmp.l    #2,animno
-    beq    _ooo_
-    cmp.l    #9,_d_anim_adder
-    bne    return
-    move.l    #2,_olu_no
-    rts
-
-_ooo_:    cmp.l    #1,_spit_
-    bne    _tu_con1
-    add.l    #2,tu_x
-    cmp.l    #500,tu_x
-    bne    return
-    move.l    #2,_spit_
-    move.l    #0,_d_anim_adder
-    move.l    #142,dx
-    move.l    #2,_tabak_en
-    rts
+_ooo_:              cmp.l #1,_spit_
+                    bne _tu_con1
+                    add.l #2,tu_x
+                    cmp.l #500,tu_x
+                    bne return
+                    move.l #2,_spit_
+                    move.l #0,_d_anim_adder
+                    move.l #142,dx
+                    move.l #2,_tabak_en
+                    rts
 _tu_con1:
-    cmp.l    #2,_spit_
-    bne    _tu_con2
-    cmp.l    #1,freeze2
-    bne    return
-    move.l    #3,_spit_
-    rts
-_tu_con2:
-    cmp.l    #3,_spit_
-    bne    return
+                    cmp.l #2,_spit_
+                    bne _tu_con2
+                    cmp.l #1,freeze2
+                    bne return
+                    move.l #3,_spit_
+                    rts
 
-    add.l    #1,eag
-    cmp.l    #10,eag
-    bne    thie
-    move.l    #0,_tabak_en
-thie:    sub.l    #1,tu_x
-    cmp.l    #352,tu_x
-    bne    return
-    move.l    #0,_spit_
-    move.w    #$0008,$dff096
-    move.l    #1,_puan_ver_fl
-    rts
-eag:    dc.l    0
+_tu_con2:           cmp.l #3,_spit_
+                    bne return
+                    add.l #1,eag
+                    cmp.l #10,eag
+                    bne thie
+                    move.l #0,_tabak_en
+thie:               sub.l #1,tu_x
+                    cmp.l #352,tu_x
+                    bne return
+                    move.l #0,_spit_
+                    move.w #$0008,$dff096
+                    move.l #1,_puan_ver_fl
+                    rts
+eag:                dc.l 0
 ;--------------------------------
 kelle_setter:
-    lea    hak_tablolari,a0
-    move.l    pisagor_hak,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),a1
-    jmp    (a1)
+                    lea hak_tablolari,a0
+                    move.l pisagor_hak,d0
+                    mulu #4,d0
+                    add.l d0,a0
+                    move.l (a0),a1
+                    jmp (a1)
 
 hak_tablolari:
-    dc.l    hakki1_var
-    dc.l    hakki2_var
-    dc.l    hakki3_var
-    dc.l    hakki4_var
-hakki4_var:
-    move.l    #14,kafa_x
-    bsr    press_kelle
-    move.l    #16,kafa_x
-    bsr    press_kelle
-    move.l    #18,kafa_x
-    bsr    press_kelle
-    rts
-hakki3_var:
-    move.l    #16,kafa_x
-    bsr    press_kelle
-    move.l    #18,kafa_x
-    bsr    press_kelle
-    rts
-hakki2_var:
-    move.l    #16,sil_k_x
-    bsr    sil_kelle
-    move.l    #18,kafa_x
-    bsr    press_kelle
-    rts
-hakki1_var:
-    move.l    #18,sil_k_x
-    bsr    sil_kelle
-    rts
+                    dc.l hakki1_var
+                    dc.l hakki2_var
+                    dc.l hakki3_var
+                    dc.l hakki4_var
+
+hakki4_var:         move.l #14,kafa_x
+                    bsr press_kelle
+                    move.l #16,kafa_x
+                    bsr press_kelle
+                    move.l #18,kafa_x
+                    bsr press_kelle
+                    rts
+
+hakki3_var:         move.l #16,kafa_x
+                    bsr press_kelle
+                    move.l #18,kafa_x
+                    bsr press_kelle
+                    rts
+
+hakki2_var:         move.l #16,sil_k_x
+                    bsr sil_kelle
+                    move.l #18,kafa_x
+                    bsr press_kelle
+                    rts
+
+hakki1_var:         move.l #18,sil_k_x
+                    bsr sil_kelle
+                    rts
 ;--------------------------------
 _pRess_Cam:
-    move.l    cy,d0
-    sub.l    #1,d0
-    mulu    #60,d0
-    move.l    cx,d1
-    add.l    #480,d1
-    asr.l    #3,d1
-    bclr    #0,d1
-    add.w    d1,d0
+                    move.l cy,d0
+                    sub.l #1,d0
+                    mulu #60,d0
+                    move.l cx,d1
+                    add.l #480,d1
+                    asr.l #3,d1
+                    bclr #0,d1
+                    add.w d1,d0
+                    move.l csy,d2
+                    mulu #10*61,d2
+                    move.l #bcam,a0
+                    add.l d2,a0
+                    move.l #mcam,a3
+                    add.l d2,a3
+                    move.l nonactive,a1
+                    add.l d0,a1
+                    move.l #4,d0
+.lp:                move.l a0,bltbptr
+                    move.l a3,bltaptr
+                    move.l a1,bltcptr
+                    move.l a1,bltdptr
+                    move.w #0,bltamod        ; screen modulo
+                    move.w #0,bltbmod    
+                    move.w #60-10,bltcmod    ; brush modulo=[40-(bursh/8)]
+                    move.w #60-10,bltdmod    ;
+                    move.l #$ffffffff,bltafwm
+                    move.b cx+3,d1
+                    and.l #$f,d1
+                    swap d1
+                    asr.l #4,d1
+                    move.w d1,bltcon1
+                    ori.l #$fca,d1
+                    move.w d1,bltcon0
+                    move.w #[61*64]+5,bltsize    ; [y*64]+[x/16]
+                    bsr bw
+                    add.l #3080,a0
+                    add.l #$2ee0,a1
+                    sub.l #1,d0
+                    bne .lp
+                    rts
 
-
-    move.l    csy,d2
-    mulu    #10*61,d2
-    move.l    #bcam,a0
-    add.l    d2,a0
-    move.l    #mcam,a3
-    add.l    d2,a3
-
-    move.l    nonactive,a1
-    add.l    d0,a1
-    move.l    #4,d0
-.lp:    move.l    a0,bltbptr
-    move.l    a3,bltaptr
-    move.l    a1,bltcptr
-    move.l    a1,bltdptr
-    move.w    #0,bltamod    ;screen modulo    
-    move.w    #0,bltbmod    
-    move.w    #60-10,bltcmod    ;brush modulo=[40-(bursh/8)]
-    move.w    #60-10,bltdmod    ;
-    move.l    #$ffffffff,bltafwm
-    move.b    cx+3,d1
-    and.l    #$f,d1
-    swap    d1
-    asr.l    #4,d1
-    move.w    d1,bltcon1
-    ori.l    #$fca,d1
-    move.w    d1,bltcon0
-    move.w    #[61*64]+5,bltsize    ;[y*64]+[x/16]
-    bsr    bw
-    add.l    #3080,a0
-    add.l    #$2ee0,a1
-    sub.l    #1,d0
-    bne    .lp
-    rts
-
-cx:    dc.l    940
-cy:    dc.l    109
-csy:    dc.l    0
+cx:                 dc.l 940
+cy:                 dc.l 109
+csy:                dc.l 0
 ;--------------------------------
-_hangi_olum:
-    lea    _olum_tablosu(pc),a0
-    move.l    _olu_no(pc),d0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),a1
-    jmp    (a1)
+_hangi_olum:        lea _olum_tablosu(pc),a0
+                    move.l _olu_no(pc),d0
+                    mulu #4,d0
+                    add.l d0,a0
+                    move.l (a0),a1
+                    jmp (a1)
 
 
 _olum_tablosu:
-    dc.l    return
-    dc.l    kafan_kopsun
-    dc.l    sirilsiklam
-    dc.l    dus_platformdan
-    dc.l    kafani_carp
+                    dc.l return
+                    dc.l kafan_kopsun
+                    dc.l sirilsiklam
+                    dc.l dus_platformdan
+                    dc.l kafani_carp
 
-_olu_no:    dc.l    0
+_olu_no:            dc.l 0
 ;---------------------------------
 kafan_kopsun:
-    move.l    #4,animno
-    move.l    #52,px
-    move.l    #0,number
-    move.l    #1,endflag
+                    move.l #4,animno
+                    move.l #52,px
+                    move.l #0,number
+                    move.l #1,endflag
+                    move.w #$0004,$dff096
+                    move.l #4,hangi_sample_2
+                    bsr play_chan_3
+.lp:                cmp.b #$0,$dff006
+                    bne .lp
+                    bsr clrscreen
+                    bsr animpisagor
+                    bsr flip_flop
+                    cmp.l #1,devam_all
+                    bne .lp
 
-    move.w    #$0004,$dff096
+                    move.l #5,saniye
+                    bsr _wait_timer
 
-    move.l    #4,hangi_sample_2
-    bsr    play_chan_3
+                    move.l #2,hangi_sample_2
+                    bsr play_chan_3
 
-.lp:    cmp.b    #$0,$dff006
-    bne    .lp
+                    move.l #8,animno
+                    move.l #32,px
+                    move.l #0,number
+.sahin:             cmp.b #0,$dff006
+                    bne .sahin
+                    bsr clrscreen
+                    bsr animpisagor
+                    bsr flip_flop
+                    cmp.l #1,zipcik
+                    bne .sahin
 
-    bsr     clrscreen
-    bsr    animpisagor
-    bsr     flip_flop
+                    move.l #10,saniye
+                    bsr _wait_timer
 
-    cmp.l    #1,devam_all
-    bne    .lp
+                    cmp.l #0,pisagor_hak
+                    beq return
+                    sub.l #1,pisagor_hak
+                    bsr kelle_setter
 
-    move.l    #5,saniye
-    bsr    _wait_timer
+                    move.l #0,zipcik
+                    move.l #0,_obje_enable
+                    move.l #0,endflag
+                    move.l #0,_olu_no
+                    move.l #150,px
+                    move.l #0,devam_all
+                    rts
 
-    move.l    #2,hangi_sample_2
-    bsr    play_chan_3
-
-
-    move.l    #8,animno
-    move.l    #32,px
-    move.l    #0,number
-.sahin:    cmp.b    #0,$dff006
-    bne    .sahin
-    bsr     clrscreen
-    bsr    animpisagor
-    bsr     flip_flop
-    cmp.l    #1,zipcik
-    bne    .sahin
-
-    move.l    #10,saniye
-    bsr    _wait_timer
-
-    cmp.l    #0,pisagor_hak
-    beq    return
-    sub.l    #1,pisagor_hak
-    bsr    kelle_setter
-
-    move.l    #0,zipcik
-    move.l    #0,_obje_enable
-    move.l    #0,endflag
-    move.l    #0,_olu_no
-    move.l    #150,px
-    move.l    #0,devam_all
-    rts
-
-zipcik:    dc.l    0
+zipcik:             dc.l 0
 sirilsiklam:
-    move.l    #5,animno
-    move.l    #131,px
-    move.l    #0,number
-    move.l    #1,endflag
-    move.w    #$0004,$dff096
-    move.l    #1,_spit_
+                    move.l #5,animno
+                    move.l #131,px
+                    move.l #0,number
+                    move.l #1,endflag
+                    move.w #$0004,$dff096
+                    move.l #1,_spit_
+                    move.l #4,hangi_sample_2
+                    bsr play_chan_3
+.lp:                cmp.b #$0,$dff006
+                    bne .lp
+                    bsr clrscreen
+                    bsr _tukuranus_varmi
+                    bsr animpisagor
+                    bsr flip_flop
+                    cmp.l #1,devam_all2
+                    bne .lp
+                    move.w #$0008,$dff096
+                    move.l #5,saniye
+                    bsr _wait_timer
+                    move.l #2,hangi_sample_2
+                    bsr play_chan_3
+                    move.l #8,animno
+                    move.l #32,px
+                    move.l #0,number
+.sahin:             cmp.b #0,$dff006
+                    bne .sahin
+                    bsr clrscreen
+                    bsr animpisagor
+                    bsr flip_flop
+                    cmp.l #1,zipcik
+                    bne .sahin
+                    move.l #10,saniye
+                    bsr _wait_timer
+                    cmp.l #0,pisagor_hak
+                    beq return
+                    sub.l #1,pisagor_hak
+                    bsr kelle_setter
+                    move.l #0,zipcik
+                    move.l #0,_tabak_en
+                    move.l #0,_spit_
+                    move.l #0,endflag
+                    move.l #0,_olu_no
+                    move.l #150,px
+                    move.l #0,devam_all2
+                    rts
 
-    move.l    #4,hangi_sample_2
-    bsr    play_chan_3
-
-.lp:    cmp.b    #$0,$dff006
-    bne    .lp
-
-    bsr     clrscreen
-    bsr    _tukuranus_varmi
-    bsr    animpisagor
-    bsr     flip_flop
-
-    cmp.l    #1,devam_all2
-    bne    .lp
-
-
-    move.w    #$0008,$dff096
-    move.l    #5,saniye
-    bsr    _wait_timer
-    move.l    #2,hangi_sample_2
-    bsr    play_chan_3
-
-    move.l    #8,animno
-    move.l    #32,px
-    move.l    #0,number
-.sahin:    cmp.b    #0,$dff006
-    bne    .sahin
-    bsr     clrscreen
-    bsr    animpisagor
-    bsr     flip_flop
-    cmp.l    #1,zipcik
-    bne    .sahin
-
-
-    move.l    #10,saniye
-    bsr    _wait_timer
-
-    cmp.l    #0,pisagor_hak
-    beq    return
-    sub.l    #1,pisagor_hak
-    bsr    kelle_setter
-
-    move.l    #0,zipcik
-    move.l    #0,_tabak_en
-    move.l    #0,_spit_
-    move.l    #0,endflag
-    move.l    #0,_olu_no
-    move.l    #150,px
-    move.l    #0,devam_all2
-    rts
-
-devam_all2:    dc.l    0    
+devam_all2:         dc.l 0
 
 dus_platformdan:
+                    sub.l #20000,dn_number
+                    bsr dn_sayi
+                    move.l #6,animno
+                    move.l #156,px
+                    move.l #0,number
+                    move.l #1,endflag
+                    move.l #0,tx_add
+                    move.w #$0004,$dff096
+                    move.l #4,hangi_sample_2
+                    bsr play_chan_3
+l_oop:              cmp.b #$0,$dff006
+                    bne l_oop
 
-    sub.l    #20000,dn_number
-    bsr    dn_sayi
+                    bsr clrscreen
+                    bsr animpisagor
+                    bsr _press_tabak
+                    bsr flip_flop
+                    add.l #1,kuk
+                    cmp.l #1,dev_all
+                    bne l_oop
+                    move.l #5,saniye
+                    bsr _wait_timer
+                    move.l #2,hangi_sample_2
+                    bsr play_chan_3
+                    move.l #8,animno
+                    move.l #32,px
+                    move.l #0,number
+.sahin:             cmp.b #0,$dff006
+                    bne .sahin
+                    bsr clrscreen
+                    bsr animpisagor
+                    bsr flip_flop
+                    cmp.l #1,zipcik
+                    bne .sahin
+                    move.l #10,saniye
+                    bsr _wait_timer
 
-    move.l    #6,animno
-    move.l    #156,px
-    move.l    #0,number
-    move.l    #1,endflag
-    move.l    #0,tx_add
+                    cmp.l #0,pisagor_hak
+                    beq return
+                    sub.l #1,pisagor_hak
+                    bsr kelle_setter
 
-    move.w    #$0004,$dff096
-    move.l    #4,hangi_sample_2
-    bsr    play_chan_3
+                    bsr clrscreen
+                    bsr flip_flop
 
-l_oop:    cmp.b    #$0,$dff006
-    bne    l_oop
-
-    bsr     clrscreen
-    bsr    animpisagor
-    bsr    _press_tabak
-    bsr     flip_flop
-    add.l    #1,kuk    
-
-    cmp.l    #1,dev_all
-    bne    l_oop
-
-
-    move.l    #5,saniye
-    bsr    _wait_timer
-    move.l    #2,hangi_sample_2
-    bsr    play_chan_3
-
-    move.l    #8,animno
-    move.l    #32,px
-    move.l    #0,number
-.sahin:    cmp.b    #0,$dff006
-    bne    .sahin
-    bsr     clrscreen
-    bsr    animpisagor
-    bsr     flip_flop
-    cmp.l    #1,zipcik
-    bne    .sahin
-
-
-
-    move.l    #10,saniye
-    bsr    _wait_timer
-
-    cmp.l    #0,pisagor_hak
-    beq    return
-    sub.l    #1,pisagor_hak
-    bsr    kelle_setter
-
-    bsr     clrscreen
-    bsr     flip_flop
-
-    move.l    #0,zipcik
-    move.l    #-1,tx_add
-    move.l    #105,kuk
-    move.w    #1187-100,x
-    move.l    #384,t_x
-    move.l    #168,t_y
-    move.l    #0,_tabak_en
-    move.l    #0,number
-    move.l    #0,animno
-    move.l    #0,endflag
-    move.l    #0,_olu_no
-    move.l    #150,px
-    move.l    #0,dev_all
-    rts
+                    move.l #0,zipcik
+                    move.l #-1,tx_add
+                    move.l #105,kuk
+                    move.w #1187-100,x
+                    move.l #384,t_x
+                    move.l #168,t_y
+                    move.l #0,_tabak_en
+                    move.l #0,number
+                    move.l #0,animno
+                    move.l #0,endflag
+                    move.l #0,_olu_no
+                    move.l #150,px
+                    move.l #0,dev_all
+                    rts
 
 kafani_carp:
     sub.l    #20000,dn_number
