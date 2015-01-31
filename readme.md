@@ -1,9 +1,10 @@
 # Dinozorous Televizyon Oyunu
 
-![Dinozorous](https://raw.githubusercontent.com/vigo/dinozorus/master/screens/dino-03.png)
+## Bölüm 1
+![Dinozorous Bölüm 1](https://raw.githubusercontent.com/vigo/dinozorus/master/screens/dino-03.png)
 
 1992-93 yıllarında ATV televizyon kanalında yayınlanan, interaktif televizyon
-oyunu. Amiga 1200 - AGA. Ne yazıkki data dosyalarını bulamadım 8(
+oyunu. Amiga 1200 - AGA.
 
 [YouTube][01]’a capture edip atmıştım...
 
@@ -18,6 +19,10 @@ oyunu. Amiga 1200 - AGA. Ne yazıkki data dosyalarını bulamadım 8(
 * **Karakter Tasarımları**: Salih Memecan
 * Müzik çalma rutini **PRORUNNER**.
 
+## Bölüm 2
+
+![Dinozorous Bölüm 2](https://raw.githubusercontent.com/vigo/dinozorus/master/screens/dino-08.png)
+
 ## Ara Geçiş Bölüm 2
 
 ![Ara Geçiş Bölüm 2](https://raw.githubusercontent.com/vigo/dinozorus/master/screens/bolum-2-ara-level.png)
@@ -28,6 +33,7 @@ oyunu. Amiga 1200 - AGA. Ne yazıkki data dosyalarını bulamadım 8(
 
 * `level_2.s` 2.Bölümün kaynak kodu düzenlendi.
 * `color/deneme.copper` dosyası eklendi (*level_2’de kullanılan...*)
+* 2.Bölüm’ün ekran görüntüsü eklendi.
 
 **29 Ocak 2015**
 
