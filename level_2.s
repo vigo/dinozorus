@@ -672,491 +672,465 @@ l_oop:              cmp.b #$0,$dff006
                     rts
 
 kafani_carp:
-    sub.l    #20000,dn_number
-    bsr    dn_sayi
+                    sub.l #20000,dn_number
+                    bsr dn_sayi
 
+                    move.l #7,animno
+                    move.l #150,px
+                    move.l #0,number
+                    move.l #1,endflag
 
+                    move.w #$0004,$dff096
+                    move.w #$0008,$dff096
+                    move.l #3,hangi_sample
+                    bsr play_chan_4
 
-    move.l    #7,animno
-    move.l    #150,px
-    move.l    #0,number
-    move.l    #1,endflag
+                    move.l #4,hangi_sample_2
+                    bsr play_chan_3
 
-    move.w    #$0004,$dff096
-    move.w    #$0008,$dff096
-    move.l    #3,hangi_sample
-    bsr    play_chan_4
+.lllp:              cmp.b #$0,$dff006
+                    bne .lllp
 
-    move.l    #4,hangi_sample_2
-    bsr    play_chan_3
+                    bsr clrscreen
+                    bsr animpisagor
+                    bsr flip_flop
 
-.lllp:    cmp.b    #$0,$dff006
-    bne    .lllp
+                    cmp.l #1,de_all
+                    bne .lllp
+                    move.l #5,saniye
+                    bsr _wait_timer
 
-    bsr     clrscreen
-    bsr    animpisagor
-    bsr     flip_flop
+                    move.l #2,hangi_sample_2
+                    bsr play_chan_3
 
-    cmp.l    #1,de_all
-    bne    .lllp
-    move.l    #5,saniye
-    bsr    _wait_timer
+                    move.l #8,animno
+                    move.l #32,px
+                    move.l #0,number
+.sahin:             cmp.b #0,$dff006
+                    bne .sahin
+                    bsr clrscreen
+                    bsr animpisagor
+                    bsr flip_flop
+                    cmp.l #1,zipcik
+                    bne .sahin
 
-    move.l    #2,hangi_sample_2
-    bsr    play_chan_3
+                    move.l #10,saniye
+                    bsr _wait_timer
+                    cmp.l #0,pisagor_hak
+                    beq return
+                    sub.l #1,pisagor_hak
+                    bsr kelle_setter
 
-    move.l    #8,animno
-    move.l    #32,px
-    move.l    #0,number
-.sahin:    cmp.b    #0,$dff006
-    bne    .sahin
-    bsr     clrscreen
-    bsr    animpisagor
-    bsr     flip_flop
-    cmp.l    #1,zipcik
-    bne    .sahin
+                    bsr clrscreen
+                    bsr flip_flop
 
+                    move.l #0,zipcik
+                    move.l #-1,tx_add
+                    move.w #1187-100,x
+                    move.l #384,t_x
+                    move.l #168,t_y
+                    move.l #0,_tabak_en
+                    move.l #0,number
+                    move.l #0,animno
+                    move.l #0,endflag
+                    move.l #0,_olu_no
+                    move.l #150,px
+                    move.l #0,de_all
+                    rts
 
-    move.l    #10,saniye
-    bsr    _wait_timer
-    cmp.l    #0,pisagor_hak
-    beq    return
-    sub.l    #1,pisagor_hak
-    bsr    kelle_setter
-
-    bsr     clrscreen
-    bsr     flip_flop
-
-    move.l    #0,zipcik
-    move.l    #-1,tx_add
-    move.w    #1187-100,x
-    move.l    #384,t_x
-    move.l    #168,t_y
-    move.l    #0,_tabak_en
-    move.l    #0,number
-    move.l    #0,animno
-    move.l    #0,endflag
-    move.l    #0,_olu_no
-    move.l    #150,px
-    move.l    #0,de_all
-
-    rts
-
-
-de_all:        dc.l    0
-dev_all:    dc.l    0
+de_all:             dc.l 0
+dev_all:            dc.l 0
 _wait_timer:
-    move.l    saniye,d1
-.lp2:    move.l    #60,d0
-.lp:    cmp.b    #255,$dff006
-    bne    .lp
-    sub.l    #1,d0
-    bne    .lp
-    sub.l    #1,d1
-    bne    .lp2
-    rts
-saniye:    dc.l    0
+                    move.l saniye,d1
+.lp2:               move.l #60,d0
+.lp:                cmp.b #255,$dff006
+                    bne .lp
+                    sub.l #1,d0
+                    bne .lp
+                    sub.l #1,d1
+                    bne .lp2
+                    rts
+saniye:             dc.l 0
 
 ;---------------------------------
-Check_war:
-    cmp.l    #0,_obje_enable
-    beq    return
+Check_war:          cmp.l #0,_obje_enable
+                    beq return
 
-Kav_:    cmp.l    #1,_obje_enable
-    bne    ez_
+Kav_:               cmp.l #1,_obje_enable
+                    bne    ez_
 
-    move.l    cx,d0
-    sub.l    #538,d0    ;538
+                    move.l cx,d0
+                    sub.l #538,d0 ; 538
 
-    cmp.l    #150,d0
-    bgt    return
-    
-    cmp.l    #59,d0
-    blt    return
+                    cmp.l #150,d0
+                    bgt return
 
-    cmp.l    #1,chuck
-    bne    return
+                    cmp.l #59,d0
+                    blt return
 
-    
-    move.l    #1,_puan_ver_fl
-    move.l    #1,_sonra_enable
-    move.l    #0,_obje_enable
-    move.l    #3,hangi_sample_2
-    bsr    play_chan_3
+                    cmp.l #1,chuck
+                    bne return
 
-    move.l    cx,d0
-    sub.l    #10,d0
-    move.l    d0,dx
-    
-    move.l    #0,chuck
-    bra    return
+                    move.l #1,_puan_ver_fl
+                    move.l #1,_sonra_enable
+                    move.l #0,_obje_enable
+                    move.l #3,hangi_sample_2
+                    bsr play_chan_3
+
+                    move.l cx,d0
+                    sub.l #10,d0
+                    move.l d0,dx
+
+                    move.l #0,chuck
+                    bra return
 
 
-ez_:    cmp.l    #2,_obje_enable
-    bne    _tu_kur_
+ez_:                cmp.l #2,_obje_enable
+                    bne _tu_kur_
 
-    cmp.l    #540,dx
-    bne    return
-    cmp.l    #2,animno
-    beq    return_puan_ver
-    move.w    #$0008,$dff096
-    move.l    #0,hangi_sample
-    bsr    play_chan_4
-    move.l    #1,_olu_no
-    rts    
-_tu_kur_:
-    rts
+                    cmp.l #540,dx
+                    bne return
+                    cmp.l #2,animno
+                    beq return_puan_ver
+                    move.w #$0008,$dff096
+                    move.l #0,hangi_sample
+                    bsr play_chan_4
+                    move.l #1,_olu_no
+                    rts
+_tu_kur_:           rts
 
+return_puan_ver:    move.l #1,_puan_ver_fl
+                    move.l #1,freeze
+                    rts
 
-return_puan_ver:
-    move.l    #1,_puan_ver_fl
-    move.l    #1,freeze
-    rts
-
-
-
-chuck:    dc.l    0
-freeze:    dc.l    0
+chuck:              dc.l 0
+freeze:             dc.l 0
 ;--------------------------------
 _press_tabak:
-    move.l    t_y,d0
-    mulu    #60,d0
-    move.l    t_x,d1
-    asr.l    #3,d1
-    bclr    #0,d1
-    add.w    d1,d0
-    move.l    #btabak,a0
-    move.l    #mtabak,a3
-    move.l    nonactive,a1
-    add.l    d0,a1
-    move.l    #4,d0    
-.lp:    move.l    a0,bltbptr
-    move.l    a3,bltaptr
-    move.l    a1,bltcptr
-    move.l    a1,bltdptr
-    move.w    #0,bltamod    ;screen modulo    
-    move.w    #0,bltbmod    
-    move.w    #60-12,bltcmod    ;brush modulo=[40-(bursh/8)]
-    move.w    #60-12,bltdmod    ;
-    move.l    #$ffffffff,bltafwm
-    move.b    t_x+3,d1
-    and.l    #$f,d1
-    swap    d1
-    asr.l    #4,d1
-    move.w    d1,bltcon1
-    ori.l    #$fca,d1
-    move.w    d1,bltcon0
-    move.w    #[30*64]+6,bltsize    ;[y*64]+[x/16]
-    bsr    bw
-    add.l    #360,a0
-    add.l    #$2ee0,a1
-    sub.l    #1,d0
-    bne    .lp
-    rts
-t_x:    dc.l    384
-t_y:    dc.l    168
+                    move.l t_y,d0
+                    mulu #60,d0
+                    move.l t_x,d1
+                    asr.l #3,d1
+                    bclr #0,d1
+                    add.w d1,d0
+                    move.l #btabak,a0
+                    move.l #mtabak,a3
+                    move.l nonactive,a1
+                    add.l d0,a1
+                    move.l #4,d0
+.lp:                move.l a0,bltbptr
+                    move.l a3,bltaptr
+                    move.l a1,bltcptr
+                    move.l a1,bltdptr
+                    move.w #0,bltamod         ; screen modulo
+                    move.w #0,bltbmod
+                    move.w #60-12,bltcmod     ; brush modulo=[40-(bursh/8)]
+                    move.w #60-12,bltdmod     ;
+                    move.l #$ffffffff,bltafwm
+                    move.b t_x+3,d1
+                    and.l #$f,d1
+                    swap d1
+                    asr.l #4,d1
+                    move.w d1,bltcon1
+                    ori.l #$fca,d1
+                    move.w d1,bltcon0
+                    move.w #[30*64]+6,bltsize ; [y*64]+[x/16]
+                    bsr bw
+                    add.l #360,a0
+                    add.l #$2ee0,a1
+                    sub.l #1,d0
+                    bne .lp
+                    rts
+
+t_x:                dc.l 384
+t_y:                dc.l 168
 ;--------------------------------
 _press_dinolar:
-    move.l    dy,d0
-    mulu    #60,d0
-    move.l    dx,d1
-    asr.l    #3,d1
-    bclr    #0,d1
-    add.w    d1,d0
+                    move.l dy,d0
+                    mulu #60,d0
+                    move.l dx,d1
+                    asr.l #3,d1
+                    bclr #0,d1
+                    add.w d1,d0
+                    move.l d_raw_ptr,a0
+                    move.l dsy,d2
+                    move.l d_mply_ptr,d3
+                    mulu d3,d2
+                    add.l d2,a0
+                    move.l d_mask_ptr,a3
+                    add.l d2,a3
+                    move.l nonactive,a1
+                    add.l d0,a1
+                    move.l #4,d0
+.lp:                move.l a0,bltbptr
+                    move.l a3,bltaptr
+                    move.l a1,bltcptr
+                    move.l a1,bltdptr
+                    move.w #0,bltamod            ; screen modulo
+                    move.w #0,bltbmod
+                    move.w d_mod_ptr,bltcmod     ; brush modulo=[40-(bursh/8)]
+                    move.w d_mod_ptr,bltdmod     ; 
+                    move.l #$ffffffff,bltafwm
+                    move.b dx+3,d1
+                    and.l #$f,d1
+                    swap d1
+                    asr.l #4,d1
+                    move.w d1,bltcon1
+                    ori.l #$fca,d1
+                    move.w d1,bltcon0
+                    move.w d_bsize_ptr,bltsize   ; [y*64]+[x/16]
+                    bsr bw
+                    add.l d_lenght_ptr,a0
+                    add.l #$2ee0,a1
+                    sub.l #1,d0
+                    bne .lp
+                    rts
 
-    move.l    d_raw_ptr,a0
-    move.l    dsy,d2
-    move.l    d_mply_ptr,d3
-    mulu    d3,d2
-    add.l    d2,a0
-
-    move.l    d_mask_ptr,a3
-    add.l    d2,a3
-
-
-    move.l    nonactive,a1
-    add.l    d0,a1
-    move.l    #4,d0
-.lp:    move.l    a0,bltbptr
-    move.l    a3,bltaptr
-    move.l    a1,bltcptr
-    move.l    a1,bltdptr
-    move.w    #0,bltamod    ;screen modulo    
-    move.w    #0,bltbmod    
-    move.w    d_mod_ptr,bltcmod    ;brush modulo=[40-(bursh/8)]
-    move.w    d_mod_ptr,bltdmod    ;
-    move.l    #$ffffffff,bltafwm
-    move.b    dx+3,d1
-    and.l    #$f,d1
-    swap    d1
-    asr.l    #4,d1
-    move.w    d1,bltcon1
-    ori.l    #$fca,d1
-    move.w    d1,bltcon0
-    move.w    d_bsize_ptr,bltsize    ;[y*64]+[x/16]
-    bsr    bw
-    add.l    d_lenght_ptr,a0
-    add.l    #$2ee0,a1
-    sub.l    #1,d0
-    bne    .lp
-    rts
-
-dy:        dc.l    0
-dx:        dc.l    344
-dsy:        dc.l    0
+dy:                 dc.l 0
+dx:                 dc.l 344
+dsy:                dc.l 0
 ;--------------------------------
-d_mply_ptr:    dc.l    0
-d_raw_ptr:    dc.l    0
-d_mask_ptr:    dc.l    0
-d_mod_ptr:    dc.w    0
-d_bsize_ptr:    dc.w    0
-d_lenght_ptr:    dc.l    0
-d_frame_ptr:    dc.l    0
-
-d_dino_no:    dc.l    0
+d_mply_ptr:         dc.l 0
+d_raw_ptr:          dc.l 0
+d_mask_ptr:         dc.l 0
+d_mod_ptr:          dc.w 0
+d_bsize_ptr:        dc.w 0
+d_lenght_ptr:       dc.l 0
+d_frame_ptr:        dc.l 0
+d_dino_no:          dc.l 0
 ;--------------------------------
-_d_ptr:        dc.l    0
+_d_ptr:             dc.l 0
 ;--------------------------------
-d_mply_table:    dc.l    116*20,71*12,8*28
-d_raw_table:    dc.l    bezer,bbreak,btukruk
-d_mask_table:    dc.l    mezer,mbreak,mtukruk
-d_mod_table:    dc.l    40,48,60-8
-d_size_table:    dc.l    [116*64]+10,[71*64]+6,[64*28]+4
-d_lenght_table:    dc.l    12160,8196,800
-d_frame_table:    dc.l    19,39,11
-d_desty_table:    dc.l    55,107,98
+d_mply_table:       dc.l 116*20,71*12,8*28
+d_raw_table:        dc.l bezer,bbreak,btukruk
+d_mask_table:       dc.l mezer,mbreak,mtukruk
+d_mod_table:        dc.l 40,48,60-8
+d_size_table:       dc.l [116*64]+10,[71*64]+6,[64*28]+4
+d_lenght_table:     dc.l 12160,8196,800
+d_frame_table:      dc.l 19,39,11
+d_desty_table:      dc.l 55,107,98
 _dino_senaryo_table:
-    dc.l    ezer_gecer,kirilma,sidik
+                    dc.l ezer_gecer,kirilma,sidik
 
 ezer_gecer:
-    dc.l    0,0,0,0
-    dc.l    1,1,1,1
-    dc.l    2,2,2,2
-    dc.l    3,3,3,3
-    dc.l    4,4,4,4
+                    dc.l 0,0,0,0
+                    dc.l 1,1,1,1
+                    dc.l 2,2,2,2
+                    dc.l 3,3,3,3
+                    dc.l 4,4,4,4
 kirilma:
-    dc.l    0,0,0,0
-    dc.l    1,1,1,1
-    dc.l    2,2,2,2
-    dc.l    3,3,3,3
-    dc.l    4,4,4,4
+                    dc.l 0,0,0,0
+                    dc.l 1,1,1,1
+                    dc.l 2,2,2,2
+                    dc.l 3,3,3,3
+                    dc.l 4,4,4,4
+                        
+                    dc.l 5,5,5,5
+                    dc.l 6,6,6,6
+                    dc.l 7,7,7,7
+                    dc.l 8,8,8,8
+                    dc.l 8,8,8,8
 
-    dc.l    5,5,5,5
-    dc.l    6,6,6,6
-    dc.l    7,7,7,7
-    dc.l    8,8,8,8
-    dc.l    8,8,8,8
-
-sidik:    dc.l    0,0,0,0
-    dc.l    1,1,1,1
-    dc.l    2,2,2,2
-
+sidik:              dc.l 0,0,0,0
+                    dc.l 1,1,1,1
+                    dc.l 2,2,2,2
 ;--------------------------------
 _dino_senaryo_set:
-    lea    _dino_senaryo_table,a0
-    lea    d_frame_table,a1
-    lea    d_desty_table,a2
-    move.l    d_dino_no,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    add.l    d0,a1
-    add.l    d0,a2
-    move.l    (a0),_d_ptr
-    move.l    (a1),d_frame_ptr
-    move.l    (a2),dy
-    bsr    _dino_senaryo_set2
-    rts
+                    lea _dino_senaryo_table,a0
+                    lea d_frame_table,a1
+                    lea d_desty_table,a2
+                    move.l d_dino_no,d0
+                    mulu #4,d0
+                    add.l d0,a0
+                    add.l d0,a1
+                    add.l d0,a2
+                    move.l (a0),_d_ptr
+                    move.l (a1),d_frame_ptr
+                    move.l (a2),dy
+                    bsr _dino_senaryo_set2
+                    rts
 
 _dino_senaryo_set2:
-    move.l    _d_ptr,a0
-    move.l    _d_anim_adder,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),dsy
-    rts
-    
+                    move.l _d_ptr,a0
+                    move.l _d_anim_adder,d0
+                    mulu #4,d0
+                    add.l d0,a0
+                    move.l (a0),dsy
+                    rts
 
-_d_anim_adder:    dc.l    0
+_d_anim_adder:      dc.l 0
 ;--------------------------------
 _aNiM_dInOzOrs:
-    bsr    _calc_dinos_
-    add.l    #1,_d_anim_adder
-    move.l    _d_anim_adder,d0
-    move.l    d_frame_ptr,d1
-    cmp.l    d0,d1
-    bne    return
-    cmp.l    #1,d_dino_no
-    beq    r_xxx
+                    bsr _calc_dinos_
+                    add.l #1,_d_anim_adder
+                    move.l _d_anim_adder,d0
+                    move.l d_frame_ptr,d1
+                    cmp.l d0,d1
+                    bne return
+                    cmp.l #1,d_dino_no
+                    beq r_xxx
+                    move.l #0,_d_anim_adder
+                    rts
 
-    move.l    #0,_d_anim_adder
-    rts
-
-r_xxx:    move.l    #20,_d_anim_adder
-    rts
-opp:    dc.l    0
+r_xxx:              move.l #20,_d_anim_adder
+                    rts
+opp:                dc.l 0
 ;--------------------------------
 _CaLc_diNos_:
-    lea    d_mply_table,a0
-    lea    d_raw_table,a1
-    lea    d_mask_table,a2
-    lea    d_mod_table,a3
-    lea    d_size_table,a4
-    lea    d_lenght_table,a5
-    move.l    d_dino_no,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    add.l    d0,a1
-    add.l    d0,a2
-    add.l    d0,a3
-    add.l    d0,a4
-    add.l    d0,a5
-    move.l    (a0),d_mply_ptr
-    move.l    (a1),d_raw_ptr
-    move.l    (a2),d_mask_ptr
-    move.w    2(a3),d_mod_ptr
-    move.w    2(a4),d_bsize_ptr
-    move.l    (a5),d_lenght_ptr
-    bsr    _dino_senaryo_set
-    bsr    _press_dinolar
-    rts
+                    lea d_mply_table,a0
+                    lea d_raw_table,a1
+                    lea d_mask_table,a2
+                    lea d_mod_table,a3
+                    lea d_size_table,a4
+                    lea d_lenght_table,a5
+                    move.l d_dino_no,d0
+                    mulu #4,d0
+                    add.l d0,a0
+                    add.l d0,a1
+                    add.l d0,a2
+                    add.l d0,a3
+                    add.l d0,a4
+                    add.l d0,a5
+                    move.l (a0),d_mply_ptr
+                    move.l (a1),d_raw_ptr
+                    move.l (a2),d_mask_ptr
+                    move.w 2(a3),d_mod_ptr
+                    move.w 2(a4),d_bsize_ptr
+                    move.l (a5),d_lenght_ptr
+                    bsr _dino_senaryo_set
+                    bsr _press_dinolar
+                    rts
 ;--------------------------------
 obje_varmi_ekranda:
-    lea    _jumper_(pc),a0
-    move.l    _obje_enable(pc),d0
-    lsl.l    #2,d0
-    add.l    d0,a0
-    move.l    (a0),a1
-    jmp    (a1)
-
+                    lea _jumper_(pc),a0
+                    move.l _obje_enable(pc),d0
+                    lsl.l #2,d0
+                    add.l d0,a0
+                    move.l (a0),a1
+                    jmp    (a1)
 _jUmper_:
-    dc.l    return
-    dc.l    _anim_camdaki_tav
-    dc.l    _ezer_geliyo
+                    dc.l return
+                    dc.l _anim_camdaki_tav
+                    dc.l _ezer_geliyo
 
 
 Obje_sonrasi_ne_olucak:
-    lea    _jumper_2_(pc),a0
-    move.l    _sonra_enable,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),a1
-    jmp    (a1)
+                    lea _jumper_2_(pc),a0
+                    move.l _sonra_enable,d0
+                    mulu #4,d0
+                    add.l d0,a0
+                    move.l (a0),a1
+                    jmp (a1)
 
+_jUmper_2_:         dc.l return
+                    dc.l _Camin_kirilmasi
 
-_jUmper_2_:
-    dc.l    return
-    dc.l    _Camin_kirilmasi
-
-_obje_enable:    dc.l    0
-_sonra_enable:    dc.l    0
+_obje_enable:       dc.l 0
+_sonra_enable:      dc.l 0
 ;--------------------------------
 _camin_kirilmasi:
-    move.l    #1,d_dino_no
-    bsr    _anim_dinozors
-    rts
+                    move.l #1,d_dino_no
+                    bsr _anim_dinozors
+                    rts
 ;--------------------------------
 _ezer_geliyo:
-    move.l    #0,d_dino_no
-    bsr    _anim_dinozors
-    rts
+                    move.l #0,d_dino_no
+                    bsr _anim_dinozors
+                    rts
 ;--------------------------------
 tukruk_geliyo:
-    move.l    #2,d_dino_no
-    bsr    _anim_dinozors
-    rts
+                    move.l #2,d_dino_no
+                    bsr _anim_dinozors
+                    rts
 ;--------------------------------
 _anim_camdaki_tav:
-    bsr    _get_sy_cam
-    add.l    #1,_tav_num
-    cmp.l    #19,_tav_num
-    bne    return
-    move.l    #0,_tav_num
-    rts
+                    bsr _get_sy_cam
+                    add.l #1,_tav_num
+                    cmp.l #19,_tav_num
+                    bne return
+                    move.l #0,_tav_num
+                    rts
 ;--------------------------------
 _gEt_Sy_cam:
-    lea    _cam_tav_anim,a0
-    move.l    _tav_num,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),csy
-    bsr    _pRess_Cam
-    rts    
+                    lea _cam_tav_anim,a0
+                    move.l _tav_num,d0
+                    mulu #4,d0
+                    add.l d0,a0
+                    move.l (a0),csy
+                    bsr _pRess_Cam
+                    rts    
 ;--------------------------------
 
 _Cam_Tav_anim:
-        dc.l    0,0,0,0
-        dc.l    1,1,1,1
-        dc.l    2,2,2,2
-        dc.l    3,3,3,3
-        dc.l    4,4,4,4
+                    dc.l 0,0,0,0
+                    dc.l 1,1,1,1
+                    dc.l 2,2,2,2
+                    dc.l 3,3,3,3
+                    dc.l 4,4,4,4
 
-_tav_num:    dc.l    0
+_tav_num:           dc.l 0
 ;---------------------------------
 bir_rutin_yap:
-    move.l    random_ptr,d0
-    mulu    #3,d0
-    and.l    #31,d0
-    move.l    d0,random_ptr
-    rts
+                    move.l random_ptr,d0
+                    mulu #3,d0
+                    and.l #31,d0
+                    move.l d0,random_ptr
+                    rts
 
-endflag:dc.l    0
+endflag:            dc.l 0
 ;---------------------------------
 get_skor_arti:
-    lea    random_table,a0
-    move.l    random_ptr,d0
-    mulu    #4,d0
-    add.l    d0,a0
-    move.l    (a0),dn_adder
-    rts
+                    lea random_table,a0
+                    move.l random_ptr,d0
+                    mulu #4,d0
+                    add.l d0,a0
+                    move.l (a0),dn_adder
+                    rts
 
 
 random_table:
-    dc.l    1000,1250,4500,1750,2500,1175,4800,2900,3100,2000
-    dc.l    3800,1750,4250,2500,1900,4100,1000,4125,1900,2000
-    dc.l    2000,2250,2500,2750,3250,4750,1800,3900,2100,2250
-    dc.l    1800,1500
+                    dc.l 1000,1250,4500,1750,2500,1175,4800,2900,3100,2000
+                    dc.l 3800,1750,4250,2500,1900,4100,1000,4125,1900,2000
+                    dc.l 2000,2250,2500,2750,3250,4750,1800,3900,2100,2250
+                    dc.l 1800,1500
 
-random_ptr:    dc.l    0
-dn_adder:    dc.l    0
+random_ptr:         dc.l 0
+dn_adder:           dc.l 0
 ;---------------------------------
-pause:
+pause:              cmp.l #1,pausefl
+                    bne _off
+                    bra _on
+_oFF:               btst #10,$dff016
+                    beq _oN
+                    move.l #0,pausefl
+                    bra return
+_oN:                move.l #1,pausefl
+                    btst #6,$bfe001
+                    bne _oN
+                    rts
 
-    cmp.l    #1,pausefl
-    bne    _off
-
-    bra    _on
-
-_oFF:    btst    #10,$dff016
-    beq    _oN    
-    move.l    #0,pausefl    
-    bra    return
-_oN:    move.l    #1,pausefl
-    btst    #6,$bfe001
-    bne    _oN
-    rts
-
-pausefl:    dc.l    0
+pausefl:            dc.l 0
 ;-----------------------------------------
 flip_flop:
-    cmp.l    #scr1,nonactive
-    bne    flop    
+                    cmp.l #scr1,nonactive
+                    bne flop
 
-flip:    move.l    #scr2,nonactive
-    lea    flipscr,a0
-    lea    planep2,a1
-    move.w    #7,d1        ;5*2-1
-.lp_1:    move.w    (a0)+,2(a1)
-    lea    4(a1),a1
-    dbf    d1,.lp_1
-    rts
-flop:    move.l    #scr1,nonactive
-    lea    flopscr,a0
-    lea    planep2,a1
-    move.w    #7,d1
-.lp_1:    move.w    (a0)+,2(a1)
-    lea    4(a1),a1
-    dbf    d1,.lp_1
-    rts
+flip:               move.l #scr2,nonactive
+                    lea flipscr,a0
+                    lea planep2,a1
+                    move.w #7,d1 ; 5*2-1
+.lp_1:              move.w (a0)+,2(a1)
+                    lea 4(a1),a1
+                    dbf d1,.lp_1
+                    rts
+flop:               move.l #scr1,nonactive
+                    lea flopscr,a0
+                    lea planep2,a1
+                    move.w #7,d1
+.lp_1:              move.w (a0)+,2(a1)
+                    lea 4(a1),a1
+                    dbf d1,.lp_1
+                    rts
 ;¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 ustu_bas:
     move.l    #ust_ekran,a0
