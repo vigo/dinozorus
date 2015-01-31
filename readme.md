@@ -24,6 +24,11 @@ oyunu. Amiga 1200 - AGA. Ne yazıkki data dosyalarını bulamadım 8(
 
 ## Güncellemeler
 
+**31 Ocak 2015**
+
+* `level_2.s` 2.Bölümün kaynak kodu düzenlendi.
+* `color/deneme.copper` dosyası eklendi (*level_2’de kullanılan...*)
+
 **29 Ocak 2015**
 
 * `level_2.s` 2.Bölümün kaynak kodu eklendi, düzenleniyor.
