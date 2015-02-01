@@ -29,6 +29,10 @@ oyunu. Amiga 1200 - AGA.
 
 ## Güncellemeler
 
+**1 Şubat 2015**
+
+* Son bölüm `final_bolum.s` eklendi, düzenleniyor.
+
 **31 Ocak 2015**
 
 * `level_2.s` 2.Bölümün kaynak kodu düzenlendi.
