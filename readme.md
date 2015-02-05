@@ -23,11 +23,21 @@ oyunu. Amiga 1200 - AGA.
 
 ![Dinozorous Bölüm 2](https://raw.githubusercontent.com/vigo/dinozorus/master/screens/dino-08.png)
 
+## Son Bölüm
+
+![Dinozorous Son Bölüm](https://raw.githubusercontent.com/vigo/dinozorus/master/screens/dino-11.png)
+
+![Dinozorous Son Bölüm](https://raw.githubusercontent.com/vigo/dinozorus/master/screens/dino-12.png)
+
 ## Ara Geçiş Bölüm 2
 
 ![Ara Geçiş Bölüm 2](https://raw.githubusercontent.com/vigo/dinozorus/master/screens/bolum-2-ara-level.png)
 
 ## Güncellemeler
+
+**5 Şubat 2015**
+
+* Son bölümle ilgili 2 adet ekran görüntüsü eklendi.
 
 **3 Şubat 2015**
 
