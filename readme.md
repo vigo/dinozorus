@@ -34,7 +34,15 @@ oyunu. Amiga 1200 - AGA. Bu oyun Dinozorus oyun serisinin 2.dir.
 
 ![Ara Geçiş Bölüm 2](https://raw.githubusercontent.com/vigo/dinozorus/master/screens/bolum-2-ara-level.png)
 
+## Bonus
+
+* [Dinozorus dergisinin kapağı](bonus/dinozorus-dergisi-kapak.jpg)
+
 ## Güncellemeler
+
+**14 Eylül 2016**
+
+* Dinozorus dergisinin kapağı eklendi.
 
 **5 Şubat 2015**
 
