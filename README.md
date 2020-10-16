@@ -40,6 +40,10 @@ oyunu. Amiga 1200 - AGA. Bu oyun Dinozorus oyun serisinin 2.dir.
 
 ## Güncellemeler
 
+**16 Ekim 2020**
+
+* 1993 ve 1994’ten dergi kapakları eklendi.
+
 **14 Eylül 2016**
 
 * Dinozorus dergisinin kapağı eklendi.
