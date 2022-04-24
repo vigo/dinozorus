@@ -40,6 +40,10 @@ oyunu. Amiga 1200 - AGA. Bu oyun Dinozorus oyun serisinin 2.dir.
 
 ## Güncellemeler
 
+**24 Nisan 2022**
+
+* adf’ler boot etmiyordu, fs-uae ile test ettim, çalışıyor şu an!
+
 **16 Ekim 2020**
 
 * 1993 ve 1994’ten dergi kapakları eklendi.
